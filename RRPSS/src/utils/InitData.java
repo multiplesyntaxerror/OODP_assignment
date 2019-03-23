@@ -51,7 +51,7 @@ public class InitData {
 			return itemList ;
 	}
 	
-	public static void saveMenuItem(String filename, List al) throws IOException {
+	public static void writeMenuItem(String filename, List al) throws IOException {
 		List alw = new ArrayList() ;
 
         for (int i = 0 ; i < al.size() ; i++) {

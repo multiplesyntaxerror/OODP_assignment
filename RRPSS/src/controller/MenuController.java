@@ -7,42 +7,53 @@ import java.util.Scanner;
 import entity.Dessert;
 import entity.Drinks;
 import entity.MainCourse;
+import entity.Menu;
 import entity.MenuItem;
-import service.Menu;
-import utils.InitData;
 
-public class MenuController implements Menu{
+public class MenuController{
 
-	Scanner sc = new Scanner(System.in);
-	static ArrayList al = null;
+	static Scanner sc = new Scanner(System.in);
+	
+	Menu menu = new Menu();
+	ArrayList<MenuItem> menuList = menu.getMenuList();
 	
 	public static void main(String[] aArgs) {
 
-		InitData txtDB = new InitData();
-		String filename = "res/MenuItems.txt";
-		MenuController menu = new MenuController();
+		int choice;
+		MenuController con = new MenuController();
 		
-		try {
-			// read file containing Professor records.
-			al = InitData.readMenuItem(filename);
-			for (int i = 0; i < al.size(); i++) {
-				MenuItem item = (MenuItem) al.get(i);
-				System.out.println("Name: " + item.getName());
-				System.out.println("Description: " + item.getDescription());
-				System.out.println("Type: " + item.getType());
-				System.out.println("Price: $" + item.getPrice());
-				System.out.println();
-
-			}
-			menu.createMenuItem();
-			
-			InitData.saveMenuItem(filename, al);
-		} catch (IOException e) {
-			System.out.println("IOException > " + e.getMessage());
+		String[] options = {
+				"Add Menu Item" ,
+				"Update Menu Item",
+				"Delete Menu Item",
+				"Add Promo Set" ,
+				"Update Promo Set",
+				"Delete Promo Set",
+				"Exit"
+		};
+		
+		System.out.println("Choose Action: ");
+		choice = sc.nextInt();
+		
+		switch (choice) {
+			case 1:
+				con.createMenuItem();
+				break;
+			case 2: 
+				break;
+			case 3:
+				break;
+			case 4: 
+				break;
+			case 5:
+				break;
+			case 6:
+				break;
+			case 7: System.out.println("Returning ...");
 		}
+	
 	}
 	
-	@Override
 	public void createMenuItem() {
 		
 		int choice = 0;
@@ -55,7 +66,7 @@ public class MenuController implements Menu{
 		};
 		
 		MenuItem item = null;
-		System.out.println("Adding Menu Item..");
+		
 		System.out.println("Please choose Type: ");
 		choice = sc.nextInt();
 		System.out.println("Enter Item name: ");
@@ -68,7 +79,6 @@ public class MenuController implements Menu{
 		switch(choice) {
 			case 1:
 				item = new MainCourse(name, description, price);
-				System.out.println("here");
 				break;
 			case 2:
 				item = new Dessert(name, description, price);
@@ -79,36 +89,8 @@ public class MenuController implements Menu{
 			case 4:
 				System.out.println("Exiting...");
 		}
-		al.add(item);
-	}
-
-	@Override
-	public void updateMenuItem() {
-		// TODO Auto-generated method stub
 		
-	}
-
-	@Override
-	public void deleteMenuItem() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void createPromoItem() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void updatePromoItem() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deletePromoItem() {
-		// TODO Auto-generated method stub
+		menu.createMenuItem(item);
 		
 	}
 
