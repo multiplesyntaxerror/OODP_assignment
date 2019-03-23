@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.ObjectInputStream.GetField;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -10,25 +11,17 @@ import entity.MenuItem;
 import utils.Database;
 import view.GUI;
 
-public class MenuController{
+public class MenuController extends Controller {
 		
 	private static ArrayList<MenuItem> menuList;
 	
-	private static GUI gui;
-	
-	private static Scanner sc;
-	
-	private static Database db;
-	
-	public static void run(Database db) throws Throwable{
+	public void run(Database db) throws Throwable{
+
+		super.setDb(db);
+		super.setGui(db.getGui());
+		super.setSc(db.getGui().getScanner());
 		
-		gui = db.getGui();
-		
-		sc = gui.getScanner();
-		
-		MenuController.db = db;
-		
-		menuList = db.getMenu().getMenuList();
+		menuList = super.getDb().getMenu().getMenuList();
 		
 		int choice;
 		
@@ -70,7 +63,7 @@ public class MenuController{
 	
 	}
 	
-	public static void createMenuItem() {
+	public void createMenuItem() {
 		
 		int choice = 0;
 		
@@ -81,19 +74,19 @@ public class MenuController{
 		};
 		
 
-		db.getGui().displayTitle("Adding New Item to Menu");
+		super.getDb().getGui().displayTitle("Adding New Item to Menu");
 		
 		while(true) {
 			try {
 				MenuItem item = null;
-				gui.displayStringsB("Please choose Type: ");
-				choice = db.getGui().detectChoice(type);
-				gui.displayStrings("Enter Item name: ");
-				String name = sc.next();
-				gui.displayStrings("Enter Item Description: ");
-				String description = sc.next();
-				gui.displayStrings("Enter Item Price: $");
-				double price = sc.nextDouble();
+				super.getGui().displayStringsB("Please choose Type: ");
+				choice = super.getDb().getGui().detectChoice(type);
+				super.getGui().displayStrings("Enter Item name: ");
+				String name = super.getSc().next();
+				super.getGui().displayStrings("Enter Item Description: ");
+				String description = super.getSc().next();
+				super.getGui().displayStrings("Enter Item Price: $");
+				double price = super.getSc().nextDouble();
 				
 				switch(choice) {
 					case 1:
@@ -107,10 +100,10 @@ public class MenuController{
 						break;
 				}
 				
-				db.getMenu().createMenuItem(item);
+				super.getDb().getMenu().createMenuItem(item);
 				return;
 			} catch(InputMismatchException e) {
-				gui.displayStringsB("ERROR: Your input is invalid.\n");
+				super.getGui().displayStringsB("ERROR: Your input is invalid.\n");
 			}
 		}
 		

@@ -8,9 +8,11 @@ import utils.Database;
 public class MainController {
 		
 	private Database db;
+	private MenuController mc;
 	
 	public MainController(Database db) {
 		this.db = db;
+		this.mc = new MenuController();
 	}
 	
 	public void run() throws Throwable{
@@ -26,13 +28,16 @@ public class MainController {
 				"Exit"
 		};
 
-		db.getGui().displayTitle("Welcome to NOM-NOM Restaruant");
+		db.getGui().displayTitle("---------------------Welcome to NOM-NOM Restaruant---------------------");
 		
 		do {
+
+			db.getGui().displayTitle("System Menu");
+			
 			choice = db.getGui().detectChoice(mainOption);
 			switch(choice) {
 				case 1:
-					MenuController.run(db);
+					mc.run(db);
 					break;
 				case 2:
 					break;
@@ -43,7 +48,7 @@ public class MainController {
 				case 5:
 					break;
 				case 6:
-					db.getGui().displayStrings("Exiting System...");
+					db.getGui().displayTitle("Exiting System...");
 					return;
 			}
 		} while(choice < mainOption.length);
