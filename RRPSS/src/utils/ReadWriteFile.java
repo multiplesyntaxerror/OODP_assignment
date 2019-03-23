@@ -17,7 +17,7 @@ import entity.MenuItem;
 public class ReadWriteFile {
 	
 	/** Write fixed content to the given file. */
-	public static void write(String fileName, List data) throws IOException {
+	public void write(String fileName, List data) throws IOException {
 		PrintWriter out = new PrintWriter(new FileWriter(fileName));
 
 		try {
@@ -30,7 +30,7 @@ public class ReadWriteFile {
 	}
 
 	/** Read the contents of the given file. */
-	public static List read(String fileName) throws IOException {
+	public List read(String fileName) throws IOException {
 		List data = new ArrayList();
 		Scanner scanner = new Scanner(new FileInputStream(fileName));
 		try {

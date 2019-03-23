@@ -2,9 +2,11 @@ package entity;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
 
 import service.MenuInterface;
-import utils.InitData;
+import utils.ReadWriteFile;
 
 public class Menu implements MenuInterface{
 	
@@ -12,9 +14,14 @@ public class Menu implements MenuInterface{
 	
 	private ArrayList<MenuItem> menuList = new ArrayList<MenuItem>();
 	
-	public Menu() {
+	private static ReadWriteFile fileToDB;
+	private static String seperator;
+	
+	public Menu(ReadWriteFile rwFile, String sep) {
+		fileToDB = rwFile;
+		seperator = sep;
 		callRead();
-		printMenuItem();
+		//printMenuItems();
 	}
 
 	public ArrayList<MenuItem> getMenuList() {
@@ -32,7 +39,7 @@ public class Menu implements MenuInterface{
 		if(index == -1) {
 			menuList.add(item);
 			callWrite();
-			printMenuItem();
+			printMenuItems();
 			return true;
 		}
 		return false;
@@ -66,7 +73,7 @@ public class Menu implements MenuInterface{
 		return -1;
 	}
 	
-	public void printMenuItem() {
+	public void printMenuItems() {
 		for (int i = 0; i < menuList.size(); i++) {
 			MenuItem item = (MenuItem) menuList.get(i);
 			System.out.println("Name: " + item.getName());
@@ -98,11 +105,10 @@ public class Menu implements MenuInterface{
 		
 	}
 	
-	private boolean callRead() {
-		InitData txtDB = new InitData();
-		
+	private boolean callRead() {		
 		try {
-			menuList = InitData.readMenuItem(FILENAME);
+			menuList = readMenuItem(FILENAME);
+			return true;
 		} catch (IOException e) {
 			System.out.println("IOException > " + e.getMessage());
 		}
@@ -112,11 +118,74 @@ public class Menu implements MenuInterface{
 	
 	private boolean callWrite() {
 		try {
-			InitData.writeMenuItem(FILENAME, menuList);
+			writeMenuItem(FILENAME, menuList);
 			return true;
 		} catch (IOException e) {
 			System.out.println("IOException > " + e.getMessage());
 		}
 		return false;
+	}
+	
+	public static ArrayList<MenuItem> readMenuItem(String filename) throws IOException {
+
+		ArrayList<String> stringArray = (ArrayList<String>) fileToDB.read(filename);
+		ArrayList<MenuItem> itemList = new ArrayList<MenuItem>() ;
+
+        for (int i = 0 ; i < stringArray.size() ; i++) {
+				String st = (String)stringArray.get(i);
+				StringTokenizer star = new StringTokenizer(st , seperator);	
+				String name = star.nextToken().trim();
+				String description = star.nextToken().trim();
+				int type = Integer.parseInt(star.nextToken());
+				double price = Double.parseDouble(star.nextToken().trim()); 
+				
+				MenuItem item = null;
+				
+				switch (type) {
+					case 1:
+						item = new MainCourse(name, description, price);
+						break;
+					case 2: 
+						item = new Dessert(name, description, price);
+						break;
+					case 3:
+						item = new Drinks(name, description, price);
+						break;
+					default:
+						System.out.println("Error");
+						item = new MainCourse(name, description, price);
+				}
+
+				itemList.add(item);
+				
+			}
+        return itemList ;
+	}
+	
+	public static void writeMenuItem(String filename, List al) throws IOException {
+		List alw = new ArrayList() ;
+
+        for (int i = 0 ; i < al.size() ; i++) {
+        		MenuItem item = (MenuItem)al.get(i);
+				StringBuilder st = new StringBuilder() ;
+				st.append(item.getName().trim());
+				st.append(seperator);
+				st.append(item.getDescription().trim());
+				st.append(seperator);
+				String type = item.getType();
+				if (type == "Main Course") {
+					st.append(1);
+				}
+				else if(type == "Dessert") {
+					st.append(2);
+				}
+				else if (type == "Drinks") {
+					st.append(3);
+				}
+				st.append(seperator);
+				st.append(item.getPrice());
+				alw.add(st.toString()) ;
+			}
+        fileToDB.write(filename,alw);
 	}
 }
