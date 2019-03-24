@@ -30,7 +30,7 @@ public class GUI {
 		int count = 1;
 		
 		for (String choice : options) {
-			System.out.println("(" + (count) + ") " + choice);
+			System.out.println("(" + count + ") " + choice);
 			count++;
 		}
 		System.out.println();
@@ -40,12 +40,11 @@ public class GUI {
 	public int detectChoice(String[] options) {
 		
 		displayOptions(options);
-		
+		int input;
 		while (true) {
 			try {
 				System.out.print("Choice >>> ");
-				int input = scanner.nextInt();
-				scanner.nextLine();
+				input = scanner.nextInt();
 				if (input >= 1 && input <= options.length) {
 					return input;
 				}

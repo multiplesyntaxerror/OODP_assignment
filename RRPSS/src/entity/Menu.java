@@ -34,8 +34,8 @@ public class Menu implements MenuInterface{
 
 	@Override
 	public boolean createMenuItem(MenuItem item) {
-		int index = itemExistReturnIndex(item);
-		System.out.println(index);
+		int index = itemExistReturnIndex(item.getName());
+//		System.out.println(index);
 		if(index == -1) {
 			menuList.add(item);
 			callWrite();
@@ -47,26 +47,21 @@ public class Menu implements MenuInterface{
 
 	@Override
 	public boolean updateMenuItem(int index, MenuItem item) {
-		//outseide check for exist
 		menuList.set(index, item);
 		callWrite();
 		return true;
 	}
 
 	@Override
-	public boolean deleteMenuItem(MenuItem item) {
-		int index = itemExistReturnIndex(item);
-		if (index != -1) {
-			menuList.remove(index);
-			callWrite();
-			return true;
-		}
-		return false;
+	public boolean deleteMenuItem(int index) {
+		menuList.remove(index);
+		callWrite();
+		return true;
 	}
 	
-	public int itemExistReturnIndex(MenuItem item) {
+	public int itemExistReturnIndex(String name) {
 		for (MenuItem i : menuList) {
-			if (i.getName().equalsIgnoreCase(item.getName())) {
+			if (i.getName().equalsIgnoreCase(name)) {
 				return menuList.indexOf(i);
 			}
 		}
