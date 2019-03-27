@@ -5,24 +5,28 @@ import view.GUI;
 
 public class Database {
 	
-	private ReadWriteFile rwFile = new ReadWriteFile();
+	private static ReadWriteFile rwFile = new ReadWriteFile();
 	
 	private static final String SEPARATOR = "|";
 
-	private GUI gui;
+	private static GUI gui;
 	
-	private static Menu menu;
+	private Menu menu;
 	
 	public void initializeData() {
 		gui = new GUI();
-		menu = new Menu(rwFile, SEPARATOR);
+		menu = new Menu();
 	}
 
-	public ReadWriteFile getRwFile() {
+	public static ReadWriteFile getRwFile() {
 		return rwFile;
 	}
+
+	public static String getSeparator() {
+		return SEPARATOR;
+	}
 	
-	public GUI getGui() {
+	public static GUI getGui() {
 		return gui;
 	}
 
@@ -30,12 +34,9 @@ public class Database {
 		return menu;
 	}
 
-	public static void setMenu(Menu menu) {
-		Database.menu = menu;
+	public void setMenu(Menu menu) {
+		this.menu = menu;
 	}
 
-	public static String getSeparator() {
-		return SEPARATOR;
-	}
 	
 }

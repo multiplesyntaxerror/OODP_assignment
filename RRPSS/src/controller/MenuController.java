@@ -69,52 +69,56 @@ public class MenuController extends Controller {
 		
 		int choice = 0;
 		
-		String[] type = {
-				"Main Course" ,
-				"Dessert",
-				"Drinks"
-		};
-		
 		boolean success = false;
+		
+		Database.getGui().displayTitle("Adding New Item To Menu");
 		
 		while(true) {
 
-			super.getDb().getGui().displayTitle("Adding New Item To Menu");
-			
-			try {
-				MenuItem item = null;
-				super.getGui().displayStringsB("Please Choose Type: ");
-				super.getSc().nextLine();
-				choice = super.getDb().getGui().detectChoice(type);
-				super.getGui().displayStrings("Enter Item name: ");
-				String name = super.getSc().next();
-				super.getGui().displayStrings("Enter Item Description: ");
-				String description = super.getSc().next();
-				super.getGui().displayStrings("Enter Item Price: $");
-				double price = super.getSc().nextDouble();
-				
-				switch(choice) {
-					case 1:
-						item = new MainCourse(name, description, price);
-						break;
-					case 2:
-						item = new Dessert(name, description, price);
-						break;
-					case 3:
-						item = new Drinks(name, description, price);
-						break;
-				}
+			MenuItem item = null;
+			Database.getGui().displayStrings("Enter Item Name: ");
+			String name = Database.getGui().getScanner().nextLine();
+			int index[] = super.getDb().getMenu().itemExistReturnIndex(name);
 
-				success = super.getDb().getMenu().createMenuItem(item);
-				if (success) {
-					super.getGui().displayStringsB("SYSTEM NOTICE: Item Successfully Added");
+			if (index[1] == -1) {
+				Database.getGui().displayStrings("Enter Item Description: ");
+				String description = Database.getGui().getScanner().nextLine();
+				
+				try {
+					Database.getGui().displayStrings("Enter Item Price: $");
+					double price = Database.getGui().getScanner().nextDouble();
+					
+					Database.getGui().displayStringsB("Please Choose Type: ");
+					
+					String[] type = { "Main Course", "Dessert", "Drinks" };
+					
+					choice = Database.getGui().detectChoice(type);
+					
+					switch(choice) {
+						case 1:
+							item = new MainCourse(name, description, price);
+							break;
+						case 2:
+							break;
+						case 3:
+							item = new Drinks(name, description, price);
+							break;
+					}
+	
+					success = super.getDb().getMenu().createMenuItem(item);
+					if (success) {
+						Database.getGui().displayStringsB("SYSTEM NOTICE: Item Successfully Added");
+					}
+					else if (!success) {
+						Database.getGui().displayStringsB("SYSTEM ERROR: Item Not Added");
+					}
+					return;
+				} catch(InputMismatchException e) {
+					Database.getGui().displayStringsB("ERROR: Your Input Is Invalid.\n");
 				}
-				else if (!success) {
-					super.getGui().displayStringsB("SYSTEM ERROR: Item Not Added");
-				}
-				return;
-			} catch(InputMismatchException e) {
-				super.getGui().displayStringsB("ERROR: Your Input Is Invalid.\n");
+			}
+			else if (index[1] != -1) {
+				Database.getGui().displayStringsB("Item Name Already Exist");
 			}
 		}
 	}
@@ -123,7 +127,7 @@ public class MenuController extends Controller {
 
 		int choice = 0;
 
-		super.getDb().getGui().displayTitle("Updating Menu Item");
+		Database.getGui().displayTitle("Updating Menu Item");
 
 		super.getDb().getMenu().printMenuItems();
 
@@ -132,31 +136,35 @@ public class MenuController extends Controller {
 		while (true) {
 
 			MenuItem item = null;
-			super.getGui().displayStrings("Enter Item Name To Edit: ");
-			super.getSc().nextLine();
-			String name = super.getSc().next();
-			int index = super.getDb().getMenu().itemExistReturnIndex(name);
+			Database.getGui().displayStrings("Enter Item Name To Edit: ");
+			Database.getGui().getScanner().nextLine();
+			String name = Database.getGui().getScanner().nextLine();
+			int index[] = super.getDb().getMenu().itemExistReturnIndex(name);
+			
+			if (index[1] != -1) {
 
-			if (index != -1) {
+				Database.getGui().displayStrings("Enter Item New Name: ");
+				Database.getGui().getScanner().nextLine();
+				String newName = Database.getGui().getScanner().next();
 
-				super.getGui().displayStrings("Enter Item New Name: ");
-				String newName = super.getSc().next();
+				int checkIndex[] = super.getDb().getMenu().itemExistReturnIndex(newName);
 
-				int checkIndex = super.getDb().getMenu().itemExistReturnIndex(newName);
-
-				if (checkIndex == -1) {
-					super.getGui().displayStrings("Enter Item New Description: ");
-					String newDescription = super.getSc().next();
+				if (checkIndex[1] == -1) {
+					Database.getGui().displayStrings("Enter Item New Description: ");
+					Database.getGui().getScanner().nextLine();
+					String newDescription = Database.getGui().getScanner().next();
 
 					try {
-						super.getGui().displayStrings("Enter Item New Price: $");
-						double newPrice = super.getSc().nextDouble();
+						Database.getGui().displayStrings("Enter Item New Price: $");
+						Database.getGui().getScanner().nextLine();
+						double newPrice = Database.getGui().getScanner().nextDouble();
 
-						super.getGui().displayStringsB("Choose New Type: ");
+						Database.getGui().displayStringsB("Choose New Type: ");
+						Database.getGui().getScanner().nextLine();
 
 						String[] type = { "Main Course", "Dessert", "Drinks" };
 
-						choice = super.getDb().getGui().detectChoice(type);
+						choice = Database.getGui().detectChoice(type);
 
 						switch (choice) {
 							case 1:
@@ -171,30 +179,30 @@ public class MenuController extends Controller {
 						}
 						success = super.getDb().getMenu().updateMenuItem(index, item);
 						if (success) {
-							super.getGui().displayStringsB("SYSTEM NOTICE: Item Updated Successfully");
+							Database.getGui().displayStringsB("SYSTEM NOTICE: Item Updated Successfully");
 						} 
 						else if (!success) {
-							super.getGui().displayStringsB("SYSTEM ERROR: Item Not Updated");
+							Database.getGui().displayStringsB("SYSTEM ERROR: Item Not Updated");
 						}
 						return;
 					} catch (InputMismatchException e) {
-						super.getGui().displayStringsB("ERROR: Your input is invalid.\n");
-						index = 0;
+						Database.getGui().displayStringsB("ERROR: Your input is invalid.\n");
+						index = null;
 					}
 				} 
-				else if (checkIndex != -1) {
-					super.getGui().displayStringsB("Item Name Already Exist");
+				else if (checkIndex[1] != -1) {
+					Database.getGui().displayStringsB("Item Name Already Exist");
 				}
 			} 
-			else if (index == -1) {
-				super.getGui().displayStringsB("Item Does not Exist");
+			else if (index[1] == -1) {
+				Database.getGui().displayStringsB("Item Does not Exist");
 			}
 		}
 	}
 	
 	public void deleteMenuItem() {
 		
-		super.getDb().getGui().displayTitle("Deleting Menu Item");
+		Database.getGui().displayTitle("Deleting Menu Item");
 
 		super.getDb().getMenu().printMenuItems();
 		
@@ -202,23 +210,23 @@ public class MenuController extends Controller {
 		
 		while(true) {
 			
-			super.getGui().displayStrings("Enter Item Name To Delete: ");
-			super.getSc().nextLine();
-			String name = super.getSc().next();
-			int index = super.getDb().getMenu().itemExistReturnIndex(name);
+			Database.getGui().displayStrings("Enter Item Name To Delete: ");
+			Database.getGui().getScanner().nextLine();
+			String name = Database.getGui().getScanner().next();
+			int index[] = super.getDb().getMenu().itemExistReturnIndex(name);
 			
-			if (index != -1) {
+			if (index[1] != -1) {
 				success = super.getDb().getMenu().deleteMenuItem(index);
 				if (success) {
-					super.getGui().displayStringsB("SYSTEM NOTICE: Item Deleted Successfully");
+					Database.getGui().displayStringsB("SYSTEM NOTICE: Item Deleted Successfully");
 				}
 				else if (!success) {
-					super.getGui().displayStringsB("SYSTEM ERROR: Item Not Deleted");
+					Database.getGui().displayStringsB("SYSTEM ERROR: Item Not Deleted");
 				}
 				return;
 			}
-			else if (index == -1) {
-				super.getGui().displayStringsB("Item Does not Exist");
+			else if (index[1] == -1) {
+				Database.getGui().displayStringsB("Item Does not Exist");
 			}
 		}
 	}
