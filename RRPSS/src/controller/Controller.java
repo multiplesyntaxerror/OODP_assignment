@@ -8,7 +8,6 @@ import view.GUI;
 public abstract class Controller {
 	
 	private GUI gui;
-	private Scanner sc;
 	private Database db;
 	
 	public GUI getGui() {
@@ -17,14 +16,6 @@ public abstract class Controller {
 	
 	public void setGui(GUI gui) {
 		this.gui = gui;
-	}
-	
-	public Scanner getSc() {
-		return sc;
-	}
-	
-	public void setSc(Scanner sc) {
-		this.sc = sc;
 	}
 	
 	public Database getDb() {

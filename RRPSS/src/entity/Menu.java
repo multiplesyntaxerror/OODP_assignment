@@ -32,7 +32,6 @@ public class Menu implements MenuInterface{
 	public boolean createMenuItem(MenuItem item) {
 		int[] index = itemExistReturnIndex(item.getName());
 		String type = item.getType();
-//		System.out.println(index);
 		if(index[1] == -1) {
 			if (type == "Main Course") {
 				mcList.add((MainCourse)item);
@@ -52,17 +51,7 @@ public class Menu implements MenuInterface{
 
 	@Override
 	public boolean updateMenuItem(int[] index, MenuItem item) {
-		switch(index[0]) {
-			case 1:
-				mcList.remove(index[1]);
-				break;
-			case 2:
-				deList.remove(index[1]);
-				break;
-			case 3:
-				drList.remove(index[1]);
-				break;
-		}
+		deleteMenuItem(index);
 		createMenuItem(item);
 		return true;
 	}
@@ -70,13 +59,13 @@ public class Menu implements MenuInterface{
 	@Override
 	public boolean deleteMenuItem(int[] index) {
 		switch(index[0]) {
-			case 1:
+			case 0:
 				mcList.remove(index[1]);
 				break;
-			case 2:
+			case 1:
 				deList.remove(index[1]);
 				break;
-			case 3:
+			case 2:
 				drList.remove(index[1]);
 				break;
 		}
@@ -102,6 +91,7 @@ public class Menu implements MenuInterface{
 	}
 	
 	public void printMenuItems() {
+		
 		for (int i = 0; i < menuList.size(); i++) {
 			ArrayList list = (ArrayList) menuList.get(i);
 			for (int j = 0; j < list.size(); j++) {
@@ -137,7 +127,7 @@ public class Menu implements MenuInterface{
 	
 	private boolean callRead() {
 		try {
-			menuList = readMenuItem(FILENAME);
+			readMenuItem(FILENAME);
 			return true;
 		} catch (IOException e) {
 			Database.getGui().displayStringsB("IOException > " + e.getMessage());
@@ -147,11 +137,8 @@ public class Menu implements MenuInterface{
 	}
 	
 	private boolean callWrite() {
-		menuList.add(mcList);
-		menuList.add(deList);
-		menuList.add(drList);
 		try {
-			writeMenuItem(FILENAME, menuList);
+			writeMenuItem();
 			return true;
 		} catch (IOException e) {
 			Database.getGui().displayStringsB("IOException > " + e.getMessage());
@@ -159,14 +146,15 @@ public class Menu implements MenuInterface{
 		return false;
 	}
 	
-	public ArrayList<MenuItem> readMenuItem(String filename) throws IOException {
+	private void readMenuItem(String filename) throws IOException {
 
+		
 		ArrayList<String> stringArray = (ArrayList<String>) Database.getRwFile().read(filename);
-		ArrayList<MainCourse> courseList = new ArrayList<MainCourse>();
-		ArrayList<Dessert> desertList = new ArrayList<Dessert>();
-		ArrayList<Drinks> drinksList = new ArrayList<Drinks>();
-
-		ArrayList itemList = new ArrayList();
+		
+		menuList.clear();
+		mcList.clear();
+		deList.clear();
+		drList.clear();
 		
         for (int i = 0 ; i < stringArray.size() ; i++) {
 				String st = (String)stringArray.get(i);
@@ -179,29 +167,32 @@ public class Menu implements MenuInterface{
 				switch (type) {
 					case 1:
 						MainCourse mc = new MainCourse(name, description, price);
-						courseList.add(mc);
+						mcList.add(mc);
 						break;
 					case 2: 
 						Dessert de = new Dessert(name, description, price);
-						desertList.add(de);
+						deList.add(de);
 						break;
 					case 3:
 						Drinks dr = new Drinks(name, description, price);
-						drinksList.add(dr);
+						drList.add(dr);
 						break;
 					default:
 						Database.getGui().displayStringsB("Error");
 				}
 			}
-
-		itemList.add(courseList);
-		itemList.add(desertList);
-		itemList.add(drinksList);
-        return itemList ;
+        menuList.add(mcList);
+        menuList.add(deList);
+        menuList.add(drList);
 	}
 	
-	public void writeMenuItem(String filename, ArrayList menuList) throws IOException {
+	private void writeMenuItem() throws IOException {
+
 		List alw = new ArrayList() ;
+		
+		menuList.set(0, mcList);
+		menuList.set(1, deList);
+		menuList.set(2, drList);
 
         for (int i = 0 ; i < menuList.size() ; i++) {
         	ArrayList array = (ArrayList)menuList.get(i);
@@ -227,6 +218,6 @@ public class Menu implements MenuInterface{
 				alw.add(st.toString()) ;
 			}
         }
-        Database.getRwFile().write(filename,alw);
+        Database.getRwFile().write(FILENAME, alw);
 	}
 }

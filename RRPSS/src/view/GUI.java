@@ -5,12 +5,6 @@ import java.util.Scanner;
 
 public class GUI {
 
-	private Scanner scanner;
-
-	public GUI() {
-		scanner = new Scanner(System.in);
-	}
-
 	public void displayTitle(String title){
 		System.out.println("-----------------------------------------------------------------------");
 		System.out.println(title);
@@ -39,24 +33,21 @@ public class GUI {
 	
 	public int detectChoice(String[] options) {
 		
+		Scanner sc = new Scanner(System.in);
+		
 		displayOptions(options);
 		int input;
 		while (true) {
 			try {
 				System.out.print("Choice >>> ");
-				input = scanner.nextInt();
+				input = sc.nextInt();
 				if (input >= 1 && input <= options.length) {
 					return input;
 				}
 			} catch (InputMismatchException e) {
-				scanner.nextLine();
+				sc.nextLine();
 			}
 			System.out.println("ERROR: Please enter a valid option!");
 		}
 	}
-
-	public Scanner getScanner() {
-		return scanner;
-	}
-	
 }
