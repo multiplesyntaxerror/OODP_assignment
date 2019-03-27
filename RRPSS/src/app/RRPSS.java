@@ -11,5 +11,6 @@ public class RRPSS {
 		final MainController mainController = new MainController(db);
 		mainController.run();
 		System.exit(0);
+		//hello
 	}
 }
