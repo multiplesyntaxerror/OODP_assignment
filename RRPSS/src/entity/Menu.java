@@ -11,21 +11,41 @@ import utils.ReadWriteFile;
 
 public class Menu implements MenuInterface{
 	
-	private static final String FILENAME = "res/MenuItems.txt";
-	
+	private static final String ITEMSFILENAME = "res/MenuItems.txt";
+	private static final String SETSFILENAME = "res/PromoSets.txt";
+		
 	private ArrayList<MainCourse> mcList = new ArrayList<MainCourse>();
 	private ArrayList<Dessert> deList = new ArrayList<Dessert>();
 	private ArrayList<Drinks> drList = new ArrayList<Drinks>();
 
-	private ArrayList menuList = new ArrayList();
+	private ArrayList menuItemsList = new ArrayList();
+	
+	private ArrayList<PromoSet> promoSetList = new ArrayList<PromoSet>();
+	
 	
 	public Menu() {
 		callRead();
-		//printMenuItems();
 	}
 
 	public ArrayList getMenuList() {
-		return menuList;
+		return menuItemsList;
+	}
+
+	public MenuItem getMenuItem(String name) {
+		MenuItem item = null;
+		int index[] = itemExistReturnIndex(name);
+		switch(index[0]) {
+			case 0:
+				item = mcList.get(index[1]);
+				break;
+			case 1:
+				item = deList.get(index[1]);
+				break;
+			case 2:
+				item = drList.get(index[1]);
+				break;
+		}
+		return item;
 	}
 	
 	@Override
@@ -76,8 +96,8 @@ public class Menu implements MenuInterface{
 	
 	public int[] itemExistReturnIndex(String name) {
 		int[] index = {-1, -1};
-		for (int i = 0; i < menuList.size(); i++) {
-			ArrayList list = (ArrayList) menuList.get(i);
+		for (int i = 0; i < menuItemsList.size(); i++) {
+			ArrayList list = (ArrayList) menuItemsList.get(i);
 			for (int j = 0; j < list.size(); j++) {
 				MenuItem item = (MenuItem) list.get(j);
 				if (item.getName().equalsIgnoreCase(name)) {
@@ -91,9 +111,8 @@ public class Menu implements MenuInterface{
 	}
 	
 	public void printMenuItems() {
-		
-		for (int i = 0; i < menuList.size(); i++) {
-			ArrayList list = (ArrayList) menuList.get(i);
+		for (int i = 0; i < menuItemsList.size(); i++) {
+			ArrayList list = (ArrayList) menuItemsList.get(i);
 			for (int j = 0; j < list.size(); j++) {
 				MenuItem item = (MenuItem) list.get(j);
 				Database.getGui().displayStringsB("Name: " + item.getName());
@@ -104,98 +123,103 @@ public class Menu implements MenuInterface{
 		}
 	}
 	
-	@Override
-	public boolean createPromoItem() {
-		return false;
-		// TODO Auto-generated method stub
+	public MenuItem pickMenuItems() {
 		
-	}
-
-	@Override
-	public boolean updatePromoItem() {
-		return false;
-		// TODO Auto-generated method stub
+		MenuItem item = null;
 		
-	}
-
-	@Override
-	public boolean deletePromoItem() {
-		return false;
-		// TODO Auto-generated method stub
+		String listOfMenuItem[] = new String[countItems() + 1];
 		
-	}
-	
-	private boolean callRead() {
-		try {
-			readMenuItem(FILENAME);
-			return true;
-		} catch (IOException e) {
-			Database.getGui().displayStringsB("IOException > " + e.getMessage());
+		int count = 0;
+		
+		for (int i = 0; i < menuItemsList.size(); i++) {
+			ArrayList list = (ArrayList) menuItemsList.get(i);
+			for (int j = 0; j < list.size(); j++) {
+				MenuItem it = (MenuItem) list.get(j);
+				listOfMenuItem[count] = "\t" + it.getType() + ": " + it.getName() + " - $" + it.getPrice() + "\n\tDescription: " + it.getDescription() + "\n";
+				count++;
+			}
 		}
-		return false;
 		
-	}
-	
-	private boolean callWrite() {
-		try {
-			writeMenuItem();
-			return true;
-		} catch (IOException e) {
-			Database.getGui().displayStringsB("IOException > " + e.getMessage());
-		}
-		return false;
-	}
-	
-	private void readMenuItem(String filename) throws IOException {
+		listOfMenuItem[count] = "\tDone";
 
+		int choice = Database.getGui().detectChoice(listOfMenuItem);
 		
-		ArrayList<String> stringArray = (ArrayList<String>) Database.getRwFile().read(filename);
+		count = 1;
+		for (int i = 0; i < menuItemsList.size(); i++) {
+			ArrayList list = (ArrayList) menuItemsList.get(i);
+			for (int j = 0; j < list.size(); j++) {
+				if (choice == count) {
+					item = (MenuItem) list.get(j);
+					return item;
+				}
+				count++;
+			}
+		}
+		return item;
+	}
+	
+	public int countItems() {
+		int count = 0;
+		for (int i = 0; i < menuItemsList.size(); i++) {
+			ArrayList list = (ArrayList) menuItemsList.get(i);
+			for (int j = 0; j < list.size(); j++) {
+				count++;
+			}
+		}
+		return count;
+	}
+	
+	
+	private void readMenuItem() throws IOException {
+
+		ArrayList<String> stringArray = (ArrayList<String>) Database.getRwFile().read(ITEMSFILENAME);
 		
-		menuList.clear();
+		menuItemsList.clear();
 		mcList.clear();
 		deList.clear();
 		drList.clear();
 		
         for (int i = 0 ; i < stringArray.size() ; i++) {
-				String st = (String)stringArray.get(i);
-				StringTokenizer star = new StringTokenizer(st , Database.getSeparator());	
-				String name = star.nextToken().trim();
-				String description = star.nextToken().trim();
-				int type = Integer.parseInt(star.nextToken());
-				double price = Double.parseDouble(star.nextToken().trim()); 
-								
-				switch (type) {
-					case 1:
-						MainCourse mc = new MainCourse(name, description, price);
-						mcList.add(mc);
-						break;
-					case 2: 
-						Dessert de = new Dessert(name, description, price);
-						deList.add(de);
-						break;
-					case 3:
-						Drinks dr = new Drinks(name, description, price);
-						drList.add(dr);
-						break;
-					default:
-						Database.getGui().displayStringsB("Error");
-				}
+			String st = (String)stringArray.get(i);
+			StringTokenizer star = new StringTokenizer(st, Database.getSeparator());	
+			String name = star.nextToken().trim();
+			String description = star.nextToken().trim();
+			int type = Integer.parseInt(star.nextToken());
+			double price = Double.parseDouble(star.nextToken().trim()); 
+			int orderQuantity = Integer.parseInt(star.nextToken());
+							
+			switch (type) {
+				case 1:
+					MainCourse mc = new MainCourse(name, description, price, orderQuantity);
+					mcList.add(mc);
+					break;
+				case 2: 
+					Dessert de = new Dessert(name, description, price, orderQuantity);
+					deList.add(de);
+					break;
+				case 3:
+					Drinks dr = new Drinks(name, description, price, orderQuantity);
+					drList.add(dr);
+					break;
+				default:
+					Database.getGui().displayStringsB("Error");
 			}
-        menuList.add(mcList);
-        menuList.add(deList);
-        menuList.add(drList);
+		}
+        menuItemsList.add(mcList);
+        menuItemsList.add(deList);
+        menuItemsList.add(drList);
 	}
 	
 	private void writeMenuItem() throws IOException {
 
 		List alw = new ArrayList() ;
 		
-		menuList.set(0, mcList);
-		menuList.set(1, deList);
-		menuList.set(2, drList);
+		menuItemsList.set(0, mcList);
+		menuItemsList.set(1, deList);
+		menuItemsList.set(2, drList);
 
-        for (int i = 0 ; i < menuList.size() ; i++) {
-        	ArrayList array = (ArrayList)menuList.get(i);
+        for (int i = 0 ; i < menuItemsList.size() ; i++) {
+        	ArrayList array = (ArrayList)menuItemsList.get(i);
 	        for (int j = 0 ; j < array.size() ; j++) {
 	        	MenuItem item = (MenuItem)array.get(j);
 				StringBuilder st = new StringBuilder() ;
@@ -215,9 +239,156 @@ public class Menu implements MenuInterface{
 				}
 				st.append(Database.getSeparator());
 				st.append(item.getPrice());
+				st.append(Database.getSeparator());
+				st.append(item.getOrderedQuantity());
 				alw.add(st.toString()) ;
 			}
         }
-        Database.getRwFile().write(FILENAME, alw);
+        Database.getRwFile().write(ITEMSFILENAME, alw);
 	}
+	
+	public ArrayList<PromoSet> getPromoSetList() {
+		return promoSetList;
+	}
+	
+	public PromoSet getPromoSet(int index) {
+		return promoSetList.get(index);
+	}
+	
+	@Override
+	public boolean createPromoItem(PromoSet set) {
+		if (!promoExist(set)) {
+			promoSetList.add(set);
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean updatePromoItem(int index, PromoSet set) {
+		return false;
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean deletePromoItem(int index) {
+		return false;
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public boolean promoExist(PromoSet set) {
+		for (int i = 0; i < promoSetList.size(); i++) {
+			PromoSet setIn = (PromoSet) promoSetList.get(i);
+			if (setIn.equals(set)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void printPromoSets() {
+		for (int i = 0; i < promoSetList.size(); i++) {
+			PromoSet set = (PromoSet) promoSetList.get(i);
+
+			Database.getGui().displayStringsB("Set " + set.getSetID() + " - $" + set.getSetPrice());
+			Database.getGui().displayStringsB("Description: " + set.getSetDescription());
+			
+			ArrayList<MenuItem> itemList = (ArrayList<MenuItem>) set.getSetItems();
+			for (int j = 0; j < itemList.size(); j++) {
+				Database.getGui().displayStringsB(itemList.get(j).getType() + ": " + itemList.get(j).getName());
+			}
+			Database.getGui().displayStringsB("");
+		}
+	}
+	
+	private void readPromoSets() throws IOException {
+
+		ArrayList<String> stringArray = (ArrayList<String>) Database.getRwFile().read(SETSFILENAME);
+		
+		promoSetList.clear();
+		
+        for (int i = 0 ; i < stringArray.size() ; i++) {
+			String st = (String)stringArray.get(i);
+			StringTokenizer star = new StringTokenizer(st, Database.getSeparator());	
+			int setID = Integer.parseInt(star.nextToken().trim());
+			String setDescription = star.nextToken().trim();
+			String setItems = star.nextToken().trim();
+			double setPrice = Double.parseDouble(star.nextToken().trim()); 
+					
+			List itemsStrArray = new ArrayList();
+			itemsStrArray.add(setItems);
+			
+			ArrayList<MenuItem> itemsArray = new ArrayList<MenuItem>();
+	        for (int j = 0 ; j < itemsStrArray.size() ; j++) {
+	        	
+	        	String str = (String)itemsStrArray.get(j);
+				StringTokenizer starr = new StringTokenizer(str, Database.getSetSeparator());
+				
+				int count = starr.countTokens();
+				
+		        for (int k = 0 ; k < count ; k++) {
+					String item = starr.nextToken().trim();				
+					itemsArray.add(getMenuItem(item));
+		        }
+	        }
+	        PromoSet ps = new PromoSet(setID, setDescription, itemsArray, setPrice);
+	        promoSetList.add(ps);
+		}
+	}
+	
+	private void writePromoSets() throws IOException {
+		//TODO
+//		List alw = new ArrayList();
+//
+//        for (int i = 0 ; i < promoSetList.size() ; i++) {
+//        	PromoSet set = (PromoSet)menuItemsList.get(i);
+//			StringBuilder st = new StringBuilder() ;
+//			st.append(i + 1);
+//			st.append(Database.getSeparator());
+//			st.append(set.getSetDescription().trim());
+//			st.append(Database.getSeparator());
+//			
+//			ArrayList<MenuItem> items = set.getSetItems();
+//			
+//			for (int j = 0 ; j < items.size() ; j++) {
+//				st.append(items.get(j).getName());
+//				if (j != items.size() - 1) {
+//					st.append(Database.getSetSeparator());
+//				}
+//			}
+//			
+//			st.append(Database.getSeparator());
+//			st.append(set.getSetPrice());
+//			
+//			alw.add(st.toString()) ;
+//        }
+//        Database.getRwFile().write(ITEMSFILENAME, alw);
+	}
+	
+
+	private boolean callRead() {
+		try {
+			readMenuItem();
+			readPromoSets();
+			return true;
+		} catch (IOException e) {
+			Database.getGui().displayStringsB("IOException > " + e.getMessage());
+		}
+		return false;
+		
+	}
+	
+	private boolean callWrite() {
+		try {
+			//writePromoSets();
+			writeMenuItem();
+			return true;
+		} catch (IOException e) {
+			Database.getGui().displayStringsB("IOException > " + e.getMessage());
+		}
+		return false;
+	}
+	
 }

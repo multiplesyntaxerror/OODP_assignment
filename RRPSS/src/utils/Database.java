@@ -8,6 +8,7 @@ public class Database {
 	private static ReadWriteFile rwFile = new ReadWriteFile();
 	
 	private static final String SEPARATOR = "|";
+	private static final String SETSEPARATOR = "+";
 
 	private static GUI gui;
 	
@@ -24,6 +25,10 @@ public class Database {
 
 	public static String getSeparator() {
 		return SEPARATOR;
+	}
+	
+	public static String getSetSeparator() {
+		return SETSEPARATOR;
 	}
 	
 	public static GUI getGui() {

@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -8,6 +9,7 @@ import entity.Dessert;
 import entity.Drinks;
 import entity.MainCourse;
 import entity.MenuItem;
+import entity.PromoSet;
 import utils.Database;
 
 public class MenuController extends Controller {
@@ -52,15 +54,24 @@ public class MenuController extends Controller {
 				deleteMenuItem();
 				break;
 			case 5:
+				db.getMenu().printPromoSets();
 				break;
 			case 6:
+				createPromoItem();
 				break;
 			case 7:
+				updatePromoItem();
+				break;
+			case 8:
+				deletePromoItem();
+				break;
+			case 9:
 				Database.getGui().displayStrings("Returning ...");
 			return;
 		}
 	
 	}
+	
 	public void createMenuItem() {
 
 		Scanner sc = new Scanner(System.in);
@@ -92,13 +103,13 @@ public class MenuController extends Controller {
 					
 					switch(choice) {
 						case 1:
-							item = new MainCourse(name, description, price);
+							item = new MainCourse(name, description, price, 0);
 							break;
 						case 2:
-							item = new Dessert(name, description, price);
+							item = new Dessert(name, description, price, 0);
 							break;
 						case 3:
-							item = new Drinks(name, description, price);
+							item = new Drinks(name, description, price, 0);
 							break;
 					}
 					
@@ -164,13 +175,13 @@ public class MenuController extends Controller {
 
 						switch (choice) {
 							case 1:
-								item = new MainCourse(newName, newDescription, newPrice);
+								item = new MainCourse(newName, newDescription, newPrice, 0);
 								break;
 							case 2:
-								item = new Dessert(newName, newDescription, newPrice);
+								item = new Dessert(newName, newDescription, newPrice, 0);
 								break;
 							case 3:
-								item = new Drinks(newName, newDescription, newPrice);
+								item = new Drinks(newName, newDescription, newPrice, 0);
 								break;
 						}
 						
@@ -209,7 +220,6 @@ public class MenuController extends Controller {
 
 		super.getDb().getMenu().printMenuItems();
 		
-		
 		while(true) {
 			
 			Database.getGui().displayStrings("Enter Item Name To Delete: ");
@@ -234,6 +244,105 @@ public class MenuController extends Controller {
 				Database.getGui().displayStringsB("Item Does not Exist");
 			}
 		}
+	}
+	
+
+	public void createPromoItem() {
+		
+		Scanner sc = new Scanner(System.in);
+		
+		Database.getGui().displayTitle("Creating Promotional Set Package");
+
+		PromoSet set = null;
+		
+		while(true) {
+
+			MenuItem item;
+			
+			ArrayList<MenuItem> createdItemsArray = new ArrayList<MenuItem>();
+			
+			do {
+				Database.getGui().displayStringsB("Enter Choice To Add Into Set: ");
+				
+				item = super.getDb().getMenu().pickMenuItems();
+				if (item != null) {
+					createdItemsArray.add(item);
+				}	
+
+				System.out.println(createdItemsArray.size());
+			} while(item != null);
+			
+			
+			if (createdItemsArray.size() > 1) {
+				//construct set
+				return;
+			}
+			else {
+				Database.getGui().displayStringsB("SYSTEM ERROR: Pleace Choose 2 Or More Options");
+			}
+			
+			//TODO
+			
+//			int index[] = super.getDb().getMenu().itemExistReturnIndex("hi");
+//
+//			if (index[1] == -1) {
+//				Database.getGui().displayStrings("Enter Item Description: ");
+//				String description = sc.nextLine();
+//
+//				choice = 0;
+//				
+//				try {
+//
+//					Database.getGui().displayStrings("Enter Item Price: $");
+//					double price = sc.nextDouble();
+//					
+//					Database.getGui().displayStringsB("Please Choose Type: ");
+//					String[] type = { "Main Course", "Dessert", "Drinks" };
+//					choice = Database.getGui().detectChoice(type);
+//					
+//					switch(choice) {
+//						case 1:
+//							//item = new MainCourse(name, description, price);
+//							break;
+//						case 2:
+//							//item = new Dessert(name, description, price);
+//							break;
+//						case 3:
+//							//item = new Drinks(name, description, price);
+//							break;
+//					}
+//					
+//					boolean success = false;
+//					//success = super.getDb().getMenu().createMenuItem(item);
+//					
+//					if (success) {
+//						Database.getGui().displayStringsB("SYSTEM NOTICE: Item Successfully Added");
+//					}
+//					else if (!success) {
+//						Database.getGui().displayStringsB("SYSTEM ERROR: Item Not Added");
+//					}
+//					return;
+//					
+//				} catch(InputMismatchException e) {
+//					Database.getGui().displayStringsB("ERROR: Your Input Is Invalid.\n");
+//					sc.nextLine();
+//				}
+//			}
+//			else if (index[1] != -1) {
+//				Database.getGui().displayStringsB("Item Name Already Exist");
+//			}
+			//TODO
+		}
+		
+	}
+	
+	private void deletePromoItem() {
+		// TODO Auto-generated method stub
+		
+	}
+	private void updatePromoItem() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

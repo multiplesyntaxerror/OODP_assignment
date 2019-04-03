@@ -6,12 +6,14 @@ public abstract class MenuItem {
 	private String description;
 	protected String type;
 	private double price;
-	
-	public MenuItem(String name, String description, double price) {
+	private int orderedQuantity;
+
+	public MenuItem(String name, String description, double price, int orderedQuantity) {
 		super();
 		this.name = name;
 		this.description = description;
 		this.price = price;
+		this.orderedQuantity = orderedQuantity;
 	}
 
 	public String getName() {
@@ -44,6 +46,14 @@ public abstract class MenuItem {
 	
 	public void setPrice(double price) {
 		this.price = price;
+	}
+
+	public int getOrderedQuantity() {
+		return orderedQuantity;
+	}
+
+	public void setOrderedQuantity(int orderedQuantity) {
+		this.orderedQuantity = orderedQuantity;
 	}
 	
 	
