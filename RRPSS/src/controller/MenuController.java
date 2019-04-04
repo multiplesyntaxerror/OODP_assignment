@@ -1,6 +1,5 @@
 package controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -14,14 +13,10 @@ import utils.Database;
 
 public class MenuController extends Controller {
 		
-	private static ArrayList<MenuItem> menuList;
-	
 	public void run(Database db) throws Throwable{
 
-		super.setDb(db);
-		super.setGui(db.getGui());
-		
-		menuList = super.getDb().getMenu().getMenuList();
+		setDb(db);
+		setGui(db.getGui());
 		
 		int choice;
 		
@@ -34,7 +29,7 @@ public class MenuController extends Controller {
 				"Add Promo Set",
 				"Update Promo Set",
 				"Delete Promo Set",
-				"Exit"
+				"Back"
 		};
 		
 		Database.getGui().displayTitle("Menu Option");
@@ -66,7 +61,7 @@ public class MenuController extends Controller {
 				deletePromoItem();
 				break;
 			case 9:
-				Database.getGui().displayStrings("Returning ...");
+				Database.getGui().displayStringsB("Returning ...");
 			return;
 		}
 	
@@ -77,25 +72,36 @@ public class MenuController extends Controller {
 		Scanner sc = new Scanner(System.in);
 		
 		Database.getGui().displayTitle("Adding New Item To Menu");
+
+		MenuItem item = null;
 		
 		while(true) {
-
-			MenuItem item = null;
+			
 			Database.getGui().displayStrings("Enter Item Name: ");
 			String name = sc.nextLine();
 			
-			int index[] = super.getDb().getMenu().itemExistReturnIndex(name);
+			item = getDb().getMenu().getMenuItem(name);
 
-			if (index[1] == -1) {
+			if (item == null) {
+				
 				Database.getGui().displayStrings("Enter Item Description: ");
 				String description = sc.nextLine();
 
 				int choice = 0;
 				
 				try {
-
-					Database.getGui().displayStrings("Enter Item Price: $");
-					double price = sc.nextDouble();
+					
+					double price;
+					do {
+						
+						Database.getGui().displayStrings("Enter Item Price: $");
+						price = sc.nextDouble();
+						
+						if (price < 0) {
+							Database.getGui().displayStringsB("Price Cannot Be Negative.\n");
+						}
+						
+					} while (price < 0 );
 					
 					Database.getGui().displayStringsB("Please Choose Type: ");
 					String[] type = { "Main Course", "Dessert", "Drinks" };
@@ -113,8 +119,7 @@ public class MenuController extends Controller {
 							break;
 					}
 					
-					boolean success = false;
-					success = super.getDb().getMenu().createMenuItem(item);
+					boolean success = getDb().getMenu().createMenuItem(item);
 					
 					if (success) {
 						Database.getGui().displayStringsB("SYSTEM NOTICE: Item Successfully Added");
@@ -129,7 +134,7 @@ public class MenuController extends Controller {
 					sc.nextLine();
 				}
 			}
-			else if (index[1] != -1) {
+			else {
 				Database.getGui().displayStringsB("Item Name Already Exist");
 			}
 		}
@@ -140,113 +145,66 @@ public class MenuController extends Controller {
 		Scanner sc = new Scanner(System.in);
 		
 		Database.getGui().displayTitle("Updating Menu Item");
+		
+		Database.getGui().displayStrings("Enter Item Number To Edit: ");
 
-		super.getDb().getMenu().printMenuItems();
-
-		while (true) {
-
-			MenuItem item = null;
-			Database.getGui().displayStrings("Enter Item Name To Edit: ");
-			String name = sc.nextLine();
+		MenuItem item = getDb().getMenu().pickMenuItems("Exit");
+		
+		if (item != null) {
 			
-			int index[] = super.getDb().getMenu().itemExistReturnIndex(name);
+			Database.getGui().displayStrings("Enter Item New Description: ");
+			String newDescription = sc.nextLine();
 			
-			if (index[1] != -1) {
-
-				Database.getGui().displayStrings("Enter Item New Name: ");
-				String newName = sc.nextLine();
-
-				int checkIndex[] = super.getDb().getMenu().itemExistReturnIndex(newName);
-
-				if (checkIndex[1] == -1) {
+			try {
+				
+				double newPrice;
+				do {
+					Database.getGui().displayStrings("Enter Item New Price: $");
+					newPrice = sc.nextDouble();
 					
-					Database.getGui().displayStrings("Enter Item New Description: ");
-					String newDescription = sc.nextLine();
-
-					int choice = 0;
-					
-					try {
-						Database.getGui().displayStrings("Enter Item New Price: $");
-						double newPrice = sc.nextDouble();
-
-						Database.getGui().displayStringsB("Choose New Type: ");
-						String[] type = { "Main Course", "Dessert", "Drinks" };
-						choice = Database.getGui().detectChoice(type);
-
-						switch (choice) {
-							case 1:
-								item = new MainCourse(newName, newDescription, newPrice, 0);
-								break;
-							case 2:
-								item = new Dessert(newName, newDescription, newPrice, 0);
-								break;
-							case 3:
-								item = new Drinks(newName, newDescription, newPrice, 0);
-								break;
-						}
-						
-						boolean success = false;
-						success = super.getDb().getMenu().updateMenuItem(index, item);
-						
-						if (success) {
-							Database.getGui().displayStringsB("SYSTEM NOTICE: Item Updated Successfully");
-						} 
-						else if (!success) {
-							Database.getGui().displayStringsB("SYSTEM ERROR: Item Not Updated");
-						}
-						return;
-						
-					} catch (InputMismatchException e) {
-						Database.getGui().displayStringsB("ERROR: Your input is invalid.\n");
-						sc.nextLine();
-						index = null;
+					if (newPrice < 0) {
+						Database.getGui().displayStringsB("Price Cannot Be Negative.\n");
 					}
+					
+				} while (newPrice < 0 );
+			
+				boolean success = getDb().getMenu().updateMenuItem(item, newDescription, newPrice);
+				
+				if (success) {
+					Database.getGui().displayStringsB("SYSTEM NOTICE: Item Updated Successfully");
 				} 
-				else if (checkIndex[1] != -1) {
-					Database.getGui().displayStringsB("Item Name Already Exist");
+				else if (!success) {
+					Database.getGui().displayStringsB("SYSTEM ERROR: Item Not Updated");
 				}
-			} 
-			else if (index[1] == -1) {
-				Database.getGui().displayStringsB("Item Does not Exist");
+				return;
+				
+			} catch (InputMismatchException e) {
+				Database.getGui().displayStringsB("ERROR: Your input is invalid.");
 			}
 		}
 	}
 	
 	public void deleteMenuItem() {
-
-		Scanner sc = new Scanner(System.in);
 		
 		Database.getGui().displayTitle("Deleting Menu Item");
 
-		super.getDb().getMenu().printMenuItems();
+		Database.getGui().displayStringsB("Choose Item To Delete: ");
+
+		MenuItem item = getDb().getMenu().pickMenuItems("Exit");
 		
-		while(true) {
+		if (item != null) {
 			
-			Database.getGui().displayStrings("Enter Item Name To Delete: ");
-			String name = sc.nextLine();
+			boolean success = getDb().getMenu().deleteMenuItem(item);
 			
-			int index[] = super.getDb().getMenu().itemExistReturnIndex(name);
-			
-			if (index[1] != -1) {
-				
-				boolean success = false;
-				success = super.getDb().getMenu().deleteMenuItem(index);
-				
-				if (success) {
-					Database.getGui().displayStringsB("SYSTEM NOTICE: Item Deleted Successfully");
-				}
-				else if (!success) {
-					Database.getGui().displayStringsB("SYSTEM ERROR: Item Not Deleted");
-				}
-				return;
+			if (success) {
+				Database.getGui().displayStringsB("SYSTEM NOTICE: Item Deleted Successfully");
 			}
-			else if (index[1] == -1) {
-				Database.getGui().displayStringsB("Item Does not Exist");
+			else if (!success) {
+				Database.getGui().displayStringsB("SYSTEM ERROR: Item Not Deleted");
 			}
 		}
 	}
 	
-
 	public void createPromoItem() {
 		
 		Scanner sc = new Scanner(System.in);
@@ -255,94 +213,124 @@ public class MenuController extends Controller {
 
 		PromoSet set = null;
 		
-		while(true) {
-
-			MenuItem item;
-			
-			ArrayList<MenuItem> createdItemsArray = new ArrayList<MenuItem>();
-			
-			do {
-				Database.getGui().displayStringsB("Enter Choice To Add Into Set: ");
-				
-				item = super.getDb().getMenu().pickMenuItems();
-				if (item != null) {
-					createdItemsArray.add(item);
-				}	
-
-				System.out.println(createdItemsArray.size());
-			} while(item != null);
-			
-			
-			if (createdItemsArray.size() > 1) {
-				//construct set
-				return;
-			}
-			else {
-				Database.getGui().displayStringsB("SYSTEM ERROR: Pleace Choose 2 Or More Options");
-			}
-			
-			//TODO
-			
-//			int index[] = super.getDb().getMenu().itemExistReturnIndex("hi");
-//
-//			if (index[1] == -1) {
-//				Database.getGui().displayStrings("Enter Item Description: ");
-//				String description = sc.nextLine();
-//
-//				choice = 0;
-//				
-//				try {
-//
-//					Database.getGui().displayStrings("Enter Item Price: $");
-//					double price = sc.nextDouble();
-//					
-//					Database.getGui().displayStringsB("Please Choose Type: ");
-//					String[] type = { "Main Course", "Dessert", "Drinks" };
-//					choice = Database.getGui().detectChoice(type);
-//					
-//					switch(choice) {
-//						case 1:
-//							//item = new MainCourse(name, description, price);
-//							break;
-//						case 2:
-//							//item = new Dessert(name, description, price);
-//							break;
-//						case 3:
-//							//item = new Drinks(name, description, price);
-//							break;
-//					}
-//					
-//					boolean success = false;
-//					//success = super.getDb().getMenu().createMenuItem(item);
-//					
-//					if (success) {
-//						Database.getGui().displayStringsB("SYSTEM NOTICE: Item Successfully Added");
-//					}
-//					else if (!success) {
-//						Database.getGui().displayStringsB("SYSTEM ERROR: Item Not Added");
-//					}
-//					return;
-//					
-//				} catch(InputMismatchException e) {
-//					Database.getGui().displayStringsB("ERROR: Your Input Is Invalid.\n");
-//					sc.nextLine();
-//				}
-//			}
-//			else if (index[1] != -1) {
-//				Database.getGui().displayStringsB("Item Name Already Exist");
-//			}
-			//TODO
-		}
+		MenuItem item;
 		
+		ArrayList<MenuItem> createdItemsArray = new ArrayList<MenuItem>();
+		
+		do {
+			Database.getGui().displayStringsB("");
+			Database.getGui().displayStringsB("Enter Choice To Add Into Set: ");
+			
+			item = getDb().getMenu().pickMenuItems("Done");
+			if (item != null) {
+				createdItemsArray.add(item);
+			}
+
+		} while(item != null);
+		
+		if (createdItemsArray.size() > 1) {
+			
+			Database.getGui().displayStrings("Enter Set Description: ");
+			String description = sc.nextLine();
+			
+			try {
+				
+				double price;
+				do {
+					
+					Database.getGui().displayStrings("Enter Set Price: $");
+					price = sc.nextDouble();
+					
+					if (price < 0) {
+						Database.getGui().displayStringsB("Price Cannot Be Negative.\n");
+					}
+					
+				} while (price < 0 );
+				
+				set = new PromoSet(description, createdItemsArray, price);
+				boolean success = getDb().getMenu().createPromoItem(set);
+				
+				if (success) {
+					Database.getGui().displayStringsB("SYSTEM NOTICE: Set Successfully Added");
+				}
+				else if (!success) {
+					Database.getGui().displayStringsB("SYSTEM ERROR: Set Already Exist");
+				}
+				return;
+				
+			} catch (InputMismatchException e) {
+				Database.getGui().displayStringsB("ERROR: Your input is invalid.\n");
+				sc.nextLine();
+			}
+		}
+		else {
+			Database.getGui().displayStringsB("SYSTEM ERROR: Pleace Choose 2 Or More Options");
+		}
+	}
+	
+	private void updatePromoItem() {
+		
+		Scanner sc = new Scanner(System.in);
+		
+		Database.getGui().displayTitle("Updating Promotional Set Package");
+
+		Database.getGui().displayStrings("Enter Item Number To Edit: ");
+		
+		PromoSet set = getDb().getMenu().pickPromoSet("Exit");
+		
+		if (set != null) {
+
+			Database.getGui().displayStrings("Enter Promotional Set New Description: ");
+			String newDescription = sc.nextLine();
+			
+			try {
+				
+				double newPrice;
+				do {
+					
+					Database.getGui().displayStrings("Enter Promotional Set New Price: $");
+					newPrice = sc.nextDouble();
+					
+					if (newPrice < 0) {
+						Database.getGui().displayStringsB("Price Cannot Be Negative.\n");
+					}
+					
+				} while (newPrice < 0 );
+			
+				boolean success = getDb().getMenu().updatePromoItem(set, newDescription, newPrice);
+				
+				if (success) {
+					Database.getGui().displayStringsB("SYSTEM NOTICE: Item Updated Successfully");
+				} 
+				else if (!success) {
+					Database.getGui().displayStringsB("SYSTEM ERROR: Item Not Updated");
+				}
+				return;
+				
+			} catch (InputMismatchException e) {
+				Database.getGui().displayStringsB("ERROR: Your input is invalid.");
+			}
+		}
 	}
 	
 	private void deletePromoItem() {
-		// TODO Auto-generated method stub
 		
-	}
-	private void updatePromoItem() {
-		// TODO Auto-generated method stub
+		Database.getGui().displayTitle("Deleting Promotional Set");
+
+		Database.getGui().displayStringsB("Choose Promotional Set To Delete: ");
 		
+		PromoSet set = getDb().getMenu().pickPromoSet("Exit");
+		
+		if (set != null) {
+			boolean success = getDb().getMenu().deletePromoItem(set);
+			
+			if (success) {
+				Database.getGui().displayStringsB("SYSTEM NOTICE: Set Deleted Successfully");
+			}
+			else if (!success) {
+				Database.getGui().displayStringsB("SYSTEM ERROR: Set Not Deleted");
+			}
+		}	
 	}
 
 }

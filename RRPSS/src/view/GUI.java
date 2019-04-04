@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class GUI {
 
 	public void displayTitle(String title){
+		System.out.println();
 		System.out.println("-----------------------------------------------------------------------");
 		System.out.println(title);
 		System.out.println("-----------------------------------------------------------------------");

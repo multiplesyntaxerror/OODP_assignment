@@ -6,10 +6,10 @@ import entity.PromoSet;
 public interface MenuInterface {
 	
 	public boolean createMenuItem(MenuItem item);
-	public boolean updateMenuItem(int[] index, MenuItem item);
-	public boolean deleteMenuItem(int[] index);
+	public boolean updateMenuItem(MenuItem item, String newDescription, double newPrice);
+	public boolean deleteMenuItem(MenuItem item);
 	public boolean createPromoItem(PromoSet set);
-	public boolean updatePromoItem(int index, PromoSet set);
-	public boolean deletePromoItem(int index);
+	public boolean updatePromoItem(PromoSet set, String newDescription, double newPrice);
+	public boolean deletePromoItem(PromoSet set);
 
 }

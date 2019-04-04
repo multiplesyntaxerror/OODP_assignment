@@ -25,7 +25,7 @@ public class MainController {
 				"Booking Options",
 				"Billing Options",
 				"Print Sales Revenue",
-				"Exit"
+				"Exit System"
 		};
 
 		db.getGui().displayTitle("---------------------Welcome to NOM-NOM Restaruant---------------------");
@@ -35,6 +35,12 @@ public class MainController {
 			db.getGui().displayTitle("System Menu");
 			
 			choice = db.getGui().detectChoice(mainOption);
+//			choice = 1;
+//			choice = 2;
+//			choice = 3;
+//			choice = 4;
+//			choice = 5;
+			
 			switch(choice) {
 				case 1:
 					mc.run(db);

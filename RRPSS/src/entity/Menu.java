@@ -7,7 +7,6 @@ import java.util.StringTokenizer;
 
 import service.MenuInterface;
 import utils.Database;
-import utils.ReadWriteFile;
 
 public class Menu implements MenuInterface{
 	
@@ -22,7 +21,6 @@ public class Menu implements MenuInterface{
 	
 	private ArrayList<PromoSet> promoSetList = new ArrayList<PromoSet>();
 	
-	
 	public Menu() {
 		callRead();
 	}
@@ -33,51 +31,50 @@ public class Menu implements MenuInterface{
 
 	public MenuItem getMenuItem(String name) {
 		MenuItem item = null;
-		int index[] = itemExistReturnIndex(name);
-		switch(index[0]) {
-			case 0:
-				item = mcList.get(index[1]);
-				break;
-			case 1:
-				item = deList.get(index[1]);
-				break;
-			case 2:
-				item = drList.get(index[1]);
-				break;
+		for (int i = 0; i < menuItemsList.size(); i++) {
+			ArrayList list = (ArrayList) menuItemsList.get(i);
+			for (int j = 0; j < list.size(); j++) {
+				item = (MenuItem) list.get(j);
+				if (item.getName().equalsIgnoreCase(name)) {
+					return item;
+				}
+				else {
+					item = null;
+				}
+			}
 		}
 		return item;
 	}
 	
 	@Override
 	public boolean createMenuItem(MenuItem item) {
-		int[] index = itemExistReturnIndex(item.getName());
 		String type = item.getType();
-		if(index[1] == -1) {
-			if (type == "Main Course") {
-				mcList.add((MainCourse)item);
-			}
-			else if(type == "Dessert") {
-				deList.add((Dessert)item);
-			}
-			else if (type == "Drinks") {
-				drList.add((Drinks)item);
-			}
-			callWrite();
-			callRead();
-			return true;
+		if (type == "Main Course") {
+			mcList.add((MainCourse)item);
 		}
-		return false;
-	}
-
-	@Override
-	public boolean updateMenuItem(int[] index, MenuItem item) {
-		deleteMenuItem(index);
-		createMenuItem(item);
+		else if(type == "Dessert") {
+			deList.add((Dessert)item);
+		}
+		else if (type == "Drinks") {
+			drList.add((Drinks)item);
+		}
+		callWrite();
+		callRead();
 		return true;
 	}
 
 	@Override
-	public boolean deleteMenuItem(int[] index) {
+	public boolean updateMenuItem(MenuItem item, String newDescription, double newPrice) {
+		item.setDescription(newDescription);
+		item.setPrice(newPrice);
+		callWrite();
+		callRead();
+		return true;
+	}
+
+	@Override
+	public boolean deleteMenuItem(MenuItem item) {
+		int index[] = itemExistReturnIndex(item);
 		switch(index[0]) {
 			case 0:
 				mcList.remove(index[1]);
@@ -94,13 +91,12 @@ public class Menu implements MenuInterface{
 		return true;
 	}
 	
-	public int[] itemExistReturnIndex(String name) {
+	public int[] itemExistReturnIndex(MenuItem item) {
 		int[] index = {-1, -1};
 		for (int i = 0; i < menuItemsList.size(); i++) {
 			ArrayList list = (ArrayList) menuItemsList.get(i);
 			for (int j = 0; j < list.size(); j++) {
-				MenuItem item = (MenuItem) list.get(j);
-				if (item.getName().equalsIgnoreCase(name)) {
+				if (list.get(j).equals(item)) {
 					index[0] = i;
 					index[1] = j;
 					return index;
@@ -111,6 +107,7 @@ public class Menu implements MenuInterface{
 	}
 	
 	public void printMenuItems() {
+		Database.getGui().displayStringsB("");
 		for (int i = 0; i < menuItemsList.size(); i++) {
 			ArrayList list = (ArrayList) menuItemsList.get(i);
 			for (int j = 0; j < list.size(); j++) {
@@ -123,7 +120,9 @@ public class Menu implements MenuInterface{
 		}
 	}
 	
-	public MenuItem pickMenuItems() {
+	public MenuItem pickMenuItems(String text) {
+
+		Database.getGui().displayStringsB("");
 		
 		MenuItem item = null;
 		
@@ -140,7 +139,7 @@ public class Menu implements MenuInterface{
 			}
 		}
 		
-		listOfMenuItem[count] = "\tDone";
+		listOfMenuItem[count] = "\t" + text;
 
 		int choice = Database.getGui().detectChoice(listOfMenuItem);
 		
@@ -168,7 +167,6 @@ public class Menu implements MenuInterface{
 		}
 		return count;
 	}
-	
 	
 	private void readMenuItem() throws IOException {
 
@@ -257,38 +255,36 @@ public class Menu implements MenuInterface{
 	
 	@Override
 	public boolean createPromoItem(PromoSet set) {
-		if (!promoExist(set)) {
+		if (set != null) {
+			set.setSetID(promoSetList.size() + 1);
 			promoSetList.add(set);
+			callWrite();
+			callRead();
 			return true;
 		}
 		return false;
 	}
 
 	@Override
-	public boolean updatePromoItem(int index, PromoSet set) {
-		return false;
-		// TODO Auto-generated method stub
-		
+	public boolean updatePromoItem(PromoSet set, String newDescription, double newPrice) {
+		set.setSetDescription(newDescription);
+		set.setSetPrice(newPrice);
+		callWrite();
+		callRead();
+		return true;
 	}
 
 	@Override
-	public boolean deletePromoItem(int index) {
-		return false;
-		// TODO Auto-generated method stub
+	public boolean deletePromoItem(PromoSet set) {
+		promoSetList.remove(set);
+		callWrite();
+		callRead();
+		return true;
+	}
 		
-	}
-	
-	public boolean promoExist(PromoSet set) {
-		for (int i = 0; i < promoSetList.size(); i++) {
-			PromoSet setIn = (PromoSet) promoSetList.get(i);
-			if (setIn.equals(set)) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
 	public void printPromoSets() {
+		
+		Database.getGui().displayStringsB("");
 		for (int i = 0; i < promoSetList.size(); i++) {
 			PromoSet set = (PromoSet) promoSetList.get(i);
 
@@ -303,6 +299,47 @@ public class Menu implements MenuInterface{
 		}
 	}
 	
+	public PromoSet pickPromoSet(String text) {
+
+		Database.getGui().displayStringsB("");
+		
+		PromoSet set = null;
+		
+		String listOfPromoItem[] = new String[countPromoSet() + 1];
+		
+		int count = 0;
+		
+		for (int i = 0; i < promoSetList.size(); i++) {
+			PromoSet ps = (PromoSet) promoSetList.get(i);
+			ArrayList<MenuItem> item = ps.getSetItems();
+			String itemString = "";
+			for (int j = 0; j < item.size(); j++) {
+				itemString += "" + item.get(j).getName() + " (" + item.get(j).getType() + ")\n\t";
+			}
+			
+			listOfPromoItem[count] = "\tSet " + ps.getSetID() + " - $" + ps.getSetPrice() + "\n\tDescription: " + ps.getSetDescription() + "\n\tITEMS:\n\t" + itemString;
+			count++;
+		}
+		
+		listOfPromoItem[count] = "\t" + text;
+
+		int choice = Database.getGui().detectChoice(listOfPromoItem);
+		
+		count = 1;
+		for (int i = 0; i < promoSetList.size(); i++) {
+			if (choice == count) {
+				set = (PromoSet) promoSetList.get(i);
+				return set;
+			}
+			count++;
+		}
+		return set;
+	}
+	
+	public int countPromoSet() {
+		return promoSetList.size();
+	}
+
 	private void readPromoSets() throws IOException {
 
 		ArrayList<String> stringArray = (ArrayList<String>) Database.getRwFile().read(SETSFILENAME);
@@ -333,41 +370,40 @@ public class Menu implements MenuInterface{
 					itemsArray.add(getMenuItem(item));
 		        }
 	        }
-	        PromoSet ps = new PromoSet(setID, setDescription, itemsArray, setPrice);
+	        PromoSet ps = new PromoSet(setDescription, itemsArray, setPrice);
+	        ps.setSetID(setID);
 	        promoSetList.add(ps);
 		}
 	}
 	
 	private void writePromoSets() throws IOException {
-		//TODO
-//		List alw = new ArrayList();
-//
-//        for (int i = 0 ; i < promoSetList.size() ; i++) {
-//        	PromoSet set = (PromoSet)menuItemsList.get(i);
-//			StringBuilder st = new StringBuilder() ;
-//			st.append(i + 1);
-//			st.append(Database.getSeparator());
-//			st.append(set.getSetDescription().trim());
-//			st.append(Database.getSeparator());
-//			
-//			ArrayList<MenuItem> items = set.getSetItems();
-//			
-//			for (int j = 0 ; j < items.size() ; j++) {
-//				st.append(items.get(j).getName());
-//				if (j != items.size() - 1) {
-//					st.append(Database.getSetSeparator());
-//				}
-//			}
-//			
-//			st.append(Database.getSeparator());
-//			st.append(set.getSetPrice());
-//			
-//			alw.add(st.toString()) ;
-//        }
-//        Database.getRwFile().write(ITEMSFILENAME, alw);
+		
+		List alw = new ArrayList();
+
+        for (int i = 0 ; i < promoSetList.size() ; i++) {
+        	PromoSet set = (PromoSet)promoSetList.get(i);
+			StringBuilder st = new StringBuilder() ;
+			st.append(set.getSetID());
+			st.append(Database.getSeparator());
+			st.append(set.getSetDescription().trim());
+			st.append(Database.getSeparator());
+			
+			ArrayList<MenuItem> items = set.getSetItems();
+			
+			for (int j = 0 ; j < items.size() ; j++) {
+				st.append(items.get(j).getName());
+				if (j != items.size() - 1) {
+					st.append(Database.getSetSeparator());
+				}
+			}
+			
+			st.append(Database.getSeparator());
+			st.append(set.getSetPrice());
+			alw.add(st.toString()) ;
+        }
+        Database.getRwFile().write(SETSFILENAME, alw);
 	}
 	
-
 	private boolean callRead() {
 		try {
 			readMenuItem();
@@ -382,7 +418,7 @@ public class Menu implements MenuInterface{
 	
 	private boolean callWrite() {
 		try {
-			//writePromoSets();
+			writePromoSets();
 			writeMenuItem();
 			return true;
 		} catch (IOException e) {

@@ -1,6 +1,7 @@
 Jack's Special Steak|The premium & most tender eye fillet topped with white asparagus & black mushroom sauce|1|29.9|0
 Bearnaise Steak|A classic way to enjoy tenderloin with a deliciously creamy Bearnaise sauce|1|29.5|0
-Banana Fritters A La Mode|Banana fritters & mango cubes with a scoop of French Vanilla Bean Gelato|2|6.8|0
+Banana Fritters A La Mode|Banana fritters & mango cubes with a scoop of French Vanilla Bean Gelato|2|6.9|0
 Mini Tiramisu in a Cup|A personal portion of a Kahlua-infused Tiramisu|2|7.5|0
+de|dess|2|4.99|0
 Root Beer Float|Ice cream floating in root beer|3|4.2|0
 Tiger Beer|330ml Alcohol|3|8.9|0
