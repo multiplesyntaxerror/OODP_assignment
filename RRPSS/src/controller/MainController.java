@@ -3,19 +3,32 @@ package controller;
 import utils.Database;
 
 /**
- * Main Application
+ * 
+ * Main Application.
  */
 public class MainController {
 		
+	/** The database. */
 	private Database db;
+	
+	/** The menu controller. */
 	private MenuController mc;
 	
+	/**
+	 * Instantiates a new main controller.
+	 *
+	 * @param db the database
+	 */
 	public MainController(Database db) {
 		this.db = db;
 		this.mc = new MenuController();
 	}
 	
-	public void run() throws Throwable{
+	/**
+	 * Runs the main system menu.
+	 * 
+	 */
+	public void run() {
 
 		int choice;
 		

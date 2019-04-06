@@ -8,27 +8,54 @@ import java.util.StringTokenizer;
 import service.MenuInterface;
 import utils.Database;
 
+/**
+ * The Class Menu.
+ */
 public class Menu implements MenuInterface{
 	
+	/** The Constant ITEMSFILENAME for menu item data path. */
 	private static final String ITEMSFILENAME = "res/MenuItems.txt";
+	
+	/** The Constant SETSFILENAME for promotional set data path. */
 	private static final String SETSFILENAME = "res/PromoSets.txt";
 		
+	/** The list of type main course. */
 	private ArrayList<MainCourse> mcList = new ArrayList<MainCourse>();
+	
+	/** The list of type dessert. */
 	private ArrayList<Dessert> deList = new ArrayList<Dessert>();
+	
+	/** The list of type drinks. */
 	private ArrayList<Drinks> drList = new ArrayList<Drinks>();
 
+	/** The menu items list of all 3 types. */
 	private ArrayList menuItemsList = new ArrayList();
 	
+	/** The promotional sets list. */
 	private ArrayList<PromoSet> promoSetList = new ArrayList<PromoSet>();
 	
+	/**
+	 * Instantiates a new menu.
+	 */
 	public Menu() {
 		callRead();
 	}
 
+	/**
+	 * Gets the menu list.
+	 *
+	 * @return the menu list
+	 */
 	public ArrayList getMenuList() {
 		return menuItemsList;
 	}
 
+	/**
+	 * Gets the menu item.
+	 *
+	 * @param name item's name
+	 * @return the menu item
+	 */
 	public MenuItem getMenuItem(String name) {
 		MenuItem item = null;
 		for (int i = 0; i < menuItemsList.size(); i++) {
@@ -46,6 +73,9 @@ public class Menu implements MenuInterface{
 		return item;
 	}
 	
+	/* (non-Javadoc)
+	 * @see service.MenuInterface#createMenuItem(entity.MenuItem)
+	 */
 	@Override
 	public boolean createMenuItem(MenuItem item) {
 		String type = item.getType();
@@ -63,8 +93,12 @@ public class Menu implements MenuInterface{
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see service.MenuInterface#updateMenuItem(entity.MenuItem, java.lang.String, java.lang.String, double)
+	 */
 	@Override
-	public boolean updateMenuItem(MenuItem item, String newDescription, double newPrice) {
+	public boolean updateMenuItem(MenuItem item, String newName, String newDescription, double newPrice) {
+		item.setName(newName);
 		item.setDescription(newDescription);
 		item.setPrice(newPrice);
 		callWrite();
@@ -72,6 +106,9 @@ public class Menu implements MenuInterface{
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see service.MenuInterface#deleteMenuItem(entity.MenuItem)
+	 */
 	@Override
 	public boolean deleteMenuItem(MenuItem item) {
 		int index[] = itemExistReturnIndex(item);
@@ -91,6 +128,12 @@ public class Menu implements MenuInterface{
 		return true;
 	}
 	
+	/**
+	 * Checks existence of item and return its index.
+	 *
+	 * @param item the menu item
+	 * @return the index of the menu item int[]
+	 */
 	public int[] itemExistReturnIndex(MenuItem item) {
 		int[] index = {-1, -1};
 		for (int i = 0; i < menuItemsList.size(); i++) {
@@ -106,6 +149,9 @@ public class Menu implements MenuInterface{
 		return index;
 	}
 	
+	/**
+	 * Prints all the menu items.
+	 */
 	public void printMenuItems() {
 		Database.getGui().displayStringsB("");
 		for (int i = 0; i < menuItemsList.size(); i++) {
@@ -120,6 +166,12 @@ public class Menu implements MenuInterface{
 		}
 	}
 	
+	/**
+	 * Allows user to pick a menu item from the list.
+	 *
+	 * @param text string for the last option (back/exit)
+	 * @return a menu item
+	 */
 	public MenuItem pickMenuItems(String text) {
 
 		Database.getGui().displayStringsB("");
@@ -157,6 +209,11 @@ public class Menu implements MenuInterface{
 		return item;
 	}
 	
+	/**
+	 * Count the number of items in the list.
+	 *
+	 * @return the number of items in the list
+	 */
 	public int countItems() {
 		int count = 0;
 		for (int i = 0; i < menuItemsList.size(); i++) {
@@ -168,6 +225,11 @@ public class Menu implements MenuInterface{
 		return count;
 	}
 	
+	/**
+	 * Reads the menu items from the database MenuItems.txt file in resource folder and store them in system.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	private void readMenuItem() throws IOException {
 
 		ArrayList<String> stringArray = (ArrayList<String>) Database.getRwFile().read(ITEMSFILENAME);
@@ -208,6 +270,11 @@ public class Menu implements MenuInterface{
         menuItemsList.add(drList);
 	}
 	
+	/**
+	 * Writes the data from system into the database MenuItems.txt file in resource folder.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	private void writeMenuItem() throws IOException {
 
 		List alw = new ArrayList() ;
@@ -245,14 +312,28 @@ public class Menu implements MenuInterface{
         Database.getRwFile().write(ITEMSFILENAME, alw);
 	}
 	
+	/**
+	 * Gets the promotional set list.
+	 *
+	 * @return the promotional set list
+	 */
 	public ArrayList<PromoSet> getPromoSetList() {
 		return promoSetList;
 	}
 	
+	/**
+	 * Gets the promotional set.
+	 *
+	 * @param index promotional set's index
+	 * @return the promotional set
+	 */
 	public PromoSet getPromoSet(int index) {
 		return promoSetList.get(index);
 	}
 	
+	/* (non-Javadoc)
+	 * @see service.MenuInterface#createPromoItem(entity.PromoSet)
+	 */
 	@Override
 	public boolean createPromoItem(PromoSet set) {
 		if (set != null) {
@@ -265,6 +346,9 @@ public class Menu implements MenuInterface{
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see service.MenuInterface#updatePromoItem(entity.PromoSet, java.lang.String, double)
+	 */
 	@Override
 	public boolean updatePromoItem(PromoSet set, String newDescription, double newPrice) {
 		set.setSetDescription(newDescription);
@@ -274,6 +358,9 @@ public class Menu implements MenuInterface{
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see service.MenuInterface#deletePromoItem(entity.PromoSet)
+	 */
 	@Override
 	public boolean deletePromoItem(PromoSet set) {
 		promoSetList.remove(set);
@@ -282,6 +369,9 @@ public class Menu implements MenuInterface{
 		return true;
 	}
 		
+	/**
+	 * Prints all the promotional sets.
+	 */
 	public void printPromoSets() {
 		
 		Database.getGui().displayStringsB("");
@@ -299,6 +389,12 @@ public class Menu implements MenuInterface{
 		}
 	}
 	
+	/**
+	 * Allows user to pick a promotional set from the list.
+	 *
+	 * @param text string for the last option (back/exit)
+	 * @return a promotional set
+	 */
 	public PromoSet pickPromoSet(String text) {
 
 		Database.getGui().displayStringsB("");
@@ -336,10 +432,20 @@ public class Menu implements MenuInterface{
 		return set;
 	}
 	
+	/**
+	 * Count the number of promotional sets in the list.
+	 *
+	 * @return the number of promotional sets in the list.
+	 */
 	public int countPromoSet() {
 		return promoSetList.size();
 	}
 
+	/**
+	 * Reads the promotional sets from the database PromoSets.txt file in resource folder and store them in system.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	private void readPromoSets() throws IOException {
 
 		ArrayList<String> stringArray = (ArrayList<String>) Database.getRwFile().read(SETSFILENAME);
@@ -376,6 +482,11 @@ public class Menu implements MenuInterface{
 		}
 	}
 	
+	/**
+	 * Writes the data from system into the database PromoSets.txt file in resource folder
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	private void writePromoSets() throws IOException {
 		
 		List alw = new ArrayList();
@@ -404,6 +515,11 @@ public class Menu implements MenuInterface{
         Database.getRwFile().write(SETSFILENAME, alw);
 	}
 	
+	/**
+	 * Reads the database in resource.
+	 *
+	 * @return true, if read successful
+	 */
 	private boolean callRead() {
 		try {
 			readMenuItem();
@@ -416,6 +532,11 @@ public class Menu implements MenuInterface{
 		
 	}
 	
+	/**
+	 * Writes the database with new data.
+	 *
+	 * @return true, if write successful
+	 */
 	private boolean callWrite() {
 		try {
 			writePromoSets();

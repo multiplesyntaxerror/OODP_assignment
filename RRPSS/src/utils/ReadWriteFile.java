@@ -14,9 +14,18 @@ import entity.Drinks;
 import entity.MainCourse;
 import entity.MenuItem;
 
+/**
+ * The Class ReadWriteFile.
+ */
 public class ReadWriteFile {
 	
-	/** Write fixed content to the given file. */
+	/**
+	 *  Write fixed content to the given file.
+	 *
+	 * @param fileName the file name
+	 * @param data the data
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void write(String fileName, List data) throws IOException {
 		PrintWriter out = new PrintWriter(new FileWriter(fileName));
 
@@ -29,7 +38,13 @@ public class ReadWriteFile {
 		}
 	}
 
-	/** Read the contents of the given file. */
+	/**
+	 *  Read the contents of the given file.
+	 *
+	 * @param fileName the file name
+	 * @return the list
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public List read(String fileName) throws IOException {
 		List data = new ArrayList();
 		Scanner scanner = new Scanner(new FileInputStream(fileName));

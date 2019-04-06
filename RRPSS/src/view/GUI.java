@@ -3,8 +3,16 @@ package view;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * The Class GUI.
+ */
 public class GUI {
 
+	/**
+	 * Display title.
+	 *
+	 * @param title the title
+	 */
 	public void displayTitle(String title){
 		System.out.println();
 		System.out.println("-----------------------------------------------------------------------");
@@ -12,14 +20,29 @@ public class GUI {
 		System.out.println("-----------------------------------------------------------------------");
 	}
 
+	/**
+	 * Display strings with new line.
+	 *
+	 * @param text the text to display
+	 */
 	public void displayStringsB(String text) {
 		System.out.println(text);
 	}
 
+	/**
+	 * Display strings without new line.
+	 *
+	 * @param text the text to display
+	 */
 	public void displayStrings(String text) {
 		System.out.print(text);
 	}
 	
+	/**
+	 * Display a list of options.
+	 *
+	 * @param options the list of options
+	 */
 	public void displayOptions(String[] options) {
 		
 		int count = 1;
@@ -32,6 +55,12 @@ public class GUI {
 	}
 	
 	
+	/**
+	 * Detect user's input from a list of options.
+	 *
+	 * @param options the list of options
+	 * @return the choice indicated by the user
+	 */
 	public int detectChoice(String[] options) {
 		
 		Scanner sc = new Scanner(System.in);
