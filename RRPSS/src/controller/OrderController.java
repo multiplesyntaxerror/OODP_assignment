@@ -68,9 +68,7 @@ public class OrderController extends Controller{
 		PromoSet set;
 		Date date = new Date();
 		order.setDate(date);
-		boolean dupe = false;
 		int choice;
-		//order id
 		
 		do {
 			
@@ -89,7 +87,6 @@ public class OrderController extends Controller{
 						getGui().displayStrings("Enter Quantity: ");
 						int qty = sc.nextInt();
 						item.setOrderedQuantity(qty);
-						int qtyOrdered = item.getOrderedQuantity();
 					
 						if(order.getOrder().size() == 0) {
 							order.getOrder().add(item);
@@ -109,7 +106,6 @@ public class OrderController extends Controller{
 						getGui().displayStrings("Enter Quantity: ");
 						int qty = sc.nextInt();
 						set.setOrderedQuantity(qty);
-						int setQtyOrdered = set.getOrderedQuantity();
 					
 						if(order.getPromoSet().size() == 0) {
 							order.getPromoSet().add(set);
@@ -121,7 +117,7 @@ public class OrderController extends Controller{
 				} while(set != null);
 				break;
 			case 3:
-				if(order.getOrder().size() !=0 && order.getPromoSet().size()!=0) {
+				if(order.getOrder().size() !=0 || order.getPromoSet().size()!=0) {
 					Order od = new Order();
 					boolean created = od.createOrder(order);
 					if(created == true) {
@@ -185,7 +181,7 @@ public class OrderController extends Controller{
 		for(int i = 0 ;  i<order.getPromoSet().size(); i++) {
 			if(order.getPromoSet().get(i).getSetID()==(promoSet.getSetID())){
 				order.getPromoSet().get(i).setOrderedQuantity(promoSet.getOrderedQuantity());
-				dupe = true;
+				dupe = true; 
 				break;
 			} 
 		}

@@ -28,7 +28,7 @@ public class OrderItem {
 		orderId = n;
 	}
 	
-	public Date getDate() {
+	public Date getDate() { 
 		return date;
 	}
 	public void setDate(Date date) {
