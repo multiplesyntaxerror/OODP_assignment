@@ -19,6 +19,9 @@ public class PromoSet {
 	/** The set price. */
 	private double setPrice;
 	
+	/** The ordered quantity for order. */
+	private int orderedQuantity;
+	
 	/**
 	 * Instantiates a new promotional set.
 	 *
@@ -105,5 +108,17 @@ public class PromoSet {
 		this.setPrice = setPrice;
 	}
 	
+	public int getOrderedQuantity() {
+		return orderedQuantity;
+	}
+
+	/**
+	 * Sets the ordered quantity.
+	 *
+	 * @param orderedQuantity the new ordered quantity
+	 */
+	public void setOrderedQuantity(int orderedQuantity) {
+		this.orderedQuantity += orderedQuantity;
+	}
 	
 }

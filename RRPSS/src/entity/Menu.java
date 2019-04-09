@@ -55,7 +55,7 @@ public class Menu implements MenuInterface{
 	 *
 	 * @param name item's name
 	 * @return the menu item
-	 */
+	 */ 
 	public MenuItem getMenuItem(String name) {
 		MenuItem item = null;
 		for (int i = 0; i < menuItemsList.size(); i++) {
@@ -148,7 +148,7 @@ public class Menu implements MenuInterface{
 		}
 		return index;
 	}
-	
+	  
 	/**
 	 * Prints all the menu items.
 	 */
@@ -294,7 +294,7 @@ public class Menu implements MenuInterface{
 				st.append(Database.getSeparator());
 				String type = item.getType();
 				if (type == "Main Course") {
-					st.append(1);
+					st.append(1); 
 				}
 				else if(type == "Dessert") {
 					st.append(2);

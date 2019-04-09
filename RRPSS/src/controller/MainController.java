@@ -28,9 +28,10 @@ public class MainController {
 	
 	/**
 	 * Runs the main system menu.
+	 * @throws Exception 
 	 * 
 	 */
-	public void run() {
+	public void run() throws Exception {
 
 		int choice;
 		

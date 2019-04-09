@@ -84,7 +84,7 @@ public class MenuController extends Controller {
 		getGui().displayTitle("Adding New Item To Menu");
 		MenuItem item = null;
 		while(true) {
-			
+			 
 			String name;
 			do {
 				getGui().displayStrings("Enter Item Name: ");

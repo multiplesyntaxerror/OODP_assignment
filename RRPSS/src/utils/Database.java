@@ -16,6 +16,8 @@ public class Database {
 	
 	/** The Constant SETSEPARATOR for promotional set. */
 	private static final String SETSEPARATOR = "+";
+	
+	private static final String ORDERSEPARATOR = "--------------------------------------";
 
 	/** The GUI. */
 	private static GUI gui;
@@ -85,5 +87,7 @@ public class Database {
 		this.menu = menu;
 	}
 
-	
+	public static String getOrderSeparator() {
+		return ORDERSEPARATOR;
+	}
 }

@@ -11,5 +11,4 @@ public interface OrderInterface {
 	
 	public boolean updateOrder(OrderItem order, int orderID);
 	
-	public boolean deleteOrder(OrderItem order, int orderID);
 }
