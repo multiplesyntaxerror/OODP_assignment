@@ -28,22 +28,27 @@ public class Order implements OrderInterface{
 		return true;
 	}
 	
-	public boolean updateOrder(OrderItem order, int orderID) {
+	public int createOrderID() throws IOException {
+		ArrayList<String> stringArray = (ArrayList<String>) Database.getRwFile().read(ITEMSFILENAME);
+		return stringArray.size()+1;
+	}
+	
+	public boolean updateOrder(OrderItem order, int orderID) { 
+		
 		return false;
 	}
 	 
 	public boolean printOrder() throws Exception {
 		callRead();
 		for(int i = 0 ; i<allOrders.size();i++) {
-			System.out.println(allOrders.get(i).getStaff().getName());
-			System.out.println(allOrders.get(i).getDate());
+			System.out.println("Order ID:" + allOrders.get(i).getOrderId());
+			System.out.println("Staff: " + allOrders.get(i).getStaff().getName());
+			System.out.println("Date:" + allOrders.get(i).getDate());
 			for(int j = 0; j<alaCarte.size();j++) {
-				System.out.println(alaCarte.get(j).getName());
-				System.out.println(alaCarte.get(j).getOrderedQuantity());
+				System.out.println(alaCarte.get(j).getName() + "   " + alaCarte.get(j).getOrderedQuantity());
 			}
 			for(int k = 0; k<promoSet.size();k++) {
-				System.out.println(promoSet.get(k).getSetID());
-				System.out.println(promoSet.get(k).getOrderedQuantity());
+				System.out.println(promoSet.get(k).getSetID() + "   " + promoSet.get(k).getOrderedQuantity());
 			}
 		}
 		return true;
@@ -59,22 +64,20 @@ public class Order implements OrderInterface{
         for (int i = 0 ; i < stringArray.size() ; i++) {
 			String st = (String)stringArray.get(i);
 			StringTokenizer star = new StringTokenizer(st, Database.getSeparator());	
+			int orderID = Integer.parseInt(star.nextToken().trim());
+			if(!star.hasMoreElements()) break;
 			String nameAndDate = star.nextToken().trim();
-			System.out.println(nameAndDate);
 			if(!star.hasMoreElements()) break;
 			String menuItems = star.nextToken().trim();
-			System.out.println(menuItems);
 			if(!star.hasMoreElements()) break;
 			String promoItems = star.nextToken().trim();
-			System.out.println(promoItems);
- 
 			 
-			StringTokenizer star2 = new StringTokenizer(nameAndDate, "**");	
+			StringTokenizer star2 = new StringTokenizer(nameAndDate, Database.getTXTSeparator());	
 			String name = star2.nextToken().trim();
 			String date = star2.nextToken().trim();
 			Date dateConverted=new SimpleDateFormat("E MMM dd HH:mm:ss").parse(date);
 			
-			StringTokenizer star3 = new StringTokenizer(menuItems, "**");
+			StringTokenizer star3 = new StringTokenizer(menuItems, Database.getTXTSeparator());
 			for(int j = 0; j<star3.countTokens(); j++) {
 				String menuItemName = star3.nextToken().trim();
 				int qtyOrdered = Integer.parseInt(star3.nextToken().trim());
@@ -83,7 +86,7 @@ public class Order implements OrderInterface{
 				alaCarte.add(temp);
 			}
 			
-			StringTokenizer star4 = new StringTokenizer(promoItems, "**");
+			StringTokenizer star4 = new StringTokenizer(promoItems, Database.getTXTSeparator());
 			for(int k = 0; k <star4.countTokens();k++) {
 				int setID  = Integer.parseInt(star4.nextToken().trim());
 				int qtyOrdered_p = Integer.parseInt(star4.nextToken().trim());
@@ -94,7 +97,7 @@ public class Order implements OrderInterface{
 				promoSet.add(temp2);
 			}
 			this.staff.setName(name);
-			OrderItem od = new OrderItem(i,dateConverted,alaCarte,promoSet, staff);
+			OrderItem od = new OrderItem(orderID,dateConverted,alaCarte,promoSet, staff);
 			allOrders.add(od);
 		}
 	}
@@ -102,6 +105,8 @@ public class Order implements OrderInterface{
 	private void writeOrderItem() throws IOException {	
 		List alw = new ArrayList() ;
 		StringBuilder st = new StringBuilder() ;
+		st.append(createOrderID());
+		st.append("**");
 		st.append(staff.getName());
 		st.append("**");
 		st.append(date);
@@ -128,7 +133,6 @@ public class Order implements OrderInterface{
 	    }
 	    st.delete(st.length()-2, st.length());
 	    alw.add(st.toString());
-	    alw.add(Database.getOrderSeparator());
         Database.getRwFile().write(ITEMSFILENAME, alw);
 	}
 	
