@@ -41,7 +41,7 @@ public class OrderController extends Controller{
 		switch (choice) {
 			case 1: createOrder();
 				break;
-			case 2: updateOrder();
+			case 2: addItemToExistingOrder();
 				break;
 			case 3:
 				break;
@@ -121,8 +121,6 @@ public class OrderController extends Controller{
 				break;
 			case 3:
 				if(order.getOrder().size() !=0 || order.getPromoSet().size()!=0) {
-					
-//					Order od = new Order();
 					boolean created = getDb().getOrder().createOrder(order);
 					if(created == true) {
 						getGui().displayStringsB("Order Created!");
@@ -145,17 +143,71 @@ public class OrderController extends Controller{
 		getGui().displayStringsB("Enter Order ID: ");
 		int orderId = sc.nextInt();
 		getGui().displayStringsB("Choose item to update ");
-		String[] orderlist = getDb().getOrder().printSpecificOrder(orderId);
-		int choice = getGui().detectChoice(orderlist);
-		
-		
+		String[] orderlist = getDb().getOrder().getSpecificOrder(orderId);
+		int choice = getGui().detectChoice(orderlist);	
+	}
+	
+	public void addItemToExistingOrder() {
+		Scanner sc = new Scanner(System.in);
+		MenuItem item;
+		PromoSet set;
+		getGui().displayTitle("Adding Item To Exisiting Orders");
+		getGui().displayStringsB("Enter Order ID: ");
+		int orderId = sc.nextInt();
+		int choice;
+		do {
+			getGui().displayStringsB("Add Ala Carte Or Promo Set : ");
+			System.out.println("1 : Ala Carte");
+			System.out.println("2 : Promo Set");
+			System.out.println("3 : Done");
+			choice = sc.nextInt();
+			switch (choice) {
+			case 1:
+				do {
+					getGui().displayStringsB("Enter Choice To Add Item Into Order: ");
+					item = getDb().getMenu().pickMenuItems("Done");
+					if (item != null) {
+						getGui().displayStrings("Enter Quantity: ");
+						int qty = sc.nextInt();
+						item.setOrderedQuantity(qty);
+						boolean updated = getDb().getOrder().updateMenuItemOrder(item, orderId);
+						if(updated == true) {
+							getGui().displayStringsB("Order Updated!");
+						}
+						else {
+							getGui().displayStringsB("Order Not Created!");
+						}
+					}
+				} while (item != null);
+				break;
+
+			case 2:
+				do { 
+					getGui().displayStringsB("Enter Choice To Add Item Into Order: ");
+					set = getDb().getMenu().pickPromoSet("Done");
+					if (set != null) {
+						getGui().displayStrings("Enter Quantity: ");
+						int qty = sc.nextInt();
+						set.setOrderedQuantity(qty);
+						boolean updated = getDb().getOrder().updatePromoSetOrder(set, orderId);
+						if(updated == true) {
+							getGui().displayStringsB("Order Updated!");
+						}
+						else {
+							getGui().displayStringsB("Order Not Created!");
+						}
+					} 
+				} while (set != null);
+				break; 
+			}
+		} while (choice == 1 || choice == 2);
 	}
 	
 	public void addItemToOrder(OrderItem order, MenuItem item) {
 		boolean dupe = false;
 		for(int i = 0 ; i<order.getOrder().size(); i++) {
 			if(order.getOrder().get(i).getName().equals(item.getName())) {
-				order.getOrder().get(i).setOrderedQuantity(item.getOrderedQuantity());
+				order.getOrder().get(i).addOrderedQuantity(item.getOrderedQuantity());
 				dupe = true;
 				break;
 			}
@@ -168,7 +220,7 @@ public class OrderController extends Controller{
 		boolean dupe= false;
 		for(int i = 0 ; i<order.getOrder().size(); i++) {
 			if(order.getOrder().get(i).getName().equals(item.getName())) {
-				order.getOrder().get(i).setOrderedQuantity(item.getOrderedQuantity());
+				order.getOrder().get(i).addOrderedQuantity(item.getOrderedQuantity());
 				dupe = true;
 				break;
 			}
@@ -182,7 +234,7 @@ public class OrderController extends Controller{
 		boolean dupe = false;
 		for(int i = 0 ; i<order.getPromoSet().size(); i++) {
 			if(order.getPromoSet().get(i).getSetID()==(promoSet.getSetID())) {
-				order.getPromoSet().get(i).setOrderedQuantity(promoSet.getOrderedQuantity());
+				order.getPromoSet().get(i).addOrderedQuantity(promoSet.getOrderedQuantity());
 				dupe = true;
 				break;
 			}
@@ -196,7 +248,7 @@ public class OrderController extends Controller{
 		boolean dupe = false;
 		for(int i = 0 ;  i<order.getPromoSet().size(); i++) {
 			if(order.getPromoSet().get(i).getSetID()==(promoSet.getSetID())){
-				order.getPromoSet().get(i).setOrderedQuantity(promoSet.getOrderedQuantity());
+				order.getPromoSet().get(i).addOrderedQuantity(promoSet.getOrderedQuantity());
 				dupe = true; 
 				break;
 			} 
@@ -207,7 +259,6 @@ public class OrderController extends Controller{
 	}
 	
 	public void viewOrder(){
-		Order od = new Order();
-		boolean printed = od.printOrder();
+		boolean updated = getDb().getOrder().printOrder();
 	}
 }

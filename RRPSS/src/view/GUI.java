@@ -23,7 +23,7 @@ public class GUI {
 	/**
 	 * Display strings with new line.
 	 *
-	 * @param text the text to display
+	 * @param text the text to display 
 	 */
 	public void displayStringsB(String text) {
 		System.out.println(text);

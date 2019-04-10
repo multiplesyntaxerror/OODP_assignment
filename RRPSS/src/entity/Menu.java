@@ -25,7 +25,7 @@ public class Menu implements MenuInterface{
 	/** The list of type dessert. */
 	private ArrayList<Dessert> deList = new ArrayList<Dessert>(); 
 	
-	/** The list of type drinks. */
+	/** The list of type drinks. */ 
 	private ArrayList<Drinks> drList = new ArrayList<Drinks>();
 
 	/** The menu items list of all 3 types. */
@@ -115,7 +115,7 @@ public class Menu implements MenuInterface{
 		switch(index[0]) {
 			case 0:
 				mcList.remove(index[1]);
-				break;
+				break; 
 			case 1:
 				deList.remove(index[1]);
 				break;

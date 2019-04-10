@@ -118,6 +118,9 @@ public class PromoSet {
 	 * @param orderedQuantity the new ordered quantity
 	 */
 	public void setOrderedQuantity(int orderedQuantity) {
+		this.orderedQuantity = orderedQuantity;
+	}
+	public void addOrderedQuantity(int orderedQuantity) {
 		this.orderedQuantity += orderedQuantity;
 	}
 	

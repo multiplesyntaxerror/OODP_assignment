@@ -27,7 +27,7 @@ public class Database {
 	private Menu menu;
 	private Order order;
 	
-	/**
+	/** 
 	 * Initialize data.
 	 */
 	public void initializeData() {

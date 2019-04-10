@@ -51,9 +51,9 @@ public class MainController {
 			db.getGui().displayTitle("System Menu");
 			
 			
-//			choice = db.getGui().detectChoice(mainOption);
+			choice = db.getGui().detectChoice(mainOption);
 //			choice = 1;
-			choice = 2;
+//			choice = 2;
 //			choice = 3;
 //			choice = 4;
 //			choice = 5;

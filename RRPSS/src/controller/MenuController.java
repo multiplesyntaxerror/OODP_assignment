@@ -121,7 +121,7 @@ public class MenuController extends Controller {
 				String[] type = { "Main Course", "Dessert", "Drinks" };
 				int choice = 0;
 				choice = getGui().detectChoice(type);
-				switch(choice) {
+				switch(choice) { 
 					case 1:
 						item = new MainCourse(name, description, price, 0); 
 						break;
@@ -181,7 +181,7 @@ public class MenuController extends Controller {
 					if (newPrice <= 0)
 						getGui().displayStringsB("Price Cannot Be Zero Or Negative.\n");
 				} catch (InputMismatchException e) {
-					getGui().displayStringsB("ERROR: Your Input Is Invalid.\n");
+					getGui().displayStringsB("ERROR: Your Input Is Invalid.\n"); 
 					sc.nextLine();
 				}
 			} while (newPrice <= 0 );
