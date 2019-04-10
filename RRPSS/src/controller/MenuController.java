@@ -123,7 +123,7 @@ public class MenuController extends Controller {
 				choice = getGui().detectChoice(type);
 				switch(choice) {
 					case 1:
-						item = new MainCourse(name, description, price, 0);
+						item = new MainCourse(name, description, price, 0); 
 						break;
 					case 2:
 						item = new Dessert(name, description, price, 0);

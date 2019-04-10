@@ -7,19 +7,21 @@ import java.util.List;
 
 public class OrderItem {
 	private int orderId;
-	private Date date;
+	private String date;
 	private double totalPrice;
 	private ArrayList<MenuItem> order = new ArrayList<MenuItem>();
 	private ArrayList<PromoSet> set = new ArrayList<PromoSet>();
 	private Staff staff;
+	private boolean printedInvoice = false;
 	
-	public OrderItem(int orderId, Date date, ArrayList<MenuItem> order, ArrayList<PromoSet> promoSet, Staff staff){
+	public OrderItem(int orderId, String date, ArrayList<MenuItem> order, ArrayList<PromoSet> promoSet, Staff staff){
 		this.orderId = orderId;
 		this.date = date;
 		this.order = order;
 		this.set = promoSet;
 		this.staff = staff;
 	} 
+	public OrderItem() {}
 	
 	public int getOrderId() {
 		return orderId;
@@ -28,10 +30,10 @@ public class OrderItem {
 		orderId = n;
 	}
 	
-	public Date getDate() { 
-		return date;
+	public String getDate() { 
+		return date; 
 	}
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	
@@ -66,5 +68,12 @@ public class OrderItem {
 	}
 	public void setStaff(Staff staff) {
 		this.staff = staff;
+	}
+	
+	public boolean isPrintedInvoice() {
+		return printedInvoice;
+	}
+	public void setPrintedInvoice(boolean printedInvoice) {
+		this.printedInvoice = printedInvoice;
 	}
 }

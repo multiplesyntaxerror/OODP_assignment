@@ -67,7 +67,7 @@ public class GUI {
 		
 		displayOptions(options);
 		int input;
-		while (true) {
+		while (true) { 
 			try {
 				System.out.print("Choice >>> ");
 				input = sc.nextInt();

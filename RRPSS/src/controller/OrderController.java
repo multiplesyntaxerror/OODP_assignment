@@ -1,5 +1,6 @@
 package controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
@@ -27,7 +28,7 @@ public class OrderController extends Controller{
 		
 		String[] orderOptions = {
 				"Create New Order",
-				"Add Item To Existing Order",
+				"Update Order",
 				"Remove Item From Existing Order",
 				"Delete Existing Order",
 				"View Existing Order",
@@ -40,7 +41,7 @@ public class OrderController extends Controller{
 		switch (choice) {
 			case 1: createOrder();
 				break;
-			case 2: 
+			case 2: updateOrder();
 				break;
 			case 3:
 				break;
@@ -53,7 +54,7 @@ public class OrderController extends Controller{
 			return;
 		}
 	
-	}
+	} 
 	
 	public void createOrder() {
 		Scanner sc = new Scanner(System.in);
@@ -66,7 +67,9 @@ public class OrderController extends Controller{
 		OrderItem order = new OrderItem(0, null, alaCarteOrder, promoSetOrder,server);
 		MenuItem item;
 		PromoSet set;
-		Date date = new Date();
+		String pattern = "dd-MM-yyyy hh:mm a";
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+		String date = simpleDateFormat.format(new Date());
 		order.setDate(date);
 		int choice;
 		
@@ -118,8 +121,9 @@ public class OrderController extends Controller{
 				break;
 			case 3:
 				if(order.getOrder().size() !=0 || order.getPromoSet().size()!=0) {
-					Order od = new Order();
-					boolean created = od.createOrder(order);
+					
+//					Order od = new Order();
+					boolean created = getDb().getOrder().createOrder(order);
 					if(created == true) {
 						getGui().displayStringsB("Order Created!");
 					}
@@ -133,6 +137,16 @@ public class OrderController extends Controller{
 				break;
 			}
 		}while(choice == 1 || choice == 2);
+	}
+	
+	public void updateOrder() {
+		Scanner sc = new Scanner(System.in);
+		getGui().displayTitle("Update Exisiting Orders");
+		getGui().displayStringsB("Enter Order ID: ");
+		int orderId = sc.nextInt();
+		String[] orderlist = getDb().getOrder().printSpecificOrder(orderId);
+		getGui().detectChoice(orderlist);
+		
 	}
 	
 	public void addItemToOrder(OrderItem order, MenuItem item) {
@@ -190,7 +204,7 @@ public class OrderController extends Controller{
 		}
 	}
 	
-	public void viewOrder() throws Exception {
+	public void viewOrder(){
 		Order od = new Order();
 		boolean printed = od.printOrder();
 	}

@@ -23,7 +23,7 @@ public class Menu implements MenuInterface{
 	private ArrayList<MainCourse> mcList = new ArrayList<MainCourse>();
 	
 	/** The list of type dessert. */
-	private ArrayList<Dessert> deList = new ArrayList<Dessert>();
+	private ArrayList<Dessert> deList = new ArrayList<Dessert>(); 
 	
 	/** The list of type drinks. */
 	private ArrayList<Drinks> drList = new ArrayList<Drinks>();

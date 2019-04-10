@@ -1,6 +1,7 @@
 package utils;
 
 import entity.Menu;
+import entity.Order;
 import view.GUI;
 
 /**
@@ -24,6 +25,7 @@ public class Database {
 	
 	/** The menu. */
 	private Menu menu;
+	private Order order;
 	
 	/**
 	 * Initialize data.
@@ -31,6 +33,7 @@ public class Database {
 	public void initializeData() {
 		gui = new GUI();
 		menu = new Menu();
+		order = new Order();
 	}
 
 	/**
@@ -85,6 +88,14 @@ public class Database {
 	 */
 	public void setMenu(Menu menu) {
 		this.menu = menu;
+	}
+
+	public Order getOrder() {
+		return order;
+	}
+
+	public void setOrder(Order order) {
+		this.order = order;
 	}
 
 	public static String getTXTSeparator() {

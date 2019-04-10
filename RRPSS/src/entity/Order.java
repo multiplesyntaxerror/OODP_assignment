@@ -20,8 +20,9 @@ public class Order implements OrderInterface{
 	private OrderItem order = new OrderItem(0, null, alaCarte, promoSet, staff);
 	 
 	public boolean createOrder(OrderItem order) {
-		this.order = order;
+		allOrders.add(order);
 		callWrite();
+		callRead();
 		return true;
 	}
 	
@@ -35,7 +36,7 @@ public class Order implements OrderInterface{
 		return false;
 	}
 	 
-	public boolean printOrder() throws Exception {
+	public boolean printOrder(){
 		callRead();
 		for(int i = 0 ; i<allOrders.size();i++) {
 			System.out.println("Order ID:" + allOrders.get(i).getOrderId());
@@ -51,12 +52,32 @@ public class Order implements OrderInterface{
 		return true;
 	}
 	
-	private void readOrderItem() throws IOException ,Exception{
+	public String[] printSpecificOrder(int orderID) {
+		callRead();	
+		List<String> ordereditems = new ArrayList<>();
+		System.out.println("Order ID:" + allOrders.get(orderID-1).getOrderId());
+		for(int j = 0; j<allOrders.get(orderID-1).getOrder().size();j++) {
+			ordereditems.add(allOrders.get(orderID-1).getOrder().get(j).getName());
+			System.out.println(allOrders.get(orderID-1).getOrder().get(j).getName() + "   " + allOrders.get(orderID-1).getOrder().get(j).getOrderedQuantity());
+		}
+		for(int k = 0; k<allOrders.get(orderID-1).getPromoSet().size();k++) {
+			ordereditems.add(allOrders.get(orderID-1).getPromoSet().get(k).getSetDescription());
+			System.out.println(allOrders.get(orderID-1).getPromoSet().get(k).getSetID() + "   " + allOrders.get(orderID-1).getPromoSet().get(k).getOrderedQuantity());
+		}
+		String[] newlist = listToStringArray(ordereditems);
+		return  newlist;
+	}
+	
+	private boolean updateOrder(int orderID, String name, String qty) {
+		callRead();
+		OrderItem orderItem = (OrderItem)allOrders.get(orderID-1);
+		return false;
+	}
+	
+	private void readOrderItem() throws IOException{
 
 		ArrayList<String> stringArray = (ArrayList<String>) Database.getRwFile().read(ITEMSFILENAME);
 		
-		//alaCarte.clear();
-		//promoSet.clear();
 		if(order!=null) {
 			order.getOrder().clear();
 			order.getPromoSet().clear();
@@ -72,9 +93,8 @@ public class Order implements OrderInterface{
 			StringTokenizer star2 = new StringTokenizer(nameAndDate, Database.getTXTSeparator());	
 			String name = star2.nextToken().trim();
 			String date = star2.nextToken().trim();
-			Date dateConverted=new SimpleDateFormat("E MMM dd HH:mm:ss").parse(date);
 			 
-			
+			 
 			if(star.hasMoreElements()) {
 				String menuItems = star.nextToken().trim();
 				StringTokenizer star3 = new StringTokenizer(menuItems, Database.getTXTSeparator());
@@ -101,46 +121,51 @@ public class Order implements OrderInterface{
 				}
 			}
 			this.staff.setName(name);
-			OrderItem od = new OrderItem(orderID,dateConverted,order.getOrder(),order.getPromoSet(), order.getStaff());
+			OrderItem od = new OrderItem(orderID,date,order.getOrder(),order.getPromoSet(), order.getStaff());
 			allOrders.add(od);
 		}
 	}
 	
 	private void writeOrderItem() throws IOException {	
 		List alw = new ArrayList() ;
-		StringBuilder st = new StringBuilder() ;
-		st.append(createOrderID());
-		st.append(Database.getSeparator());
-		st.append(order.getStaff().getName());
-		st.append(Database.getTXTSeparator());
-		st.append(order.getDate());
-		st.append(Database.getSeparator());
-	    for (int j = 0 ; j < order.getOrder().size() ; j++) {
-	        MenuItem item = (MenuItem)order.getOrder().get(j);
-			st.append(item.getName().trim());
+		for(int k = 0; k<allOrders.size();k++) {
+			OrderItem orderItem = (OrderItem)allOrders.get(k);
+			StringBuilder st = new StringBuilder() ;
+			st.append(k+1);
+			st.append(Database.getSeparator());
+			st.append(orderItem.getStaff().getName());
 			st.append(Database.getTXTSeparator());
-			st.append(item.getOrderedQuantity());
-			st.append(Database.getTXTSeparator());
-			st.append(item.getOrderedQuantity() * item.getPrice());;
-			st.append(Database.getTXTSeparator());
+			st.append(orderItem.getDate());
+			st.append(Database.getSeparator());
+			ArrayList<MenuItem> menuItem = orderItem.getOrder();
+			for (int j = 0; j < menuItem.size(); j++) {
+				st.append(menuItem.get(j).getName());
+				st.append(Database.getTXTSeparator());
+				st.append(menuItem.get(j).getOrderedQuantity());
+				st.append(Database.getTXTSeparator());
+				st.append(menuItem.get(j).getOrderedQuantity() * menuItem.get(j).getPrice());
+				;
+				st.append(Database.getTXTSeparator());
 			}
-	    st.delete(st.length()-2, st.length());
-	    st.append(Database.getSeparator());
-	    for(int i = 0; i < order.getPromoSet().size(); i++) {
-	    	PromoSet promoItem = (PromoSet)order.getPromoSet().get(i);
-			st.append(promoItem.getSetID());
-			st.append(Database.getTXTSeparator());
-			st.append(promoItem.getOrderedQuantity());
-			st.append(Database.getTXTSeparator());
-			st.append(promoItem.getOrderedQuantity() * promoItem.getSetPrice());;
-			st.append(Database.getTXTSeparator());
-	    }
-	    st.delete(st.length()-2, st.length());
-	    alw.add(st.toString());
+			st.delete(st.length() - 2, st.length());
+			st.append(Database.getSeparator());
+			ArrayList<PromoSet> promoSet = orderItem.getPromoSet();
+			for (int i = 0; i < order.getPromoSet().size(); i++) {
+				st.append(promoSet.get(i).getSetID());
+				st.append(Database.getTXTSeparator());
+				st.append(promoSet.get(i).getOrderedQuantity());
+				st.append(Database.getTXTSeparator());
+				st.append(promoSet.get(i).getOrderedQuantity() * promoSet.get(i).getSetPrice());
+				;
+				st.append(Database.getTXTSeparator());
+			}
+			st.delete(st.length() - 2, st.length());
+			alw.add(st.toString());
+		}
         Database.getRwFile().write(ITEMSFILENAME, alw);
 	}
 	
-	private boolean callRead() throws Exception {
+	private boolean callRead(){
 		try {
 			readOrderItem();
 			return true;
@@ -159,6 +184,16 @@ public class Order implements OrderInterface{
 			Database.getGui().displayStringsB("IOException > " + e.getMessage());
 		}
 		return false;
+	}
+	public String[] listToStringArray(List<String> orderlist) {
+		
+		String[] newlist = new String[orderlist.size()];
+		for(int i=0; i<orderlist.size();i++)
+		{
+			newlist[i] = orderlist.get(i);
+		}
+		
+		return newlist;
 	}
 }
  
