@@ -144,8 +144,10 @@ public class OrderController extends Controller{
 		getGui().displayTitle("Update Exisiting Orders");
 		getGui().displayStringsB("Enter Order ID: ");
 		int orderId = sc.nextInt();
+		getGui().displayStringsB("Choose item to update ");
 		String[] orderlist = getDb().getOrder().printSpecificOrder(orderId);
-		getGui().detectChoice(orderlist);
+		int choice = getGui().detectChoice(orderlist);
+		
 		
 	}
 	
