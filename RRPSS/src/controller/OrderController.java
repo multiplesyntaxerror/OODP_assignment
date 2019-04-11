@@ -95,7 +95,7 @@ public class OrderController extends Controller{
 							order.getOrder().add(item);
 						}
 						else {
-							addItemToOrder(order,item);						
+							addItemToNewOrder(order,item);						
 						}
 					}
 				} while(item != null);
@@ -114,7 +114,7 @@ public class OrderController extends Controller{
 							order.getPromoSet().add(set);
 						}
 						else {
-							addPromoSetToOrder(order,set);
+							addPromoSetToNewOrder(order,set);
 						}
 					}
 				} while(set != null);
@@ -150,10 +150,16 @@ public class OrderController extends Controller{
 			int qtyToRemove = sc.nextInt();
 
 			if (choice <= getDb().getOrder().getAllOrders().get(orderId - 1).getOrder().size()) {
-				getDb().getOrder().removeMenuItemOrder(orderId, choice, qtyToRemove);
+				boolean removed = getDb().getOrder().removeMenuItemOrder(orderId, choice, qtyToRemove);
+				if(removed == true) {
+					getGui().displayStringsB("Item Successfully Removed!");
+				}
 			} else {
 				choice = choice - getDb().getOrder().getAllOrders().get(orderId - 1).getOrder().size();
-				getDb().getOrder().removePromoSetOrder(orderId, choice, qtyToRemove);
+				boolean removedP = getDb().getOrder().removePromoSetOrder(orderId, choice, qtyToRemove);
+				if(removedP == true) {
+					getGui().displayStringsB("PromoSet Successfully Removed!");
+				}
 			}
 		}
 		else {
@@ -191,7 +197,7 @@ public class OrderController extends Controller{
 								getGui().displayStringsB("Order Updated!");
 							}
 							else {
-								getGui().displayStringsB("Order Not Created!");
+								getGui().displayStringsB("Order Not Updated!");
 							}
 						}
 					} while (item != null);
@@ -210,7 +216,7 @@ public class OrderController extends Controller{
 								getGui().displayStringsB("Order Updated!");
 							}
 							else {
-								getGui().displayStringsB("Order Not Created!");
+								getGui().displayStringsB("Order Not Updated!");
 							}
 						} 
 					} while (set != null);
@@ -223,7 +229,7 @@ public class OrderController extends Controller{
 		}
 	}
 	
-	public void addItemToOrder(OrderItem order, MenuItem item) {
+	public void addItemToNewOrder(OrderItem order, MenuItem item) {
 		boolean dupe = false;
 		for(int i = 0 ; i<order.getOrder().size(); i++) {
 			if(order.getOrder().get(i).getName().equals(item.getName())) {
@@ -236,21 +242,8 @@ public class OrderController extends Controller{
 			order.getOrder().add(item);
 		}
 	}
-	public void removeItemFromOrder(OrderItem order, MenuItem item) {
-		boolean dupe= false;
-		for(int i = 0 ; i<order.getOrder().size(); i++) {
-			if(order.getOrder().get(i).getName().equals(item.getName())) {
-				order.getOrder().get(i).addOrderedQuantity(item.getOrderedQuantity());
-				dupe = true;
-				break;
-			}
-		}
-		if(dupe == false) {
-			System.out.println("The item has not been ordered!");
-		}
-	}
 	
-	public void addPromoSetToOrder(OrderItem order, PromoSet promoSet){
+	public void addPromoSetToNewOrder(OrderItem order, PromoSet promoSet){
 		boolean dupe = false;
 		for(int i = 0 ; i<order.getPromoSet().size(); i++) {
 			if(order.getPromoSet().get(i).getSetID()==(promoSet.getSetID())) {
@@ -264,19 +257,6 @@ public class OrderController extends Controller{
 		}
 	}
 	
-	public void removePromoSetFromOrder(OrderItem order, PromoSet promoSet) {
-		boolean dupe = false;
-		for(int i = 0 ;  i<order.getPromoSet().size(); i++) {
-			if(order.getPromoSet().get(i).getSetID()==(promoSet.getSetID())){
-				order.getPromoSet().get(i).addOrderedQuantity(promoSet.getOrderedQuantity());
-				dupe = true; 
-				break;
-			} 
-		}
-		if(dupe==false) {
-			System.out.println("The item has not been ordered!");
-		}
-	}
 	
 	public void viewOrder(){
 		boolean updated = getDb().getOrder().printOrder();

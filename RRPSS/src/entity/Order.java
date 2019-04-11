@@ -43,61 +43,71 @@ public class Order implements OrderInterface{
 	public boolean updateMenuItemOrder(MenuItem item, int orderID) {
 		callRead();
 		boolean dupe = false;
+		boolean updated = false;
 		ArrayList<MenuItem> currentOrder = allOrders.get(orderID-1).getOrder();
 		for(int i = 0 ; i < currentOrder.size(); i++) {
 			if(currentOrder.get(i).getName().equals(item.getName())){
 				allOrders.get(orderID-1).getOrder().get(i).addOrderedQuantity(item.getOrderedQuantity());
 				dupe = true; 
+				updated = true;
 				break;
 			} 
 		}
 		if(dupe == false) {
 			allOrders.get(orderID-1).getOrder().add(item);
+			updated = true;
 		}
 		callWrite();
-		return true;
+		return updated;
 	}
 
 	public boolean removeMenuItemOrder(int orderID, int choice, int qty) {
 		callRead();	
+		boolean updated = false;
 		if(qty <= allOrders.get(orderID-1).getOrder().get(choice-1).getOrderedQuantity()) {
 			allOrders.get(orderID-1).getOrder().get(choice-1).addOrderedQuantity(-qty);	
+			updated = true;
 		}
 		else {
-			System.out.println("The item has not been ordered that many times!");
+			Database.getGui().displayStringsB("The item has not been ordered that many times!");
 		}
 		callWrite();
-		return true;
+		return updated;
 	}
 	
 	public boolean updatePromoSetOrder(PromoSet set, int orderID) {
 		callRead();
 		boolean dupe = false;
+		boolean updated = false;
 		ArrayList<PromoSet> promoSet = allOrders.get(orderID-1).getPromoSet();
 		for(int i = 0 ; i < promoSet.size(); i++) {
 			if(promoSet.get(i).getSetID() == set.getSetID()){
 				allOrders.get(orderID-1).getPromoSet().get(i).addOrderedQuantity(set.getOrderedQuantity());
 				dupe = true;
+				updated = true;
 				break;
 			} 
 		} 
 		if(dupe == false) {
 			allOrders.get(orderID-1).getPromoSet().add(set);
+			updated = true;
 		}
 		callWrite();
-		return true;
+		return updated;
 	}
 	
 	public boolean removePromoSetOrder(int orderID, int choice, int qty) {
 		callRead();	
+		boolean updated = false;
 		if(qty <= allOrders.get(orderID-1).getPromoSet().get(choice-1).getOrderedQuantity()) {
 			allOrders.get(orderID-1).getPromoSet().get(choice-1).addOrderedQuantity(-qty);	
+			updated = true;
 		}
 		else {
-			System.out.println("The item has not been ordered that many times!");
+			Database.getGui().displayStringsB("The item has not been ordered that many times!");
 		}
 		callWrite();
-		return true;
+		return updated;
 	}
 	 
 	public boolean printOrder(){
@@ -161,6 +171,7 @@ public class Order implements OrderInterface{
 			
 			if(!star.hasMoreElements())break;
 			int orderID = Integer.parseInt(star.nextToken());
+			String printed = star.nextToken().trim();
 			String nameAndDate = star.nextToken().trim();
 			StringTokenizer star2 = new StringTokenizer(nameAndDate, Database.getTXTSeparator());	
 			String name = star2.nextToken().trim();
@@ -197,47 +208,66 @@ public class Order implements OrderInterface{
 			}
 			staff.setName(name);
 			OrderItem od = new OrderItem(orderID,date,alaCarte,promoSet, staff);
+			od.setPrintedInvoice(printed);
 			allOrders.add(od);
 		}
 	}
 	
 	private void writeOrderItem() throws IOException {	
-		List alw = new ArrayList() ;
+		List alw = new ArrayList();
+		boolean hasMenuItem = false;
+		boolean hasPromoSet = false;
 		for(int k = 0; k<allOrders.size();k++) {
 			OrderItem orderItem = (OrderItem)allOrders.get(k);
-			StringBuilder st = new StringBuilder() ;
-			st.append(k+1);
-			st.append(Database.getSeparator());
-			st.append(orderItem.getStaff().getName());
-			st.append(Database.getTXTSeparator());
-			st.append(orderItem.getDate());
-			st.append(Database.getSeparator());
-			ArrayList<MenuItem> menuItem = orderItem.getOrder();
-			for (int j = 0; j < menuItem.size(); j++) {
-				if(menuItem.get(j).getOrderedQuantity()>0) {
-					st.append(menuItem.get(j).getName());
-					st.append(Database.getTXTSeparator());
-					st.append(menuItem.get(j).getOrderedQuantity());
-					st.append(Database.getTXTSeparator());
-					st.append((double)menuItem.get(j).getOrderedQuantity() * (double)menuItem.get(j).getPrice());
-					st.append(Database.getTXTSeparator());
+			for(int n = 0; n<orderItem.getOrder().size();n++) {
+				if(orderItem.getOrder().get(n).getOrderedQuantity() > 0) {
+					hasMenuItem = true;
+					break;
 				}
 			}
-			st.delete(st.length() - 2, st.length()); 
-			st.append(Database.getSeparator());
-			ArrayList<PromoSet> promoSet = orderItem.getPromoSet();
-			for (int i = 0; i < promoSet.size(); i++) {
-				if(promoSet.get(i).getOrderedQuantity()>0) {
-					st.append(promoSet.get(i).getSetID());
-					st.append(Database.getTXTSeparator());
-					st.append(promoSet.get(i).getOrderedQuantity());
-					st.append(Database.getTXTSeparator());
-					st.append((double)promoSet.get(i).getOrderedQuantity() * (double)promoSet.get(i).getSetPrice());
-					st.append(Database.getTXTSeparator());
+			for(int n = 0; n<orderItem.getPromoSet().size();n++) {
+				if(orderItem.getPromoSet().get(n).getOrderedQuantity() > 0) {
+					hasPromoSet = true;
+					break;
 				}
 			}
-			st.delete(st.length() - 2, st.length());
-			alw.add(st.toString());
+			if(hasMenuItem==true || hasPromoSet == true) {
+				StringBuilder st = new StringBuilder() ;
+				st.append(k+1); 
+				st.append(Database.getSeparator());
+				st.append(orderItem.getPrintedInvoice());
+				st.append(Database.getSeparator());
+				st.append(orderItem.getStaff().getName());
+				st.append(Database.getTXTSeparator());
+				st.append(orderItem.getDate());
+				st.append(Database.getSeparator());
+				ArrayList<MenuItem> menuItem = orderItem.getOrder();
+				for (int j = 0; j < menuItem.size(); j++) {
+					if(menuItem.get(j).getOrderedQuantity()>0) {
+						st.append(menuItem.get(j).getName());
+						st.append(Database.getTXTSeparator());
+						st.append(menuItem.get(j).getOrderedQuantity());
+						st.append(Database.getTXTSeparator());
+						st.append((double)menuItem.get(j).getOrderedQuantity() * (double)menuItem.get(j).getPrice());
+						st.append(Database.getTXTSeparator());
+					}
+				}
+				st.delete(st.length() - 2, st.length()); 
+				st.append(Database.getSeparator());
+				ArrayList<PromoSet> promoSet = orderItem.getPromoSet();
+				for (int i = 0; i < promoSet.size(); i++) {
+					if(promoSet.get(i).getOrderedQuantity()>0) {
+						st.append(promoSet.get(i).getSetID());
+						st.append(Database.getTXTSeparator());
+						st.append(promoSet.get(i).getOrderedQuantity());
+						st.append(Database.getTXTSeparator());
+						st.append((double)promoSet.get(i).getOrderedQuantity() * (double)promoSet.get(i).getSetPrice());
+						st.append(Database.getTXTSeparator());
+					}
+				}
+				st.delete(st.length() - 2, st.length());
+				alw.add(st.toString());
+			}
 		}
         Database.getRwFile().write(ITEMSFILENAME, alw);
 	}

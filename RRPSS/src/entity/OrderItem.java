@@ -12,7 +12,7 @@ public class OrderItem {
 	private ArrayList<MenuItem> order = new ArrayList<MenuItem>();
 	private ArrayList<PromoSet> set = new ArrayList<PromoSet>();
 	private Staff staff;
-	private boolean printedInvoice = false;
+	private String printedInvoice = "false";
 	
 	public OrderItem(int orderId, String date, ArrayList<MenuItem> order, ArrayList<PromoSet> promoSet, Staff staff){
 		this.orderId = orderId;
@@ -70,10 +70,10 @@ public class OrderItem {
 		this.staff = staff;
 	}
 	
-	public boolean isPrintedInvoice() {
+	public String getPrintedInvoice() {
 		return printedInvoice;
 	}
-	public void setPrintedInvoice(boolean printedInvoice) {
+	public void setPrintedInvoice(String printedInvoice) {
 		this.printedInvoice = printedInvoice;
 	}
 }
