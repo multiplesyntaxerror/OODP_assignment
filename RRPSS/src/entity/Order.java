@@ -16,6 +16,11 @@ public class Order implements OrderInterface{
 	private ArrayList<OrderItem> allOrders = new ArrayList<OrderItem>();
 	
 	
+	public ArrayList<OrderItem> getAllOrders(){
+		callRead();
+		return this.allOrders;
+	}
+	
 	public boolean createOrder(OrderItem order) {
 		callRead();
 		allOrders.add(order);
@@ -23,9 +28,16 @@ public class Order implements OrderInterface{
 		return true;
 	}
 	
-	public int createOrderID() throws IOException {
-		ArrayList<String> stringArray = (ArrayList<String>) Database.getRwFile().read(ITEMSFILENAME);
-		return stringArray.size()+1;
+	public int findOrderID() {
+		ArrayList<String> stringArray;
+		try {
+			stringArray = (ArrayList<String>) Database.getRwFile().read(ITEMSFILENAME);
+			return stringArray.size();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
 	}
 	
 	public boolean updateMenuItemOrder(MenuItem item, int orderID) {
@@ -45,6 +57,18 @@ public class Order implements OrderInterface{
 		callWrite();
 		return true;
 	}
+
+	public boolean removeMenuItemOrder(int orderID, int choice, int qty) {
+		callRead();	
+		if(qty <= allOrders.get(orderID-1).getOrder().get(choice-1).getOrderedQuantity()) {
+			allOrders.get(orderID-1).getOrder().get(choice-1).addOrderedQuantity(-qty);	
+		}
+		else {
+			System.out.println("The item has not been ordered that many times!");
+		}
+		callWrite();
+		return true;
+	}
 	
 	public boolean updatePromoSetOrder(PromoSet set, int orderID) {
 		callRead();
@@ -56,9 +80,21 @@ public class Order implements OrderInterface{
 				dupe = true;
 				break;
 			} 
-		}
+		} 
 		if(dupe == false) {
 			allOrders.get(orderID-1).getPromoSet().add(set);
+		}
+		callWrite();
+		return true;
+	}
+	
+	public boolean removePromoSetOrder(int orderID, int choice, int qty) {
+		callRead();	
+		if(qty <= allOrders.get(orderID-1).getPromoSet().get(choice-1).getOrderedQuantity()) {
+			allOrders.get(orderID-1).getPromoSet().get(choice-1).addOrderedQuantity(-qty);	
+		}
+		else {
+			System.out.println("The item has not been ordered that many times!");
 		}
 		callWrite();
 		return true;
@@ -74,22 +110,22 @@ public class Order implements OrderInterface{
 				System.out.println(allOrders.get(i).getOrder().get(j).getName() + "   " + allOrders.get(i).getOrder().get(j).getOrderedQuantity());
 			}
 			for(int k = 0; k<allOrders.get(i).getPromoSet().size();k++) {
-				System.out.println(allOrders.get(i).getPromoSet().get(k).getSetID() + "   " + allOrders.get(i).getPromoSet().get(k).getOrderedQuantity());
+				System.out.println("PromoSet " + allOrders.get(i).getPromoSet().get(k).getSetID() + "   " + allOrders.get(i).getPromoSet().get(k).getOrderedQuantity());
 			}
+			System.out.println();
 		}
 		return true;
 	}
 	
 	public String[] getSpecificOrder(int orderID) {
+		callRead();
 		List<String> ordereditems = new ArrayList<>();
 		System.out.println("Order ID:" + allOrders.get(orderID-1).getOrderId());
 		for(int j = 0; j<allOrders.get(orderID-1).getOrder().size();j++) {
 			ordereditems.add(allOrders.get(orderID-1).getOrder().get(j).getName());
-			System.out.println(allOrders.get(orderID-1).getOrder().get(j).getName() + "   " + allOrders.get(orderID-1).getOrder().get(j).getOrderedQuantity());
 		}
 		for(int k = 0; k<allOrders.get(orderID-1).getPromoSet().size();k++) {
-			ordereditems.add(allOrders.get(orderID-1).getPromoSet().get(k).getSetDescription());
-			System.out.println(allOrders.get(orderID-1).getPromoSet().get(k).getSetID() + "   " + allOrders.get(orderID-1).getPromoSet().get(k).getOrderedQuantity());
+			ordereditems.add("Set: " + ((Integer)allOrders.get(orderID-1).getPromoSet().get(k).getSetID()).toString());
 		}
 		String[] newlist = listToStringArray(ordereditems);
 		return  newlist;
@@ -97,12 +133,15 @@ public class Order implements OrderInterface{
 	
 	
 	public void printSpecificOrder(int orderID) {
-		System.out.println("Order ID:" + allOrders.get(orderID-1).getOrderId());
+		callRead();
+		System.out.println("Order ID: " + allOrders.get(orderID-1).getOrderId());
+		System.out.println("Staff: " + allOrders.get(orderID-1).getStaff().getName());
+		System.out.println("Date:" + allOrders.get(orderID-1).getDate());
 		for(int j = 0; j<allOrders.get(orderID-1).getOrder().size();j++) {
 			System.out.println(allOrders.get(orderID-1).getOrder().get(j).getName() + "   " + allOrders.get(orderID-1).getOrder().get(j).getOrderedQuantity());
 		}
 		for(int k = 0; k<allOrders.get(orderID-1).getPromoSet().size();k++) {
-			System.out.println(allOrders.get(orderID-1).getPromoSet().get(k).getSetID() + "   " + allOrders.get(orderID-1).getPromoSet().get(k).getOrderedQuantity());
+			System.out.println("PromoSet: " + allOrders.get(orderID-1).getPromoSet().get(k).getSetID() + "   " + allOrders.get(orderID-1).getPromoSet().get(k).getOrderedQuantity());
 		}
 	}
 	
@@ -137,6 +176,7 @@ public class Order implements OrderInterface{
 					double price = Double.parseDouble(star3.nextToken().trim());
 					double iPrice = price/qtyOrdered;
 					MainCourse temp = new MainCourse(menuItemName,"",iPrice,qtyOrdered);
+					temp.setType("alaCarte");
 					alaCarte.add(temp);
 				}
 			}
@@ -174,23 +214,27 @@ public class Order implements OrderInterface{
 			st.append(Database.getSeparator());
 			ArrayList<MenuItem> menuItem = orderItem.getOrder();
 			for (int j = 0; j < menuItem.size(); j++) {
-				st.append(menuItem.get(j).getName());
-				st.append(Database.getTXTSeparator());
-				st.append(menuItem.get(j).getOrderedQuantity());
-				st.append(Database.getTXTSeparator());
-				st.append((double)menuItem.get(j).getOrderedQuantity() * (double)menuItem.get(j).getPrice());
-				st.append(Database.getTXTSeparator());
+				if(menuItem.get(j).getOrderedQuantity()>0) {
+					st.append(menuItem.get(j).getName());
+					st.append(Database.getTXTSeparator());
+					st.append(menuItem.get(j).getOrderedQuantity());
+					st.append(Database.getTXTSeparator());
+					st.append((double)menuItem.get(j).getOrderedQuantity() * (double)menuItem.get(j).getPrice());
+					st.append(Database.getTXTSeparator());
+				}
 			}
 			st.delete(st.length() - 2, st.length()); 
 			st.append(Database.getSeparator());
 			ArrayList<PromoSet> promoSet = orderItem.getPromoSet();
 			for (int i = 0; i < promoSet.size(); i++) {
-				st.append(promoSet.get(i).getSetID());
-				st.append(Database.getTXTSeparator());
-				st.append(promoSet.get(i).getOrderedQuantity());
-				st.append(Database.getTXTSeparator());
-				st.append((double)promoSet.get(i).getOrderedQuantity() * (double)promoSet.get(i).getSetPrice());
-				st.append(Database.getTXTSeparator());
+				if(promoSet.get(i).getOrderedQuantity()>0) {
+					st.append(promoSet.get(i).getSetID());
+					st.append(Database.getTXTSeparator());
+					st.append(promoSet.get(i).getOrderedQuantity());
+					st.append(Database.getTXTSeparator());
+					st.append((double)promoSet.get(i).getOrderedQuantity() * (double)promoSet.get(i).getSetPrice());
+					st.append(Database.getTXTSeparator());
+				}
 			}
 			st.delete(st.length() - 2, st.length());
 			alw.add(st.toString());

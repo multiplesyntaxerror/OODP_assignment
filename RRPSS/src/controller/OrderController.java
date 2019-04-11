@@ -28,9 +28,9 @@ public class OrderController extends Controller{
 		
 		String[] orderOptions = {
 				"Create New Order",
-				"Update Order",
+				"Add Item To Existing Order",
 				"Remove Item From Existing Order",
-				"Delete Existing Order",
+				"View Specific Order",
 				"View Existing Order",
 				"Back"
 		};
@@ -43,9 +43,9 @@ public class OrderController extends Controller{
 				break;
 			case 2: addItemToExistingOrder();
 				break;
-			case 3:
+			case 3: removeItemFromExistingOrder();
 				break;
-			case 4: 
+			case 4: viewSpecificOrder();
 				break;
 			case 5: viewOrder();
 				break;
@@ -137,14 +137,29 @@ public class OrderController extends Controller{
 		}while(choice == 1 || choice == 2);
 	}
 	
-	public void updateOrder() {
+	public void removeItemFromExistingOrder() {
 		Scanner sc = new Scanner(System.in);
 		getGui().displayTitle("Update Exisiting Orders");
 		getGui().displayStringsB("Enter Order ID: ");
 		int orderId = sc.nextInt();
-		getGui().displayStringsB("Choose item to update ");
-		String[] orderlist = getDb().getOrder().getSpecificOrder(orderId);
-		int choice = getGui().detectChoice(orderlist);	
+		if(orderId <= getDb().getOrder().findOrderID()) {
+			getGui().displayStringsB("Choose item to update ");
+			String[] orderlist = getDb().getOrder().getSpecificOrder(orderId);
+			int choice = getGui().detectChoice(orderlist);
+			getGui().displayTitle("Enter quantity to remove: ");
+			int qtyToRemove = sc.nextInt();
+
+			if (choice <= getDb().getOrder().getAllOrders().get(orderId - 1).getOrder().size()) {
+				getDb().getOrder().removeMenuItemOrder(orderId, choice, qtyToRemove);
+			} else {
+				choice = choice - getDb().getOrder().getAllOrders().get(orderId - 1).getOrder().size();
+				getDb().getOrder().removePromoSetOrder(orderId, choice, qtyToRemove);
+			}
+		}
+		else {
+			getGui().displayStringsB("Order Does not exist!");
+		}
+		
 	}
 	
 	public void addItemToExistingOrder() {
@@ -154,53 +169,58 @@ public class OrderController extends Controller{
 		getGui().displayTitle("Adding Item To Exisiting Orders");
 		getGui().displayStringsB("Enter Order ID: ");
 		int orderId = sc.nextInt();
-		int choice;
-		do {
-			getGui().displayStringsB("Add Ala Carte Or Promo Set : ");
-			System.out.println("1 : Ala Carte");
-			System.out.println("2 : Promo Set");
-			System.out.println("3 : Done");
-			choice = sc.nextInt();
-			switch (choice) {
-			case 1:
-				do {
-					getGui().displayStringsB("Enter Choice To Add Item Into Order: ");
-					item = getDb().getMenu().pickMenuItems("Done");
-					if (item != null) {
-						getGui().displayStrings("Enter Quantity: ");
-						int qty = sc.nextInt();
-						item.setOrderedQuantity(qty);
-						boolean updated = getDb().getOrder().updateMenuItemOrder(item, orderId);
-						if(updated == true) {
-							getGui().displayStringsB("Order Updated!");
+		if(orderId <= getDb().getOrder().findOrderID()) {
+			int choice;
+			do {
+				getGui().displayStringsB("Add Ala Carte Or Promo Set : ");
+				System.out.println("1 : Ala Carte");
+				System.out.println("2 : Promo Set");
+				System.out.println("3 : Done");
+				choice = sc.nextInt();
+				switch (choice) {
+				case 1:
+					do {
+						getGui().displayStringsB("Enter Choice To Add Item Into Order: ");
+						item = getDb().getMenu().pickMenuItems("Done");
+						if (item != null) {
+							getGui().displayStrings("Enter Quantity: ");
+							int qty = sc.nextInt();
+							item.setOrderedQuantity(qty);
+							boolean updated = getDb().getOrder().updateMenuItemOrder(item, orderId);
+							if(updated == true) {
+								getGui().displayStringsB("Order Updated!");
+							}
+							else {
+								getGui().displayStringsB("Order Not Created!");
+							}
 						}
-						else {
-							getGui().displayStringsB("Order Not Created!");
-						}
-					}
-				} while (item != null);
-				break;
+					} while (item != null);
+					break;
 
-			case 2:
-				do { 
-					getGui().displayStringsB("Enter Choice To Add Item Into Order: ");
-					set = getDb().getMenu().pickPromoSet("Done");
-					if (set != null) {
-						getGui().displayStrings("Enter Quantity: ");
-						int qty = sc.nextInt();
-						set.setOrderedQuantity(qty);
-						boolean updated = getDb().getOrder().updatePromoSetOrder(set, orderId);
-						if(updated == true) {
-							getGui().displayStringsB("Order Updated!");
-						}
-						else {
-							getGui().displayStringsB("Order Not Created!");
-						}
-					} 
-				} while (set != null);
-				break; 
-			}
-		} while (choice == 1 || choice == 2);
+				case 2:
+					do { 
+						getGui().displayStringsB("Enter Choice To Add Item Into Order: ");
+						set = getDb().getMenu().pickPromoSet("Done");
+						if (set != null) {
+							getGui().displayStrings("Enter Quantity: ");
+							int qty = sc.nextInt();
+							set.setOrderedQuantity(qty);
+							boolean updated = getDb().getOrder().updatePromoSetOrder(set, orderId);
+							if(updated == true) {
+								getGui().displayStringsB("Order Updated!");
+							}
+							else {
+								getGui().displayStringsB("Order Not Created!");
+							}
+						} 
+					} while (set != null);
+					break; 
+				}
+			} while (choice == 1 || choice == 2);
+		}
+		else {
+			getGui().displayStringsB("Order Does not exist!");
+		}
 	}
 	
 	public void addItemToOrder(OrderItem order, MenuItem item) {
@@ -260,5 +280,17 @@ public class OrderController extends Controller{
 	
 	public void viewOrder(){
 		boolean updated = getDb().getOrder().printOrder();
+	}
+	
+	public void viewSpecificOrder() {
+		Scanner sc = new Scanner(System.in);
+		getGui().displayStringsB("Enter OrderID: ");
+		int orderId = sc.nextInt();
+		if(orderId <= getDb().getOrder().findOrderID()) {
+			getDb().getOrder().printSpecificOrder(orderId);
+		}
+		else {
+			getGui().displayStringsB("Order Does not exist!");
+		}
 	}
 }
