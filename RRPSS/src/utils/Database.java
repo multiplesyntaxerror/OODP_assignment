@@ -28,7 +28,7 @@ public class Database {
 	private Menu menu;
 	private Order order;
 	
-	private static Table[] table;
+	private Table[] table;
 	
 	/** 
 	 * Initialize data.
@@ -38,22 +38,26 @@ public class Database {
 		menu = new Menu();
 		order = new Order();
 		table = new Table[30];
-		for(int i =0; i<table.length; i++) {
+		for(int i = 0; i<table.length; i++) {
 			table[i] = new Table();
-			table[i].setTableid(i);
+			table[i].setTableid(i + 1);
 			if(i<10) {
 				table[i].setSeatno(2);
 			}
 			if(i>=10 && i<20) {
 				table[i].setSeatno(4);
 			}
-			if(i>=20 && i<25) {
+			if(i>=20 && i<25) { 
 				table[i].setSeatno(8);
 			}
 			if(i>=25 && i<30) {
 				table[i].setSeatno(10);
 			}
 		}
+	}
+
+	public Table[] getTable() {
+		return table;
 	}
 
 	/**

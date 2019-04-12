@@ -93,7 +93,7 @@ public class OrderController extends Controller{
 			getGui().displayStringsB("Order Ala Carte Or Promo Set: ");
 			
 			choice = getGui().detectChoice(options);
-			
+			 
 			switch(choice) {
 			case 1:
 
@@ -141,6 +141,8 @@ public class OrderController extends Controller{
 					boolean created = getDb().getOrder().createOrder(order);
 					if(created == true) {
 						getGui().displayStringsB("Order Created!");
+						getDb().getTable()[tableId - 1].setOccupied(true);
+						int test = 0;
 					}
 					else if(created != true){
 						getGui().displayStringsB("Order not Created!");

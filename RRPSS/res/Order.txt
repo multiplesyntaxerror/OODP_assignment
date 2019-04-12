@@ -1,2 +1,1 @@
-1|2|false|lin**12-04-2019 08:08 PM|Jack's Special Steak**2**59.80**Tiger Beer**2**17.80|2**2**25.00
-2|3|false|bryn**12-04-2019 08:10 PM|Tiger Beer**2**17.80|1**1**34.90
+1|3|false|de**12-04-2019 10:52 PM|Jack's Special Steak**1**29.90

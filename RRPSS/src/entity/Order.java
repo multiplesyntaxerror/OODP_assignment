@@ -13,6 +13,7 @@ public class Order implements OrderInterface{
 	private static final String ITEMSFILENAME = "res/Order.txt";
 	private ArrayList<OrderItem> allOrders = new ArrayList<OrderItem>();
 	
+	
 	public ArrayList<OrderItem> getAllOrders(){
 		callRead();
 		return this.allOrders;
@@ -120,7 +121,7 @@ public class Order implements OrderInterface{
 		return true;
 	}
 	
-	public OrderItem pickOrderItems(String text) {
+	public OrderItem pickOrderItems(String text) { 
 		callRead();
 		Database.getGui().displayStringsB("");
 		OrderItem order = null;
@@ -236,7 +237,7 @@ public class Order implements OrderInterface{
 								PromoSet temp2  = new PromoSet("",null,iPrice_p); 
 								temp2.setSetID(setID);
 								temp2.setOrderedQuantity(qtyOrdered_p); 
-								promoSet.add(temp2);
+								promoSet.add(temp2); 
 							}
 						} catch (NumberFormatException e) {
 							for(int j = 0; j<star3.countTokens(); j++) {
@@ -275,7 +276,6 @@ public class Order implements OrderInterface{
 		boolean hasPromoSet;
 		int id = 0;
 		for(int k = 0; k<allOrders.size();k++) {
-			System.out.println(id);
 			hasMenuItem = false;
 			hasPromoSet = false;
 			OrderItem orderItem = (OrderItem)allOrders.get(k);
