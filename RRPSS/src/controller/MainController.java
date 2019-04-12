@@ -44,7 +44,6 @@ public class MainController {
 				"Order Options",
 				"Booking Options",
 				"Billing Options",
-				"Print Sales Revenue",
 				"Exit System"
 		};
 
@@ -60,7 +59,6 @@ public class MainController {
 //			choice = 2;
 //			choice = 3;
 //			choice = 4;
-//			choice = 5;
 			
 			switch(choice) {
 				case 1:
@@ -70,12 +68,10 @@ public class MainController {
 					oc.run(db);
 					break;
 				case 3:
-					bc.run(db);
+					boc.run(db);
 					break;
 				case 4:
-					bc.run(db);
-					break;
-				case 5:
+					bic.run(db);
 					break;
 				case 6:
 					db.getGui().displayTitle("Exiting System...");

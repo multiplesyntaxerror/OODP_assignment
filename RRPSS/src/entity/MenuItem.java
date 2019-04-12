@@ -127,6 +127,11 @@ public abstract class MenuItem {
 		this.orderedQuantity = orderedQuantity;
 	}
 	
+	/**
+	 * Increases the ordered quantity.
+	 *
+	 * @param orderedQuantity the ordered quantity to be added
+	 */
 	public void addOrderedQuantity(int orderedQuantity) {
 		this.orderedQuantity += orderedQuantity;
 	}

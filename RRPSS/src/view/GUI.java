@@ -19,6 +19,11 @@ public class GUI {
 		System.out.println(title);
 		System.out.println("-----------------------------------------------------------------------");
 	}
+	
+	public void displayRow(String title){
+		System.out.println(title);
+		System.out.println("-----------------------------------");
+	}
 
 	/**
 	 * Display strings with new line.

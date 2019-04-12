@@ -3,6 +3,7 @@ package controller;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import entity.MenuItem;
@@ -69,11 +70,21 @@ public class OrderController extends Controller{
 				getGui().displayStringsB("Please Enter Something.\n");
 		} while (name.isEmpty());
 		
+		int tableId = 0;
+		do {
+			try {
+				getGui().displayStrings("Enter Table Number: ");
+				tableId = sc.nextInt();
+				if (tableId <= 0 || tableId > 30) 
+					getGui().displayStringsB("Table Only Ranges From 1-30.\n");
+			} catch(InputMismatchException e) {
+				getGui().displayStringsB("ERROR: Your Input Is Invalid.\n");
+				sc.nextLine();
+			}
+		} while (tableId <= 0 || tableId > 30);
 		
-		getGui().displayStrings("Enter Table ID: ");
-		int tableId = sc.nextInt();
 
-		OrderItem order = new OrderItem(0, null, alaCarteOrder, promoSetOrder,server);
+		OrderItem order = new OrderItem(0, tableId, server, null, 0, alaCarteOrder, promoSetOrder, false);
 		
 		String pattern = "dd-MM-yyyy hh:mm a";
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
@@ -91,14 +102,10 @@ public class OrderController extends Controller{
 			};
 			
 			getGui().displayStringsB("Order Ala Carte Or Promo Set: ");
-			
 			choice = getGui().detectChoice(options);
-			 
 			switch(choice) {
 			case 1:
-
 				MenuItem item;
-				// addAlcart
 				do {
 					getGui().displayStringsB("Enter Choice Of Item To Add Into Order: ");
 					item = getDb().getMenu().pickMenuItems("Done");
@@ -107,8 +114,8 @@ public class OrderController extends Controller{
 						int qty = sc.nextInt();
 						item.setOrderedQuantity(qty);
 					
-						if(order.getAlaCart().size() == 0) {
-							order.getAlaCart().add(item);
+						if(order.getAlaCarte().size() == 0) {
+							order.getAlaCarte().add(item);
 						}
 						else {
 							addItemToNewOrder(order, item);						
@@ -137,12 +144,11 @@ public class OrderController extends Controller{
 				} while(set != null);
 				break;
 			case 3:
-				if(order.getAlaCart().size() != 0 || order.getPromoSet().size() != 0) {
+				if(order.getAlaCarte().size() != 0 || order.getPromoSet().size() != 0) {
 					boolean created = getDb().getOrder().createOrder(order);
 					if(created == true) {
 						getGui().displayStringsB("Order Created!");
 						getDb().getTable()[tableId - 1].setOccupied(true);
-						int test = 0;
 					}
 					else if(created != true){
 						getGui().displayStringsB("Order not Created!");
@@ -171,13 +177,13 @@ public class OrderController extends Controller{
 			getGui().displayStrings("Enter quantity to remove: ");
 			int qtyToRemove = sc.nextInt();
 
-			if (choice <= getDb().getOrder().getAllOrders().get(order.getOrderId() - 1).getAlaCart().size()) {
+			if (choice <= getDb().getOrder().getAllOrders().get(order.getOrderId() - 1).getAlaCarte().size()) {
 				boolean removed = getDb().getOrder().removeMenuItemOrder(order.getOrderId(), choice, qtyToRemove);
 				if(removed == true) {
 					getGui().displayStringsB("Item Successfully Removed!");
 				}
 			} else {
-				choice = choice - getDb().getOrder().getAllOrders().get(order.getOrderId() - 1).getAlaCart().size();
+				choice = choice - getDb().getOrder().getAllOrders().get(order.getOrderId() - 1).getAlaCarte().size();
 				boolean removedP = getDb().getOrder().removePromoSetOrder(order.getOrderId(), choice, qtyToRemove);
 				if(removedP == true) {
 					getGui().displayStringsB("PromoSet Successfully Removed!");
@@ -257,15 +263,15 @@ public class OrderController extends Controller{
 	
 	public void addItemToNewOrder(OrderItem order, MenuItem item) {
 		boolean dupe = false;
-		for(int i = 0 ; i<order.getAlaCart().size(); i++) {
-			if(order.getAlaCart().get(i).getName().equals(item.getName())) {
-				order.getAlaCart().get(i).addOrderedQuantity(item.getOrderedQuantity());
+		for(int i = 0 ; i<order.getAlaCarte().size(); i++) {
+			if(order.getAlaCarte().get(i).getName().equals(item.getName())) {
+				order.getAlaCarte().get(i).addOrderedQuantity(item.getOrderedQuantity());
 				dupe = true;
 				break;
 			}
 		}
 		if(dupe == false) {
-			order.getAlaCart().add(item);
+			order.getAlaCarte().add(item);
 		}
 	}
 	

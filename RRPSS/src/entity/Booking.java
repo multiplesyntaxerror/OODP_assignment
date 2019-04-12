@@ -80,25 +80,14 @@ public class Booking implements BookingInterface {
 		}
 	}
 
-	private boolean callRead() {
-		try {
-			readBooking(FILENAME);
-			return true;
-		} catch (IOException e) {
-			System.out.println("IOException > " + e.getMessage());
+	public String displayTableAvailable(Database db) {
+		int count = 0;
+		for (int i = 0; i < db.getTable().length; i++) {
+			if (db.getTable()[i].getReserved() == false) {
+				count++;
+			}
 		}
-		return false;
-
-	}
-
-	private boolean callWrite() {
-		try {
-			writeBooking();
-			return true;
-		} catch (IOException e) {
-			System.out.println("IOException > " + e.getMessage());
-		}
-		return false;
+		return Integer.toString(count);
 	}
 
 	public ArrayList<Customer> readBooking(String filename) throws IOException {
@@ -141,14 +130,26 @@ public class Booking implements BookingInterface {
 		}
 		Database.getRwFile().write(FILENAME, alw);
 	}
-
-	public String displayTableAvailable(Database db) {
-		int count = 0;
-		for (int i = 0; i < db.getTable().length; i++) {
-			if (db.getTable()[i].getReserved() == false) {
-				count++;
-			}
+	
+	private boolean callRead() {
+		try {
+			readBooking(FILENAME);
+			return true;
+		} catch (IOException e) {
+			System.out.println("IOException > " + e.getMessage());
 		}
-		return Integer.toString(count);
+		return false;
+
 	}
+
+	private boolean callWrite() {
+		try {
+			writeBooking();
+			return true;
+		} catch (IOException e) {
+			System.out.println("IOException > " + e.getMessage());
+		}
+		return false;
+	}
+	
 }

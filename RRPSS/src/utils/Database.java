@@ -20,7 +20,8 @@ public class Database {
 	
 	/** The Constant SETSEPARATOR for promotional set. */
 	private static final String SETSEPARATOR = "+";
-	
+
+	/** The Constant TXTSEPARATOR for order. */
 	private static final String TXTSEPARATOR = "**";
 
 	/** The GUI. */
@@ -33,7 +34,7 @@ public class Database {
 	private Order order;
 	
 	/** the booking */
-	private static Booking book;
+	private Booking booking;
 	
 	private Table[] table;
 	
@@ -43,49 +44,33 @@ public class Database {
 	public void initializeData() {
 		gui = new GUI();
 		menu = new Menu();
-		order = new Order();\
-		book = new Booking(); 
+		order = new Order();
+		booking = new Booking();
+		
 		table = new Table[30];
 		for(int i = 0; i<table.length; i++) {
 			table[i] = new Table();
-			table[i].setTableid(i + 1);
+			table[i].setTableId(i + 1);
 			if(i<10) {
-				table[i].setSeatno(2);
+				table[i].setNoOfSeat(2);
 			}
 			if(i>=10 && i<20) {
-				table[i].setSeatno(4);
+				table[i].setNoOfSeat(4);
 			}
 			if(i>=20 && i<25) { 
-				table[i].setSeatno(8);
+				table[i].setNoOfSeat(8);
 			}
 			if(i>=25 && i<30) {
-				table[i].setSeatno(10);
+				table[i].setNoOfSeat(10);
 			}
 		}
 	}
-
-	public Table[] getTable() {
-		return table;
-	}
-
+	
 	/**
 	 * Gets the rw file.
 	 *
 	 * @return the rw file
 	 */
-	
-	public Table[] getTable() {
-		return table;
-	}
-	
-	public Booking getBooking() {
-		return book;
-	}
-
-	public static void setBooking(Booking book) {
-		Database.book = book;
-	}
-	
 	public static ReadWriteFile getRwFile() {
 		return rwFile;
 	}
@@ -106,6 +91,15 @@ public class Database {
 	 */
 	public static String getSetSeparator() {
 		return SETSEPARATOR;
+	}
+	
+	/**
+	 * Gets the order separator.
+	 *
+	 * @return the order separator
+	 */
+	public static String getTXTSeparator() {
+		return TXTSEPARATOR;
 	}
 	
 	/**
@@ -142,8 +136,16 @@ public class Database {
 	public void setOrder(Order order) {
 		this.order = order;
 	}
+	
+	public Booking getBooking() {
+		return booking;
+	}
 
-	public static String getTXTSeparator() {
-		return TXTSEPARATOR;
+	public void setBooking(Booking book) {
+		this.booking = book;
+	}
+
+	public Table[] getTable() {
+		return table;
 	}
 }

@@ -10,7 +10,6 @@ public class Bill implements BillingInterface{
 	
 	private ArrayList<MenuItem> menuitemlist = new ArrayList<MenuItem>();
 	private ArrayList<PromoSet> promoitemlist = new ArrayList<PromoSet>();
-
 	
 	GUI billgui = new GUI();
 	
@@ -43,7 +42,7 @@ public class Bill implements BillingInterface{
 		billgui.displayStringsB("Table: "+tablenum);
 		// print number of people 
 		billgui.displayStringsB("------------------");
-		menuitemlist = order.getAlaCart();
+		menuitemlist = order.getAlaCarte();
 		promoitemlist = order.getPromoSet();
 		MenuItem item;
 		PromoSet set;
@@ -111,14 +110,14 @@ public class Bill implements BillingInterface{
 		OrderItem order = null;
 		for(int i =0;i<orderList.size();i++)
 		{
-			if(tablenum==orderList.get(i).getTableId() && orderList.get(i).getPrintedInvoice().equals("false"))
+			if(tablenum==orderList.get(i).getTableId() && !orderList.get(i).getPrintedInvoice())
 			{
 				order = orderList.get(i); 
 				return order;
 			}
 		}
 		
-		return order; // return orderitem
+		return order;
 		
 	}
 	
@@ -151,7 +150,7 @@ public class Bill implements BillingInterface{
 				
 				if(period.equals(userdate)) 
 				{
-					ArrayList<MenuItem> menulist = temporder.getAlaCart();
+					ArrayList<MenuItem> menulist = temporder.getAlaCarte();
 					ArrayList<PromoSet> setlist= temporder.getPromoSet();
 					
 					for(int k=0;k<menulist.size();k++)
@@ -182,8 +181,7 @@ public class Bill implements BillingInterface{
 	}
 	
 	public String genReceiptNo(int orderid){
-
-
+		
 		String receiptnum = String.format("%05d", orderid);
 
 		return receiptnum;
