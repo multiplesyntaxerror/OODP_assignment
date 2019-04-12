@@ -70,12 +70,16 @@ public class OrderController extends Controller{
 		} while (name.isEmpty());
 		
 		
+		getGui().displayStrings("Enter Table ID: ");
+		int tableId = sc.nextInt();
+
 		OrderItem order = new OrderItem(0, null, alaCarteOrder, promoSetOrder,server);
 		
 		String pattern = "dd-MM-yyyy hh:mm a";
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 		String date = simpleDateFormat.format(new Date());
 		order.setDate(date);
+		order.setTable(tableId);
 		int choice;
 		
 		do {

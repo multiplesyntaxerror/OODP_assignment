@@ -1,2 +1,2 @@
-1|false|lin**12-04-2019 06:59 PM|Jack's Special Steak**2**59.80**Tiger Beer**2**17.80
-2|false|bry2**12-04-2019 07:00 PM|Bearnaise Steak**2**59.00|1**1**34.90
+1|2|false|lin**12-04-2019 08:08 PM|Jack's Special Steak**2**59.80**Tiger Beer**2**17.80|2**2**25.00
+2|3|false|bryn**12-04-2019 08:10 PM|Tiger Beer**2**17.80|1**1**34.90

@@ -13,7 +13,14 @@ public class OrderItem {
 	private ArrayList<PromoSet> set = new ArrayList<PromoSet>();
 	private Staff staff;
 	private String printedInvoice = "false";
+	private int tableID;
 	
+	public int getTable() {
+		return tableID;
+	}
+	public void setTable(int tableID) {
+		this.tableID = tableID;
+	}
 	public OrderItem(int orderId, String date, ArrayList<MenuItem> order, ArrayList<PromoSet> promoSet, Staff staff){
 		this.orderId = orderId;
 		this.date = date;

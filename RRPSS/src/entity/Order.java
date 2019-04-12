@@ -105,6 +105,7 @@ public class Order implements OrderInterface{
 		System.out.println("");
 		for(int i = 0 ; i < allOrders.size();i++) {
 			System.out.println("Order ID: " + allOrders.get(i).getOrderId());
+			System.out.println("Table ID: " + allOrders.get(i).getTable());
 			System.out.println("Staff: " + allOrders.get(i).getStaff().getName());
 			System.out.println("Date: \t" + allOrders.get(i).getDate());
 			
@@ -174,6 +175,7 @@ public class Order implements OrderInterface{
 	public void printSpecificOrder(int orderID) {
 		callRead();
 		System.out.println("Order ID: " + allOrders.get(orderID-1).getOrderId());
+		System.out.println("Table ID: " + allOrders.get(orderID-1).getTable());
 		System.out.println("Staff: " + allOrders.get(orderID-1).getStaff().getName());
 		System.out.println("Date:" + allOrders.get(orderID-1).getDate());
 		for(int j = 0; j<allOrders.get(orderID-1).getOrder().size();j++) {
@@ -200,6 +202,7 @@ public class Order implements OrderInterface{
 			
 			if(star.hasMoreElements()) {
 				int orderID = Integer.parseInt(star.nextToken());
+				int tableID = Integer.parseInt(star.nextToken());
 				String printed = star.nextToken().trim();
 				
 				String nameAndDate = star.nextToken().trim();
@@ -260,6 +263,7 @@ public class Order implements OrderInterface{
 				staff.setName(name);
 				OrderItem od = new OrderItem(orderID,date,alaCarte,promoSet, staff);
 				od.setPrintedInvoice(printed);
+				od.setTable(tableID);
 				allOrders.add(od);
 			}
 		}
@@ -291,6 +295,8 @@ public class Order implements OrderInterface{
 			StringBuilder st = new StringBuilder() ;
 			if(hasMenuItem || hasPromoSet) {
 				st.append(id + 1); 
+				st.append(Database.getSeparator());
+				st.append(orderItem.getTable());
 				st.append(Database.getSeparator());
 				st.append(orderItem.getPrintedInvoice());
 				st.append(Database.getSeparator());
