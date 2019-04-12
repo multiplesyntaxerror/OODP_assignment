@@ -1,2 +1,4 @@
-1|false|bryan**12-04-2019 02:07 PM|Jack's Special Steak**4**119.59999999999998**Mini Tiramisu in a Cup**2**15.0|2**1**12.5
-2|false|lin**12-04-2019 02:08 PM|Jack's Special Steak**3**89.69999999999999|1**1**34.9
+1|false|lin**12-04-2019 02:32 PM|Jack's Special Steak**5**149.50**Tiger Beer**2**17.80|2**2**25.00
+2|false|bryan**12-04-2019 02:32 PM|1**1**34.90**2**1**12.50
+3|false|lin2**12-04-2019 02:33 PM|Jack's Special Steak**2**59.80|1**2**69.80
+4|false|bryan2**12-04-2019 02:33 PM|Bearnaise Steak**2**59.00|1**2**69.80

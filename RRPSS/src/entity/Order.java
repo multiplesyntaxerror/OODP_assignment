@@ -1,9 +1,7 @@
 package entity;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -278,7 +276,8 @@ public class Order implements OrderInterface{
 						st.append(Database.getTXTSeparator());
 						st.append(menuItem.get(j).getOrderedQuantity());
 						st.append(Database.getTXTSeparator());
-						st.append((double)menuItem.get(j).getOrderedQuantity() * (double)menuItem.get(j).getPrice());
+						double totalPrice = (double)menuItem.get(j).getOrderedQuantity() * (double)menuItem.get(j).getPrice();
+						st.append(String.format("%.2f", totalPrice));
 						st.append(Database.getTXTSeparator());
 					}
 				}
@@ -294,7 +293,8 @@ public class Order implements OrderInterface{
 						st.append(Database.getTXTSeparator());
 						st.append(promoSet.get(i).getOrderedQuantity());
 						st.append(Database.getTXTSeparator());
-						st.append((double)promoSet.get(i).getOrderedQuantity() * (double)promoSet.get(i).getSetPrice());
+						double totalPrice = (double)promoSet.get(i).getOrderedQuantity() * (double)promoSet.get(i).getSetPrice();					
+						st.append(String.format("%.2f", totalPrice));
 						st.append(Database.getTXTSeparator());
 					}
 				}
