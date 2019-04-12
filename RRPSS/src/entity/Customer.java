@@ -7,14 +7,16 @@ public class Customer {
 	private int pax;
 	private String date;
 	private String atime;
+	private String duration;
 	private int tableid;
 
-	public Customer(String name,String contact,int pax,String date,String atime) {
+	public Customer(String name,String contact,int pax,String date,String atime,String duration) {
 		this.name=name;
 		this.contact=contact;
 		this.pax=pax;
 		this.date=date;
 		this.atime=atime;
+		this.setDuration(duration);
 	}
 
 	public int getTableid() {
@@ -54,5 +56,13 @@ public class Customer {
 	}
 	public void setATime(String atime) {
 		this.atime = atime;
+	}
+
+	public String getDuration() {
+		return duration;
+	}
+
+	public void setDuration(String duration) {
+		this.duration = duration;
 	}	
 }
