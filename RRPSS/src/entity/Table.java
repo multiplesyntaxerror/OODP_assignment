@@ -1,5 +1,5 @@
 package entity;
-
+//pushed
 public class Table {
 	private int tableid;
 	private int seatno;
