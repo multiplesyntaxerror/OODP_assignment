@@ -1,5 +1,7 @@
 package utils;
 
+import entity.Booking;
+import entity.Table;
 import entity.Menu;
 import entity.Order;
 import view.GUI;
@@ -27,6 +29,11 @@ public class Database {
 	private Menu menu;
 	private Order order;
 	
+	/** the booking */
+	private static Booking book;
+	private static Table[] table;
+	
+	
 	/** 
 	 * Initialize data.
 	 */
@@ -34,6 +41,21 @@ public class Database {
 		gui = new GUI();
 		menu = new Menu();
 		order = new Order();
+		book = new Booking(); 
+		table = new Table[30];
+		for(int i=0;i<table.length;i++) {
+			table[i]=new Table();
+			table[i].setTableid(i);
+			if(i<10)
+				table[i].setSeatno(2);
+			if(i>=10&&i<20)
+				table[i].setSeatno(4);
+			if(i>=20&&i<25)
+				table[i].setSeatno(8);
+			if(i>=25&&i<30)
+				table[i].setSeatno(10);
+		}
+		
 	}
 
 	/**
@@ -41,6 +63,19 @@ public class Database {
 	 *
 	 * @return the rw file
 	 */
+	
+	public Table[] getTable() {
+		return table;
+	}
+	
+	public Booking getBooking() {
+		return book;
+	}
+
+	public static void setBooking(Booking book) {
+		Database.book = book;
+	}
+	
 	public static ReadWriteFile getRwFile() {
 		return rwFile;
 	}

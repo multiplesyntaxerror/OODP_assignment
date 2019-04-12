@@ -14,6 +14,7 @@ public class MainController {
 	/** The menu controller. */
 	private MenuController mc;
 	private OrderController oc;
+	private BookingController bc;
 	
 	/**
 	 * Instantiates a new main controller.
@@ -24,6 +25,7 @@ public class MainController {
 		this.db = db;
 		this.mc = new MenuController();
 		this.oc = new OrderController();
+		this.bc= new BookingController();
 	}
 	
 	/**
@@ -66,6 +68,7 @@ public class MainController {
 					oc.run(db);
 					break;
 				case 3:
+					bc.run(db);
 					break;
 				case 4:
 					break;
