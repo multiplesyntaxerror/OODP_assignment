@@ -31,7 +31,7 @@ public class MainController {
 	 * @throws Exception 
 	 * 
 	 */
-	public void run() throws Exception {
+	public void run() {
 
 		int choice;
 		
