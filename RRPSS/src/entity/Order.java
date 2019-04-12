@@ -35,17 +35,17 @@ public class Order implements OrderInterface{
 		callRead();
 		boolean dupe = false;
 		boolean updated = false;
-		ArrayList<MenuItem> currentOrder = allOrders.get(orderID-1).getOrder();
+		ArrayList<MenuItem> currentOrder = allOrders.get(orderID-1).getAlaCart();
 		for(int i = 0 ; i < currentOrder.size(); i++) {
 			if(currentOrder.get(i).getName().equals(item.getName())){
-				allOrders.get(orderID-1).getOrder().get(i).addOrderedQuantity(item.getOrderedQuantity());
+				allOrders.get(orderID-1).getAlaCart().get(i).addOrderedQuantity(item.getOrderedQuantity());
 				dupe = true; 
 				updated = true;
 				break;
 			} 
 		}
 		if(dupe == false) {
-			allOrders.get(orderID-1).getOrder().add(item);
+			allOrders.get(orderID-1).getAlaCart().add(item);
 			updated = true;
 		}
 		callWrite();
@@ -55,8 +55,8 @@ public class Order implements OrderInterface{
 	public boolean removeMenuItemOrder(int orderID, int choice, int qty) {
 		callRead();	
 		boolean updated = false;
-		if(qty <= allOrders.get(orderID-1).getOrder().get(choice-1).getOrderedQuantity()) {
-			allOrders.get(orderID-1).getOrder().get(choice-1).addOrderedQuantity(-qty);	
+		if(qty <= allOrders.get(orderID-1).getAlaCart().get(choice-1).getOrderedQuantity()) {
+			allOrders.get(orderID-1).getAlaCart().get(choice-1).addOrderedQuantity(-qty);	
 			updated = true;
 		}
 		else {
@@ -106,12 +106,12 @@ public class Order implements OrderInterface{
 		System.out.println("");
 		for(int i = 0 ; i < allOrders.size();i++) {
 			System.out.println("Order ID: " + allOrders.get(i).getOrderId());
-			System.out.println("Table ID: " + allOrders.get(i).getTable());
+			System.out.println("Table ID: " + allOrders.get(i).getTableId());
 			System.out.println("Staff: " + allOrders.get(i).getStaff().getName());
 			System.out.println("Date: \t" + allOrders.get(i).getDate());
 			
-			for(int j = 0; j<allOrders.get(i).getOrder().size();j++) {
-				System.out.println(allOrders.get(i).getOrder().get(j).getOrderedQuantity() + "\t" + allOrders.get(i).getOrder().get(j).getName());
+			for(int j = 0; j<allOrders.get(i).getAlaCart().size();j++) {
+				System.out.println(allOrders.get(i).getAlaCart().get(j).getOrderedQuantity() + "\t" + allOrders.get(i).getAlaCart().get(j).getName());
 			}
 			for(int k = 0; k<allOrders.get(i).getPromoSet().size();k++) {
 				System.out.println(allOrders.get(i).getPromoSet().get(k).getOrderedQuantity() + "\tPromoSet " + allOrders.get(i).getPromoSet().get(k).getSetID());
@@ -133,8 +133,8 @@ public class Order implements OrderInterface{
 		for (int i = 0; i < allOrders.size(); i++) {
 			OrderItem oi = allOrders.get(i);
 			listOfOrderItem[count] = "\tOrder " + oi.getOrderId() + " " + oi.getDate() + "\n";
-			for(int j = 0; j < allOrders.get(i).getOrder().size();j++) {
-				listOfOrderItem[count] += "\t" + allOrders.get(i).getOrder().get(j).getOrderedQuantity() + "\t" + allOrders.get(i).getOrder().get(j).getName() + "\n";
+			for(int j = 0; j < allOrders.get(i).getAlaCart().size();j++) {
+				listOfOrderItem[count] += "\t" + allOrders.get(i).getAlaCart().get(j).getOrderedQuantity() + "\t" + allOrders.get(i).getAlaCart().get(j).getName() + "\n";
 			}
 			for(int k = 0; k<allOrders.get(i).getPromoSet().size();k++) {
 				listOfOrderItem[count] += "\t" + allOrders.get(i).getPromoSet().get(k).getOrderedQuantity() + "\tPromoSet " + allOrders.get(i).getPromoSet().get(k).getSetID() + "\n";
@@ -162,8 +162,8 @@ public class Order implements OrderInterface{
 		callRead();
 		List<String> ordereditems = new ArrayList<>();
 		System.out.println("Order ID: " + allOrders.get(orderID-1).getOrderId());
-		for(int j = 0; j<allOrders.get(orderID-1).getOrder().size();j++) {
-			ordereditems.add(allOrders.get(orderID-1).getOrder().get(j).getName());
+		for(int j = 0; j<allOrders.get(orderID-1).getAlaCart().size();j++) {
+			ordereditems.add(allOrders.get(orderID-1).getAlaCart().get(j).getName());
 		}
 		for(int k = 0; k<allOrders.get(orderID-1).getPromoSet().size();k++) {
 			ordereditems.add("Set: " + ((Integer)allOrders.get(orderID-1).getPromoSet().get(k).getSetID()).toString());
@@ -176,11 +176,11 @@ public class Order implements OrderInterface{
 	public void printSpecificOrder(int orderID) {
 		callRead();
 		System.out.println("Order ID: " + allOrders.get(orderID-1).getOrderId());
-		System.out.println("Table ID: " + allOrders.get(orderID-1).getTable());
+		System.out.println("Table ID: " + allOrders.get(orderID-1).getTableId());
 		System.out.println("Staff: " + allOrders.get(orderID-1).getStaff().getName());
 		System.out.println("Date:" + allOrders.get(orderID-1).getDate());
-		for(int j = 0; j<allOrders.get(orderID-1).getOrder().size();j++) {
-			System.out.println(allOrders.get(orderID-1).getOrder().get(j).getName() + "   " + allOrders.get(orderID-1).getOrder().get(j).getOrderedQuantity());
+		for(int j = 0; j<allOrders.get(orderID-1).getAlaCart().size();j++) {
+			System.out.println(allOrders.get(orderID-1).getAlaCart().get(j).getName() + "   " + allOrders.get(orderID-1).getAlaCart().get(j).getOrderedQuantity());
 		}
 		for(int k = 0; k<allOrders.get(orderID-1).getPromoSet().size();k++) {
 			System.out.println("PromoSet: " + allOrders.get(orderID-1).getPromoSet().get(k).getSetID() + "   " + allOrders.get(orderID-1).getPromoSet().get(k).getOrderedQuantity());
@@ -264,7 +264,7 @@ public class Order implements OrderInterface{
 				staff.setName(name);
 				OrderItem od = new OrderItem(orderID,date,alaCarte,promoSet, staff);
 				od.setPrintedInvoice(printed);
-				od.setTable(tableID);
+				od.setTableId(tableID);
 				allOrders.add(od);
 			}
 		}
@@ -279,8 +279,8 @@ public class Order implements OrderInterface{
 			hasMenuItem = false;
 			hasPromoSet = false;
 			OrderItem orderItem = (OrderItem)allOrders.get(k);
-			for(int n = 0; n<orderItem.getOrder().size();n++) {
-				if(orderItem.getOrder().get(n).getOrderedQuantity() > 0) {
+			for(int n = 0; n<orderItem.getAlaCart().size();n++) {
+				if(orderItem.getAlaCart().get(n).getOrderedQuantity() > 0) {
 					hasMenuItem = true;
 					break;
 				}
@@ -296,7 +296,7 @@ public class Order implements OrderInterface{
 			if(hasMenuItem || hasPromoSet) {
 				st.append(id + 1); 
 				st.append(Database.getSeparator());
-				st.append(orderItem.getTable());
+				st.append(orderItem.getTableId());
 				st.append(Database.getSeparator());
 				st.append(orderItem.getPrintedInvoice());
 				st.append(Database.getSeparator());
@@ -306,7 +306,7 @@ public class Order implements OrderInterface{
 				
 				if(hasMenuItem==true) {
 					st.append(Database.getSeparator());
-					ArrayList<MenuItem> menuItem = orderItem.getOrder();
+					ArrayList<MenuItem> menuItem = orderItem.getAlaCart();
 					for (int j = 0; j < menuItem.size(); j++) {
 						if(menuItem.get(j).getOrderedQuantity()>0) {
 							st.append(menuItem.get(j).getName());

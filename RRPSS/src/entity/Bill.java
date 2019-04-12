@@ -1,15 +1,9 @@
 package entity;
 
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Random;
-import java.util.StringTokenizer;
 
 import service.BillingInterface;
-import utils.Database;
 import view.GUI;
 
 public class Bill implements BillingInterface{
@@ -49,7 +43,7 @@ public class Bill implements BillingInterface{
 		billgui.displayStringsB("Table: "+tablenum);
 		// print number of people 
 		billgui.displayStringsB("------------------");
-		menuitemlist = order.getOrder();
+		menuitemlist = order.getAlaCart();
 		promoitemlist = order.getPromoSet();
 		MenuItem item;
 		PromoSet set;
@@ -117,7 +111,7 @@ public class Bill implements BillingInterface{
 		OrderItem order = null;
 		for(int i =0;i<orderList.size();i++)
 		{
-			if(tablenum==orderList.get(i).getTable() && orderList.get(i).getPrintedInvoice().equals("false"))
+			if(tablenum==orderList.get(i).getTableId() && orderList.get(i).getPrintedInvoice().equals("false"))
 			{
 				order = orderList.get(i); 
 				return order;
@@ -157,7 +151,7 @@ public class Bill implements BillingInterface{
 				
 				if(period.equals(userdate)) 
 				{
-					ArrayList<MenuItem> menulist = temporder.getOrder();
+					ArrayList<MenuItem> menulist = temporder.getAlaCart();
 					ArrayList<PromoSet> setlist= temporder.getPromoSet();
 					
 					for(int k=0;k<menulist.size();k++)

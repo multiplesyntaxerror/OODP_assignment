@@ -26,6 +26,8 @@ public class Database {
 	
 	/** The menu. */
 	private Menu menu;
+	
+	/** The Order. */
 	private Order order;
 	
 	private Table[] table;

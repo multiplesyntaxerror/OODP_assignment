@@ -79,7 +79,7 @@ public class OrderController extends Controller{
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 		String date = simpleDateFormat.format(new Date());
 		order.setDate(date);
-		order.setTable(tableId);
+		order.setTableId(tableId);
 		int choice;
 		
 		do {
@@ -107,8 +107,8 @@ public class OrderController extends Controller{
 						int qty = sc.nextInt();
 						item.setOrderedQuantity(qty);
 					
-						if(order.getOrder().size() == 0) {
-							order.getOrder().add(item);
+						if(order.getAlaCart().size() == 0) {
+							order.getAlaCart().add(item);
 						}
 						else {
 							addItemToNewOrder(order, item);						
@@ -137,7 +137,7 @@ public class OrderController extends Controller{
 				} while(set != null);
 				break;
 			case 3:
-				if(order.getOrder().size() != 0 || order.getPromoSet().size() != 0) {
+				if(order.getAlaCart().size() != 0 || order.getPromoSet().size() != 0) {
 					boolean created = getDb().getOrder().createOrder(order);
 					if(created == true) {
 						getGui().displayStringsB("Order Created!");
@@ -171,13 +171,13 @@ public class OrderController extends Controller{
 			getGui().displayStrings("Enter quantity to remove: ");
 			int qtyToRemove = sc.nextInt();
 
-			if (choice <= getDb().getOrder().getAllOrders().get(order.getOrderId() - 1).getOrder().size()) {
+			if (choice <= getDb().getOrder().getAllOrders().get(order.getOrderId() - 1).getAlaCart().size()) {
 				boolean removed = getDb().getOrder().removeMenuItemOrder(order.getOrderId(), choice, qtyToRemove);
 				if(removed == true) {
 					getGui().displayStringsB("Item Successfully Removed!");
 				}
 			} else {
-				choice = choice - getDb().getOrder().getAllOrders().get(order.getOrderId() - 1).getOrder().size();
+				choice = choice - getDb().getOrder().getAllOrders().get(order.getOrderId() - 1).getAlaCart().size();
 				boolean removedP = getDb().getOrder().removePromoSetOrder(order.getOrderId(), choice, qtyToRemove);
 				if(removedP == true) {
 					getGui().displayStringsB("PromoSet Successfully Removed!");
@@ -257,15 +257,15 @@ public class OrderController extends Controller{
 	
 	public void addItemToNewOrder(OrderItem order, MenuItem item) {
 		boolean dupe = false;
-		for(int i = 0 ; i<order.getOrder().size(); i++) {
-			if(order.getOrder().get(i).getName().equals(item.getName())) {
-				order.getOrder().get(i).addOrderedQuantity(item.getOrderedQuantity());
+		for(int i = 0 ; i<order.getAlaCart().size(); i++) {
+			if(order.getAlaCart().get(i).getName().equals(item.getName())) {
+				order.getAlaCart().get(i).addOrderedQuantity(item.getOrderedQuantity());
 				dupe = true;
 				break;
 			}
 		}
 		if(dupe == false) {
-			order.getOrder().add(item);
+			order.getAlaCart().add(item);
 		}
 	}
 	
