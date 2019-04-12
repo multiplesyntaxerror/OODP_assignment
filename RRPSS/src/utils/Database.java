@@ -1,6 +1,7 @@
 package utils;
 
 import entity.Menu;
+import entity.Order;
 import view.GUI;
 
 /**
@@ -16,19 +17,23 @@ public class Database {
 	
 	/** The Constant SETSEPARATOR for promotional set. */
 	private static final String SETSEPARATOR = "+";
+	
+	private static final String TXTSEPARATOR = "**";
 
 	/** The GUI. */
 	private static GUI gui;
 	
 	/** The menu. */
 	private Menu menu;
+	private Order order;
 	
-	/**
+	/** 
 	 * Initialize data.
 	 */
 	public void initializeData() {
 		gui = new GUI();
 		menu = new Menu();
+		order = new Order();
 	}
 
 	/**
@@ -85,5 +90,15 @@ public class Database {
 		this.menu = menu;
 	}
 
-	
+	public Order getOrder() {
+		return order;
+	}
+
+	public void setOrder(Order order) {
+		this.order = order;
+	}
+
+	public static String getTXTSeparator() {
+		return TXTSEPARATOR;
+	}
 }

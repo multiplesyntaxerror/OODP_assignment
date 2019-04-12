@@ -23,9 +23,9 @@ public class Menu implements MenuInterface{
 	private ArrayList<MainCourse> mcList = new ArrayList<MainCourse>();
 	
 	/** The list of type dessert. */
-	private ArrayList<Dessert> deList = new ArrayList<Dessert>();
+	private ArrayList<Dessert> deList = new ArrayList<Dessert>(); 
 	
-	/** The list of type drinks. */
+	/** The list of type drinks. */ 
 	private ArrayList<Drinks> drList = new ArrayList<Drinks>();
 
 	/** The menu items list of all 3 types. */
@@ -55,7 +55,7 @@ public class Menu implements MenuInterface{
 	 *
 	 * @param name item's name
 	 * @return the menu item
-	 */
+	 */ 
 	public MenuItem getMenuItem(String name) {
 		MenuItem item = null;
 		for (int i = 0; i < menuItemsList.size(); i++) {
@@ -115,7 +115,7 @@ public class Menu implements MenuInterface{
 		switch(index[0]) {
 			case 0:
 				mcList.remove(index[1]);
-				break;
+				break; 
 			case 1:
 				deList.remove(index[1]);
 				break;
@@ -148,7 +148,7 @@ public class Menu implements MenuInterface{
 		}
 		return index;
 	}
-	
+	  
 	/**
 	 * Prints all the menu items.
 	 */
@@ -294,7 +294,7 @@ public class Menu implements MenuInterface{
 				st.append(Database.getSeparator());
 				String type = item.getType();
 				if (type == "Main Course") {
-					st.append(1);
+					st.append(1); 
 				}
 				else if(type == "Dessert") {
 					st.append(2);

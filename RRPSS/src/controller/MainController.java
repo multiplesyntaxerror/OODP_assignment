@@ -13,6 +13,7 @@ public class MainController {
 	
 	/** The menu controller. */
 	private MenuController mc;
+	private OrderController oc;
 	
 	/**
 	 * Instantiates a new main controller.
@@ -22,13 +23,15 @@ public class MainController {
 	public MainController(Database db) {
 		this.db = db;
 		this.mc = new MenuController();
+		this.oc = new OrderController();
 	}
 	
 	/**
 	 * Runs the main system menu.
+	 * @throws Exception 
 	 * 
 	 */
-	public void run() {
+	public void run() throws Exception {
 
 		int choice;
 		
@@ -47,6 +50,7 @@ public class MainController {
 
 			db.getGui().displayTitle("System Menu");
 			
+			
 			choice = db.getGui().detectChoice(mainOption);
 //			choice = 1;
 //			choice = 2;
@@ -59,6 +63,7 @@ public class MainController {
 					mc.run(db);
 					break;
 				case 2:
+					oc.run(db);
 					break;
 				case 3:
 					break;
