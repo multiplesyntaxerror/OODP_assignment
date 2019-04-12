@@ -172,38 +172,60 @@ public class Order implements OrderInterface{
 			if(!star.hasMoreElements())break;
 			int orderID = Integer.parseInt(star.nextToken());
 			String printed = star.nextToken().trim();
+			
 			String nameAndDate = star.nextToken().trim();
 			StringTokenizer star2 = new StringTokenizer(nameAndDate, Database.getTXTSeparator());	
 			String name = star2.nextToken().trim();
 			String date = star2.nextToken().trim();
-			 
-			 
-			if(star.hasMoreElements()) {
-				String menuItems = star.nextToken().trim();
-				StringTokenizer star3 = new StringTokenizer(menuItems, Database.getTXTSeparator());
-				for(int j = 0; j<star3.countTokens(); j++) {
-					String menuItemName = star3.nextToken().trim();
-					int qtyOrdered = Integer.parseInt(star3.nextToken().trim());
-					double price = Double.parseDouble(star3.nextToken().trim());
-					double iPrice = price/qtyOrdered;
-					MainCourse temp = new MainCourse(menuItemName,"",iPrice,qtyOrdered);
-					temp.setType("alaCarte");
-					alaCarte.add(temp);
+
+			
+			boolean hasMore = true;			
+			while (hasMore) {
+				if(star.hasMoreElements()) {
+					String items = star.nextToken().trim();
+					StringTokenizer star3 = new StringTokenizer(items, Database.getTXTSeparator());
+	
+					String firstValue = star3.nextToken().trim();
+					
+					try {
+						int value = Integer.parseInt(firstValue);
+						
+						for(int k = 0; k <star3.countTokens();k++) {
+							int setID;
+							if (k == 0) {
+								setID = value;
+							}
+							else {
+								setID  = Integer.parseInt(star3.nextToken().trim());
+							}
+							int qtyOrdered_p = Integer.parseInt(star3.nextToken().trim());
+							double price_p = Double.parseDouble(star3.nextToken().trim()); 
+							double iPrice_p = price_p/qtyOrdered_p;
+							PromoSet temp2  = new PromoSet("",null,iPrice_p); 
+							temp2.setSetID(setID);
+							temp2.setOrderedQuantity(qtyOrdered_p); 
+							promoSet.add(temp2);
+						}
+					} catch (NumberFormatException e) {
+						for(int j = 0; j<star3.countTokens(); j++) {
+							String menuItemName;
+							if (j == 0) {
+								menuItemName = firstValue;
+							}
+							else {
+								menuItemName = star3.nextToken().trim();
+							}
+							int qtyOrdered = Integer.parseInt(star3.nextToken().trim());
+							double price = Double.parseDouble(star3.nextToken().trim());
+							double iPrice = price/qtyOrdered;
+							MainCourse temp = new MainCourse(menuItemName,"",iPrice,qtyOrdered);
+							temp.setType("alaCarte");
+							alaCarte.add(temp);
+						}
+					}				
 				}
-			}
-				
-			if(star.hasMoreElements()) {
-				String promoItems = star.nextToken().trim();		
-				StringTokenizer star4 = new StringTokenizer(promoItems, Database.getTXTSeparator());
-				for(int k = 0; k <star4.countTokens();k++) {
-					int setID  = Integer.parseInt(star4.nextToken().trim());
-					int qtyOrdered_p = Integer.parseInt(star4.nextToken().trim());
-					double price_p = Double.parseDouble(star4.nextToken().trim()); 
-					double iPrice_p = price_p/qtyOrdered_p;
-					PromoSet temp2  = new PromoSet("",null,iPrice_p); 
-					temp2.setSetID(setID);
-					temp2.setOrderedQuantity(qtyOrdered_p);
-					promoSet.add(temp2);
+				else {
+					hasMore = false;
 				}
 			}
 			staff.setName(name);
@@ -215,9 +237,11 @@ public class Order implements OrderInterface{
 	
 	private void writeOrderItem() throws IOException {	
 		List alw = new ArrayList();
-		boolean hasMenuItem = false;
-		boolean hasPromoSet = false;
+		boolean hasMenuItem;
+		boolean hasPromoSet;
 		for(int k = 0; k<allOrders.size();k++) {
+			hasMenuItem = false;
+			hasPromoSet = false;
 			OrderItem orderItem = (OrderItem)allOrders.get(k);
 			for(int n = 0; n<orderItem.getOrder().size();n++) {
 				if(orderItem.getOrder().get(n).getOrderedQuantity() > 0) {
@@ -231,8 +255,9 @@ public class Order implements OrderInterface{
 					break;
 				}
 			}
-			if(hasMenuItem==true || hasPromoSet == true) {
-				StringBuilder st = new StringBuilder() ;
+			
+			StringBuilder st = new StringBuilder() ;
+			if(hasMenuItem || hasPromoSet) {
 				st.append(k+1); 
 				st.append(Database.getSeparator());
 				st.append(orderItem.getPrintedInvoice());
@@ -240,8 +265,12 @@ public class Order implements OrderInterface{
 				st.append(orderItem.getStaff().getName());
 				st.append(Database.getTXTSeparator());
 				st.append(orderItem.getDate());
+			}
+	
+			ArrayList<MenuItem> menuItem = orderItem.getOrder();
+
+			if(hasMenuItem==true) {
 				st.append(Database.getSeparator());
-				ArrayList<MenuItem> menuItem = orderItem.getOrder();
 				for (int j = 0; j < menuItem.size(); j++) {
 					if(menuItem.get(j).getOrderedQuantity()>0) {
 						st.append(menuItem.get(j).getName());
@@ -252,7 +281,10 @@ public class Order implements OrderInterface{
 						st.append(Database.getTXTSeparator());
 					}
 				}
-				st.delete(st.length() - 2, st.length()); 
+				st.delete(st.length() - 2, st.length());
+			}
+			
+			if (hasPromoSet == true) {
 				st.append(Database.getSeparator());
 				ArrayList<PromoSet> promoSet = orderItem.getPromoSet();
 				for (int i = 0; i < promoSet.size(); i++) {
@@ -266,8 +298,9 @@ public class Order implements OrderInterface{
 					}
 				}
 				st.delete(st.length() - 2, st.length());
-				alw.add(st.toString());
 			}
+			
+			alw.add(st.toString());
 		}
         Database.getRwFile().write(ITEMSFILENAME, alw);
 	}

@@ -1,2 +1,1 @@
-1|false|bryan**11-04-2019 09:56 PM|Bearnaise Steak**2**59.0**Root Beer Float**2**8.4|2**1**12.5
-2|false|lin**11-04-2019 09:58 PM|Jack's Special Steak**1**29.
+1|false|lin**12-04-2019 01:19 PM|Jack's Special Steak**1**29.9
