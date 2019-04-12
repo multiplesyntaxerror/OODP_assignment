@@ -41,7 +41,7 @@ public abstract class MenuItem {
 	 * Gets the item's name.
 	 *
 	 * @return item's name
-	 */
+	 */ 
 	public String getName() {
 		return name;
 	}
@@ -127,6 +127,9 @@ public abstract class MenuItem {
 		this.orderedQuantity = orderedQuantity;
 	}
 	
+	public void addOrderedQuantity(int orderedQuantity) {
+		this.orderedQuantity += orderedQuantity;
+	}
 	
 	
 }
