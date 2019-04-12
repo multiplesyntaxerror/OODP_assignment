@@ -169,69 +169,70 @@ public class Order implements OrderInterface{
 			String st = (String)stringArray.get(i);
 			StringTokenizer star = new StringTokenizer(st, Database.getSeparator());	
 			
-			if(!star.hasMoreElements())break;
-			int orderID = Integer.parseInt(star.nextToken());
-			String printed = star.nextToken().trim();
-			
-			String nameAndDate = star.nextToken().trim();
-			StringTokenizer star2 = new StringTokenizer(nameAndDate, Database.getTXTSeparator());	
-			String name = star2.nextToken().trim();
-			String date = star2.nextToken().trim();
+			if(star.hasMoreElements()) {
+				int orderID = Integer.parseInt(star.nextToken());
+				String printed = star.nextToken().trim();
+				
+				String nameAndDate = star.nextToken().trim();
+				StringTokenizer star2 = new StringTokenizer(nameAndDate, Database.getTXTSeparator());	
+				String name = star2.nextToken().trim();
+				String date = star2.nextToken().trim();
 
-			
-			boolean hasMore = true;			
-			while (hasMore) {
-				if(star.hasMoreElements()) {
-					String items = star.nextToken().trim();
-					StringTokenizer star3 = new StringTokenizer(items, Database.getTXTSeparator());
-	
-					String firstValue = star3.nextToken().trim();
-					
-					try {
-						int value = Integer.parseInt(firstValue);
+				
+				boolean hasMore = true;			
+				while (hasMore) {
+					if(star.hasMoreElements()) {
+						String items = star.nextToken().trim();
+						StringTokenizer star3 = new StringTokenizer(items, Database.getTXTSeparator());
+		
+						String firstValue = star3.nextToken().trim();
 						
-						for(int k = 0; k <star3.countTokens();k++) {
-							int setID;
-							if (k == 0) {
-								setID = value;
+						try {
+							int value = Integer.parseInt(firstValue);
+							
+							for(int k = 0; k <star3.countTokens();k++) {
+								int setID;
+								if (k == 0) {
+									setID = value;
+								}
+								else {
+									setID  = Integer.parseInt(star3.nextToken().trim());
+								}
+								int qtyOrdered_p = Integer.parseInt(star3.nextToken().trim());
+								double price_p = Double.parseDouble(star3.nextToken().trim()); 
+								double iPrice_p = price_p/qtyOrdered_p;
+								PromoSet temp2  = new PromoSet("",null,iPrice_p); 
+								temp2.setSetID(setID);
+								temp2.setOrderedQuantity(qtyOrdered_p); 
+								promoSet.add(temp2);
 							}
-							else {
-								setID  = Integer.parseInt(star3.nextToken().trim());
+						} catch (NumberFormatException e) {
+							for(int j = 0; j<star3.countTokens(); j++) {
+								String menuItemName;
+								if (j == 0) {
+									menuItemName = firstValue;
+								}
+								else {
+									menuItemName = star3.nextToken().trim();
+								}
+								int qtyOrdered = Integer.parseInt(star3.nextToken().trim());
+								double price = Double.parseDouble(star3.nextToken().trim());
+								double iPrice = price/qtyOrdered;
+								MainCourse temp = new MainCourse(menuItemName,"",iPrice,qtyOrdered);
+								temp.setType("alaCarte");
+								alaCarte.add(temp);
 							}
-							int qtyOrdered_p = Integer.parseInt(star3.nextToken().trim());
-							double price_p = Double.parseDouble(star3.nextToken().trim()); 
-							double iPrice_p = price_p/qtyOrdered_p;
-							PromoSet temp2  = new PromoSet("",null,iPrice_p); 
-							temp2.setSetID(setID);
-							temp2.setOrderedQuantity(qtyOrdered_p); 
-							promoSet.add(temp2);
-						}
-					} catch (NumberFormatException e) {
-						for(int j = 0; j<star3.countTokens(); j++) {
-							String menuItemName;
-							if (j == 0) {
-								menuItemName = firstValue;
-							}
-							else {
-								menuItemName = star3.nextToken().trim();
-							}
-							int qtyOrdered = Integer.parseInt(star3.nextToken().trim());
-							double price = Double.parseDouble(star3.nextToken().trim());
-							double iPrice = price/qtyOrdered;
-							MainCourse temp = new MainCourse(menuItemName,"",iPrice,qtyOrdered);
-							temp.setType("alaCarte");
-							alaCarte.add(temp);
-						}
-					}				
+						}				
+					}
+					else {
+						hasMore = false;
+					}
 				}
-				else {
-					hasMore = false;
-				}
+				staff.setName(name);
+				OrderItem od = new OrderItem(orderID,date,alaCarte,promoSet, staff);
+				od.setPrintedInvoice(printed);
+				allOrders.add(od);
 			}
-			staff.setName(name);
-			OrderItem od = new OrderItem(orderID,date,alaCarte,promoSet, staff);
-			od.setPrintedInvoice(printed);
-			allOrders.add(od);
 		}
 	}
 	
