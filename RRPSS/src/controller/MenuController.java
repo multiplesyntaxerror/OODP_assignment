@@ -45,7 +45,7 @@ public class MenuController extends Controller {
 		
 		switch (choice) {
 			case 1:
-				getDb().getMenu().printMenuItems();
+				db.getMenu().printMenuItems();
 				break;
 			case 2: 
 				createMenuItem();

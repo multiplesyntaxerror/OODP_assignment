@@ -14,7 +14,8 @@ public class MainController {
 	/** The menu controller. */
 	private MenuController mc;
 	private OrderController oc;
-	private BookingController bc;
+	private BookingController boc;
+	private BillController bic;
 	
 	/**
 	 * Instantiates a new main controller.
@@ -25,7 +26,8 @@ public class MainController {
 		this.db = db;
 		this.mc = new MenuController();
 		this.oc = new OrderController();
-		this.bc= new BookingController();
+		this.boc= new BookingController();
+		this.bic = new BillController();
 	}
 	
 	/**
@@ -33,7 +35,7 @@ public class MainController {
 	 * @throws Exception 
 	 * 
 	 */
-	public void run() throws Exception {
+	public void run() {
 
 		int choice;
 		
@@ -71,6 +73,7 @@ public class MainController {
 					bc.run(db);
 					break;
 				case 4:
+					bc.run(db);
 					break;
 				case 5:
 					break;

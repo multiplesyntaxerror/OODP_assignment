@@ -12,10 +12,8 @@ public class RRPSS {
 	 * Runs the main program.
 	 *
 	 * @param args the arguments
-	 * @throws FileNotFoundException if file does not exist.
-	 * @throws IOException if stream to file cannot be written to or closed.
 	 */
-	public static void main(String args[]) throws Throwable  {
+	public static void main(String args[]) {
 		
 		Database db = new Database();
 		db.initializeData();
