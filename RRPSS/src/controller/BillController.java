@@ -47,8 +47,13 @@ public class BillController extends Controller {
 		getGui().displayTitle("Billing Interface");
 
 		getGui().displayStringsB("Enter table number: ");
+		while(!sc.hasNextInt())
+		{
+			getGui().displayStringsB("That is a invalid table number!");
+			sc.next();
+		}
 		int tablenum = sc.nextInt();
-
+		
 		Bill bill = new Bill();
 
 		OrderItem order = bill.getBill(tablenum, getDb().getOrder().getAllOrders());
@@ -98,17 +103,42 @@ public class BillController extends Controller {
 		Scanner sc = new Scanner(System.in);
 
 		getGui().displayTitle("Sales Report Interface");
-		String[] salesOptions = { "Print by Day", "Print by Month" };
+		String[] salesOptions = { "Print by Day", "Print by Month", "Print by Year"};
 		int choice = getGui().detectChoice(salesOptions);
 
 		Bill bill = new Bill();
+		String tempinputdate = null;
 		if (choice == 1) {
-			getGui().displayStringsB("Enter date in format DD eg. 04 for 4th day of the month");
+			getGui().displayStringsB("Enter date in format DD-MM-YYYY eg. 04-04-2019 for 4th day of the April 2019");
+			tempinputdate = sc.nextLine().trim();
+			while(!tempinputdate.matches("([0-3][0-9])-([0-3][0-9])-([0-9][0-9][0-9][0-9])"))
+			{
+				getGui().displayStringsB("Invalid input!\n");
+				getGui().displayStringsB("Enter date in format DD-MM-YYYY eg. 04-04-2019 for 4th day of the April 2019");
+				tempinputdate = sc.nextLine().trim();
+			}
 		} else if (choice == 2) {
-			getGui().displayStringsB("Enter date in format MM eg. 04 for April");
+			getGui().displayStringsB("Enter date in format MM-YYYY eg. 04-2019 for the month of April 2019");
+			tempinputdate = sc.nextLine().trim();
+			while(!tempinputdate.matches("([0-3][0-9])-([0-9][0-9][0-9][0-9])"))
+			{
+				getGui().displayStringsB("Invalid input!\n");
+				getGui().displayStringsB("Enter date in format MM-YYYY eg. 04-2019 for the month of April 2019");
+				tempinputdate = sc.nextLine().trim();
+			}
+		}else if (choice==3)
+		{
+			getGui().displayStringsB("Enter date in format YYYY eg. 2019 for the year 2019");
+			tempinputdate = sc.nextLine().trim();
+			while(!tempinputdate.matches("[0-9][0-9][0-9][0-9]"))
+			{
+				getGui().displayStringsB("Invalid input!\n");
+				getGui().displayStringsB("Enter date in format MM-YYYY eg. 04-2019 for the month of April 2019");
+				tempinputdate = sc.nextLine().trim();
+			}
 		}
-		String userinputdate = sc.nextLine().trim();
-
+		
+		String userinputdate = tempinputdate;
 		ArrayList<String> salesDatabase = bill.getSalesDatabase(getDb().getMenu());
 
 		List<SalesItem> salesList = bill.getSalesReport(choice, userinputdate, getDb().getOrder().getAllOrders());
@@ -116,12 +146,14 @@ public class BillController extends Controller {
 		if (salesList == null) {
 			getGui().displayStringsB("No available data for the period specified");
 		} else {
+
+			getGui().displayStringsB("Sales Report for the period: "+ userinputdate);
 			double totalRevenue = 0;
 			getGui().displayRow("Ala Carte");
 			getGui().displayRow("");
 
-			
-			for (int i = 0; i < salesList.size(); i++) {
+			int i=0;
+			for (; i < salesList.size(); i++) {
 				SalesItem salesitem = salesList.get(i);
 				if (salesList.get(i).isPromo()) {
 					break;
@@ -134,7 +166,7 @@ public class BillController extends Controller {
 			}
 			getGui().displayRow("Promo Item");
 			getGui().displayRow("");
-			for (int i = 0; i < salesList.size(); i++) {
+			for (; i < salesList.size(); i++) {
 				SalesItem promoitem = salesList.get(i);
 				getGui().displayStringsB("Promo Set: " + promoitem.getItemname() + bill.getPrintSeperator() + "Qty: "
 						+ promoitem.getQuantitySold() + bill.getPrintSeperator() + "Revenue from this item: "
