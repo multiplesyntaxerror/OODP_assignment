@@ -144,7 +144,7 @@ public class BillController extends Controller {
 		List<SalesItem> salesList = bill.getSalesReport(choice, userinputdate, getDb().getOrder().getAllOrders());
 
 		if (salesList == null) {
-			getGui().displayStringsB("No available data for the period specified");
+			getGui().displayStringsB("No Available Data For The Period Specified.");
 		} else {
 
 			getGui().displayStringsB("Sales Report for the period: "+ userinputdate);
@@ -158,23 +158,18 @@ public class BillController extends Controller {
 				if (salesList.get(i).isPromo()) {
 					break;
 				}
-
-				getGui().displayStringsB("Item name: " + salesitem.getItemname() + bill.getPrintSeperator() + "Qty: "
-						+ salesitem.getQuantitySold() + bill.getPrintSeperator() + "Revenue from this item: "
-						+ String.format("%.2f", (salesitem.getQuantitySold() * salesitem.getPrice())));
+				getGui().displayStringsB("Item name: " + salesitem.getItemname() + "\tQty: " + salesitem.getQuantitySold() + "\tRevenue from this item: " + String.format("%.2f", (salesitem.getQuantitySold() * salesitem.getPrice())));
 				totalRevenue += salesitem.getQuantitySold() * salesitem.getPrice();
 			}
 			getGui().displayRow("Promo Item");
 			getGui().displayRow("");
 			for (; i < salesList.size(); i++) {
 				SalesItem promoitem = salesList.get(i);
-				getGui().displayStringsB("Promo Set: " + promoitem.getItemname() + bill.getPrintSeperator() + "Qty: "
-						+ promoitem.getQuantitySold() + bill.getPrintSeperator() + "Revenue from this item: "
-						+ String.format("%.2f", (promoitem.getQuantitySold() * promoitem.getPrice())));
+				getGui().displayStringsB("Promo Set: " + promoitem.getItemname() + "\tQty: " + promoitem.getQuantitySold() + "\tRevenue from this item: " + String.format("%.2f", (promoitem.getQuantitySold() * promoitem.getPrice())));
 				totalRevenue += promoitem.getQuantitySold() * promoitem.getPrice();
 			}
 
-			System.out.println("Total Revenue: " + String.format("%.2f", totalRevenue));
+			getGui().displayStringsB("Total Revenue: " + String.format("%.2f", totalRevenue));
 		}
 
 	};
