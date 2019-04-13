@@ -56,8 +56,9 @@ public class Order implements OrderInterface{
 		callRead();	
 		boolean updated = false;
 		int index = orderId - 1;
-		if(qty <= allOrders.get(index).getAlaCarte().get(index).getOrderedQuantity()) {
-			allOrders.get(index).getAlaCarte().get(index).addOrderedQuantity(-qty);	
+		int itemIndex = choice - 1;
+		if(qty <= allOrders.get(index).getAlaCarte().get(itemIndex).getOrderedQuantity()) {
+			allOrders.get(index).getAlaCarte().get(itemIndex).addOrderedQuantity(-qty);	
 			updated = true;
 		}
 		else {
@@ -93,8 +94,9 @@ public class Order implements OrderInterface{
 		callRead();	
 		boolean updated = false;
 		int index = orderId - 1;
-		if(qty <= allOrders.get(index).getPromoSet().get(index).getOrderedQuantity()) {
-			allOrders.get(index).getPromoSet().get(index).addOrderedQuantity(-qty);	
+		int itemIndex = choice - 1;
+		if(qty <= allOrders.get(index).getPromoSet().get(itemIndex).getOrderedQuantity()) {
+			allOrders.get(index).getPromoSet().get(itemIndex).addOrderedQuantity(-qty);	
 			updated = true;
 		}
 		else {
