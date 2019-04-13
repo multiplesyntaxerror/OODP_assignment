@@ -1,1 +1,3 @@
 1|30|true|qinkai**13-04-2019 04:17 AM|Jack's Special Steak**1**29.90
+2|12|true|wer**13-04-2019 04:43 PM|Tiger Beer**1**8.90|1**2**69.80
+3|1|true|fe**13-04-2019 04:48 PM|Root Beer Float**3**12.60|1**2**69.80
