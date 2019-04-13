@@ -4,104 +4,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 import service.BillingInterface;
+import utils.Database;
 import view.GUI;
 
 public class Bill implements BillingInterface{
 	
-	private ArrayList<MenuItem> menuitemlist = new ArrayList<MenuItem>();
-	private ArrayList<PromoSet> promoitemlist = new ArrayList<PromoSet>();
 	
-	GUI billgui = new GUI();
+	private String printSeperator = "    ";
+	private String lineSeperator = "------------------";
+	private double gst = 0.17;
 	
-	String[] salesDatabase = {
-			"Jack's Special Steak",
-			"Bearnaise Steak",
-			"Mini Tiramisu in a Cup",
-			"Banana Fritters A La Mode",
-			"Root Beer Float",
-			"Tiger Beer",
-			"1",
-			"2"
-	}; 
+	private ArrayList<String> salesDatabase = new ArrayList<String>();
 	
-	public int printBillInvoice(int tablenum, ArrayList<OrderItem> orderList)
-	{
-	
-		OrderItem order = getBill(tablenum, orderList);
-		if(order==null) {
-			return 0;
-		}
-		String num = genReceiptNo(order.getOrderId());
-		billgui.displayStringsB("Receipt No: "+ num);
-		billgui.displayStringsB("NOM-NOM Restaurant");
-		billgui.displayStringsB("------------------");
-		billgui.displayStringsB("6 Eu Tong Sen St, 02-82/83");
-		billgui.displayStringsB("Singapore 059817");
-		billgui.displayStringsB(order.getStaff().getName());
-		billgui.displayStringsB(order.getDate()); 
-		billgui.displayStringsB("Table: "+tablenum);
-		// print number of people 
-		billgui.displayStringsB("------------------");
-		menuitemlist = order.getAlaCarte();
-		promoitemlist = order.getPromoSet();
-		MenuItem item;
-		PromoSet set;
-		for(int i =0; i<menuitemlist.size();i++)
-		{
-			item = menuitemlist.get(i);
-			billgui.displayStringsB(item.getOrderedQuantity()+ "    "+item.getName() + "     "+ item.getPrice());
-		}
-		for(int j =0; j<promoitemlist.size();j++)
-		{
-			set = promoitemlist.get(j);
-			billgui.displayStringsB(set.getOrderedQuantity()+ "    "+"Set "+set.getSetID() + "     "+ set.getSetPrice());
-		}
-		order.setTotalPrice();
-		double orderTotalPrice = order.getTotalPrice();
-		billgui.displayStringsB("------------------");
-		billgui.displayStringsB("SubTotal: "+String.format("%.2f",orderTotalPrice));
-		billgui.displayStringsB("GST & Service Charge "+(String.format("%.2f", orderTotalPrice*0.17)));
-		billgui.displayStringsB("------------------");
-		billgui.displayStringsB("TOTAL: "+(String.format("%.2f",orderTotalPrice*1.17)));
-		billgui.displayStringsB("------------------");
-		
-		
-		return order.getOrderId();
+	public String getPrintSeperator() {
+		return printSeperator;
 	}
-	
-	public boolean printSalesReport(int choice,String userdate,ArrayList<OrderItem> orderList)
-	{
-		ArrayList<SalesItem> salesreport = (ArrayList<SalesItem>) getSalesReport(choice,userdate, orderList);
-		double totalRevenue = 0;
-		if(salesreport==null)
-		{
-			return false;
-		}
-		System.out.println("-----Ala Carte-----");
-		System.out.println("-------------------");
-		int i =0;
-		for(;i<salesreport.size();i++)
-		{
-			SalesItem salesitem = salesreport.get(i);
-			if(salesreport.get(i).isPromo())
-			{
-				break;
-			}
-			
-			System.out.println("Item name: "+ salesitem.getItemname()+"Qty: "+ salesitem.getQuantitySold()+ "Revenue from this item: "+ (salesitem.getQuantitySold()*salesitem.getPrice()));
-			totalRevenue+= salesitem.getQuantitySold()*salesitem.getPrice();
-		}
-		System.out.println("-----Promo Item-----");
-		System.out.println("-------------------");
-		for(;i<salesreport.size();i++)
-		{
-			SalesItem promoitem = salesreport.get(i);
-			System.out.println("Set: "+ promoitem.getItemname()+"Qty: "+ promoitem.getQuantitySold()+ "Revenue from this item: "+ (promoitem.getQuantitySold()*promoitem.getPrice()));
-			totalRevenue+= promoitem.getQuantitySold()*promoitem.getPrice();
-		}
-		
-		System.out.println("Total Revenue: "+ totalRevenue);
-		return true;
+
+	public void setPrintSeperator(String printSeperator) {
+		this.printSeperator = printSeperator;
+	}
+
+	public String getLineSeperator() {
+		return lineSeperator;
+	}
+
+	public void setLineSeperator(String lineSeperator) {
+		this.lineSeperator = lineSeperator;
+	}
+
+	public double getGst() {
+		return gst;
+	}
+
+	public void setGst(double gst) {
+		this.gst = gst;
 	}
 	
 	public OrderItem getBill(int tablenum, ArrayList<OrderItem> orderList)
@@ -125,9 +61,9 @@ public class Bill implements BillingInterface{
 	{
 
 		ArrayList<SalesItem> saleslist = new ArrayList<SalesItem>();
-
-		for(int i=0;i<salesDatabase.length;i++) {
-			String menuitem = salesDatabase[i];
+		
+		for(int i=0;i<salesDatabase.size();i++) {
+			String menuitem = salesDatabase.get(i);
 			SalesItem tempsalesitem = new SalesItem(); //not sure if okay
 			tempsalesitem.setItemname(menuitem);
 			int qtyOrdered = 0;
@@ -180,11 +116,36 @@ public class Bill implements BillingInterface{
 		return saleslist;
 	}
 	
-	public String genReceiptNo(int orderid){
-		
-		String receiptnum = String.format("%05d", orderid);
+	
+	public ArrayList<String> getSalesDatabase(Menu menu)
+	{
 
-		return receiptnum;
+		ArrayList<MainCourse> mcList =(ArrayList<MainCourse>) menu.getMenuList().get(0);
+		ArrayList<Dessert> dsList=(ArrayList<Dessert>) menu.getMenuList().get(1);
+		ArrayList<Drinks> drList=(ArrayList<Drinks>) menu.getMenuList().get(2);
+
+		ArrayList<PromoSet> promoList = (ArrayList<PromoSet>) menu.getPromoSetList();
+		
+		int i=0;
+		for(; i<mcList.size();i++)
+		{
+			salesDatabase.add(mcList.get(i).getName().trim());
+		}
+		for(i=0; i<drList.size();i++)
+		{
+			salesDatabase.add(drList.get(i).getName().trim());
+		}
+		for(i=0;i<dsList.size();i++)
+		{
+			salesDatabase.add(dsList.get(i).getName().trim());
+		}
+		for(i=0;i<promoList.size();i++)
+		{
+			salesDatabase.add(Integer.toString(promoList.get(i).getSetID()).trim());
+		}
+
+		return salesDatabase;
+		
 	}
 	
 

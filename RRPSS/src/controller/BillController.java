@@ -1,10 +1,15 @@
 package controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import utils.Database;
 import entity.Bill;
+import entity.MenuItem;
 import entity.OrderItem;
+import entity.PromoSet;
+import entity.SalesItem;
 
 /**
  * The Class BillController.
@@ -43,17 +48,55 @@ public class BillController extends Controller {
 
 		getGui().displayStringsB("Enter table number: ");
 		int tablenum = sc.nextInt();
+		
 		Bill bill = new Bill();
-
-		int printedId = bill.printBillInvoice(tablenum, getDb().getOrder().getAllOrders());
-		if (printedId == 0) {
+		
+		OrderItem order = bill.getBill(tablenum, getDb().getOrder().getAllOrders());
+		
+		if(order==null)
+		{
 			getGui().displayStringsB("The table has no order in place");
-		} else {
-			getDb().getOrder().getAllOrders().get(printedId - 1).setPrintedInvoice();
+		}
+		else
+		{
+			getGui().displayStringsB("Receipt No: "+ String.format("%05d", order.getOrderId()));
+			getGui().displayStringsB("NOM-NOM Restaurant");
+			getGui().displayStringsB(bill.getLineSeperator());
+			getGui().displayStringsB("6 Eu Tong Sen St, 02-82/83");
+			getGui().displayStringsB("Singapore 059817");
+			getGui().displayStringsB(order.getStaff().getName());
+			getGui().displayStringsB(order.getDate()); 
+			getGui().displayStringsB("Table: "+tablenum);
+			getGui().displayStringsB(bill.getLineSeperator());
+			
+			MenuItem item;
+			PromoSet set;
+			for(int i=0;i<order.getAlaCarte().size();i++)
+			{
+				item = order.getAlaCarte().get(i);
+				getGui().displayStringsB(item.getOrderedQuantity()+ bill.getPrintSeperator() +item.getName() + bill.getPrintSeperator() + item.getPrice());
+			}
+			for(int j =0; j<order.getPromoSet().size();j++)
+			{
+				set = order.getPromoSet().get(j);
+				getGui().displayStringsB(set.getOrderedQuantity()+ bill.getPrintSeperator()+"Set "+set.getSetID() + bill.getPrintSeperator()+ set.getSetPrice());
+			}
+			
+			order.setTotalPrice();
+			getGui().displayStringsB(bill.getLineSeperator());
+			getGui().displayStringsB("SubTotal: "+String.format("%.2f",order.getTotalPrice()));
+			getGui().displayStringsB("GST & Service Charge "+(String.format("%.2f", order.getTotalPrice()*bill.getGst())));
+			getGui().displayStringsB(bill.getLineSeperator());
+			getGui().displayStringsB("TOTAL: "+(String.format("%.2f",order.getTotalPrice()+order.getTotalPrice()*bill.getGst())));
+			getGui().displayStringsB(bill.getLineSeperator());
+			
+			
+			getDb().getOrder().getAllOrders().get(order.getOrderId() - 1).setPrintedInvoice();
 			getDb().getTable()[tablenum - 1].setOccupied(false);
 			getDb().getOrder().callWrite();
+			
 		}
-
+		
 	};
 
 	public void printSalesRevenueReport() {
@@ -70,12 +113,46 @@ public class BillController extends Controller {
 			getGui().displayStringsB("Enter date in format MM eg. 04 for April");
 		}
 		String userinputdate = sc.nextLine().trim();
-		Boolean report = bill.printSalesReport(choice, userinputdate, getDb().getOrder().getAllOrders());
-		if (!report) {
-			getGui().displayStringsB("Did not print successfully");
-		} else {
-			getGui().displayStringsB("Printed successfully");
+		
+		ArrayList<String> salesDatabase = bill.getSalesDatabase(getDb().getMenu());
+		
+		List<SalesItem> salesList = bill.getSalesReport(choice, userinputdate, getDb().getOrder().getAllOrders());
+		
+		if(salesList==null)
+		{
+			getGui().displayStringsB("No available data for the period specified");
 		}
+		else
+		{
+			double totalRevenue = 0;
+			getGui().displayStringsB("-----Ala Carte-----");
+			getGui().displayStringsB(bill.getLineSeperator());
+			
+			
+			int i =0;
+			for(;i<salesList.size();i++)
+			{
+				SalesItem salesitem = salesList.get(i);
+				if(salesList.get(i).isPromo())
+				{
+					break;
+				}
+				
+				getGui().displayStringsB("Item name: "+ salesitem.getItemname()+bill.getPrintSeperator()+"Qty: "+ salesitem.getQuantitySold()+bill.getPrintSeperator()+ "Revenue from this item: "+ String.format("%.2f",(salesitem.getQuantitySold()*salesitem.getPrice())));
+				totalRevenue+= salesitem.getQuantitySold()*salesitem.getPrice();
+			}
+			getGui().displayStringsB("-----Promo Item-----");
+			getGui().displayStringsB(bill.getLineSeperator());
+			for(;i<salesList.size();i++)
+			{
+				SalesItem promoitem = salesList.get(i);
+				getGui().displayStringsB("Promo Set: "+ promoitem.getItemname()+bill.getPrintSeperator()+"Qty: "+ promoitem.getQuantitySold()+ bill.getPrintSeperator()+"Revenue from this item: "+ String.format("%.2f",(promoitem.getQuantitySold()*promoitem.getPrice())));
+				totalRevenue+= promoitem.getQuantitySold()*promoitem.getPrice();
+			}
+			
+			System.out.println("Total Revenue: "+ String.format("%.2f",totalRevenue));
+		}
+		
 
 	};
 }
