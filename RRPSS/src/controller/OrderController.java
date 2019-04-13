@@ -83,7 +83,7 @@ public class OrderController extends Controller{
 			}
 		} while (tableId <= 0 || tableId > 30);
 		
-		if(getDb().getTable()[tableId-1].getOccupied() == true) {
+		if(getDb().getRestaurant().getTableList().get(tableId-1).isOccupied() == true) {
 			getGui().displayStringsB("Table is already occupied!.\n");
 		}
 		else {
@@ -197,10 +197,10 @@ public class OrderController extends Controller{
 				}
 			}
 		}
-	}		}
-			}
-		}
-	}
+	}		
+			
+		
+	
 	
 	public void addItemToExistingOrder() {
 		Scanner sc = new Scanner(System.in);

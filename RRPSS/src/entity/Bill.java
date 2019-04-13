@@ -61,7 +61,7 @@ public class Bill implements BillingInterface{
 	{
 
 		ArrayList<SalesItem> saleslist = new ArrayList<SalesItem>();
-		
+		Boolean dataAvailable = false;
 		for(int i=0;i<salesDatabase.size();i++) {
 			String menuitem = salesDatabase.get(i);
 			SalesItem tempsalesitem = new SalesItem(); //not sure if okay
@@ -86,6 +86,7 @@ public class Bill implements BillingInterface{
 				
 				if(period.equals(userdate)) 
 				{
+					dataAvailable = true;
 					ArrayList<MenuItem> menulist = temporder.getAlaCarte();
 					ArrayList<PromoSet> setlist= temporder.getPromoSet();
 					
@@ -113,7 +114,15 @@ public class Bill implements BillingInterface{
 			tempsalesitem.setQuantitySold(qtyOrdered);
 			saleslist.add(tempsalesitem);
 		}
-		return saleslist;
+		if(dataAvailable)
+		{
+			return saleslist;
+		}
+		else
+		{
+			return null;
+		}
+
 	}
 	
 	
