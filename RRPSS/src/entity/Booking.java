@@ -1,9 +1,13 @@
 package entity;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
+import java.util.concurrent.TimeUnit;
 import java.time.*;
 
 import service.BookingInterface;
@@ -30,7 +34,6 @@ public class Booking implements BookingInterface {
 		if (index == -1) {
 			bookingList.add(customer);
 			callWrite();
-			printBookings();
 			return true;
 		}
 		return false;
@@ -47,12 +50,30 @@ public class Booking implements BookingInterface {
 
 	@Override
 	public boolean deleteBooking(Customer customer) {
-		String contact = customer.getContact();
-		int index = customerExistReturnIndex(contact);
-		bookingList.remove(index);
+		bookingList.remove(customer);
 		callWrite();
 		callRead();
 		return true;
+	}
+	
+	public void checkAndClearReservation() {
+
+		Date curDate = new Date();
+		for (int i = 0; i < bookingList.size(); i++) {
+			Customer cus = (Customer) bookingList.get(i);
+			SimpleDateFormat simpleTimeFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm a");
+			Date time;
+			try {
+				time = simpleTimeFormat.parse(cus.getDate() + " " + cus.getArrivalTime());
+				long mins = TimeUnit.MINUTES.convert((curDate.getTime() - time.getTime()), TimeUnit.MILLISECONDS);
+				if (mins >= 30) {
+					deleteBooking(cus);
+					System.out.println("sth deleted");
+				}
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public Customer getCustomer(String name) {
@@ -71,29 +92,61 @@ public class Booking implements BookingInterface {
 		Database.getGui().displayStringsB("");
 		for (int i = 0; i < bookingList.size(); i++) {
 			Customer customer = (Customer) bookingList.get(i);
-			System.out.println("Name: " + customer.getName());
+			System.out.println("Name: " + customer.getName() + "\tPax: " + customer.getPax());
 			System.out.println("Contact: " + customer.getContact());
-			System.out.println("Date: " + customer.getDate());
-			System.out.println("Arrival Time: " + customer.getArrivalTime());
-			System.out.println("Number of people: " + customer.getPax());
+			System.out.println("Date/Time: " + customer.getDate() + " " + customer.getArrivalTime());
 			System.out.println();
 		}
 	}
 
+	public Customer pickBooking(String text) {
+
+		Database.getGui().displayStringsB("");
+		
+		Customer customer = null;
+		
+		String listOfBooking[] = new String[countBooking() + 1];
+		
+		for (int i = 0; i < bookingList.size(); i++) {
+			Customer cus = (Customer) bookingList.get(i);
+			listOfBooking[i] = "\tName: " + cus.getName() + "(" + cus.getContact() + ")\tPax: " + cus.getPax() + "\n\tDate: " + cus.getDate() + " " + cus.getArrivalTime() + "\n";
+		}
+		
+		listOfBooking[listOfBooking.length - 1] = "\t" + text;
+
+		int choice = Database.getGui().detectChoice(listOfBooking);
+		
+		int count = 1;
+		for (int i = 0; i < bookingList.size(); i++) {
+			if (choice == count) {
+				customer = (Customer) bookingList.get(i);
+				return customer;
+			}
+			count++;
+		}
+		return customer;
+	}
+	
+	public int countBooking() {
+		return bookingList.size();
+	}
+	
 	public ArrayList<Customer> readBooking() throws IOException {
 
 		ArrayList<String> stringArray = (ArrayList<String>) Database.getRwFile().read(BOOKFILENAME);
 
+		bookingList.clear();
+		
 		for (int i = 0; i < stringArray.size(); i++) {
 			String st = (String) stringArray.get(i);
 			StringTokenizer star = new StringTokenizer(st, Database.getSeparator());
 			String name = star.nextToken().trim();
 			String contact = star.nextToken().trim();
+			int tableId = Integer.parseInt(star.nextToken());
 			int pax = Integer.parseInt(star.nextToken());
 			String date = star.nextToken().trim();
 			String atime = star.nextToken().trim();
-			String duration = star.nextToken().trim();
-			Customer customer = new Customer(name, contact, pax, date, atime, duration);
+			Customer customer = new Customer(name, contact, tableId ,pax, date, atime);
 			bookingList.add(customer);
 		}
 		return bookingList;
@@ -109,13 +162,13 @@ public class Booking implements BookingInterface {
 			st.append(Database.getSeparator());
 			st.append(customer.getContact().trim());
 			st.append(Database.getSeparator());
+			st.append(customer.getTableid());
+			st.append(Database.getSeparator());
 			st.append(customer.getPax());
 			st.append(Database.getSeparator());
 			st.append(customer.getDate().trim());
 			st.append(Database.getSeparator());
 			st.append(customer.getArrivalTime().trim());
-			st.append(Database.getSeparator());
-			st.append(customer.getDuration().trim());
 			alw.add(st.toString());
 		}
 		Database.getRwFile().write(BOOKFILENAME, alw);

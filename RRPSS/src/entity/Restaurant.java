@@ -31,6 +31,19 @@ public class Restaurant {
 		callRead();
 	}
 	
+	public int getTableIdByPax(int pax) {
+		
+        for (int i = 0 ; i < tableList.size() ; i++) {
+        	Table table = tableList.get(i);
+        	if (table.getNoOfSeat() >= pax && !table.isReserved() && !table.isOccupied()) {
+        		return table.getTableId();
+        	}
+        }
+		return 0;
+	}
+	
+
+	
 	public void showAvailableTable() {
 		int previous = 0;
         for (int i = 0 ; i < tableList.size() ; i++) {

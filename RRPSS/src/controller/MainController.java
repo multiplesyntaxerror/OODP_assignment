@@ -36,7 +36,10 @@ public class MainController {
 	 * 
 	 */
 	public void run() {
+		
 
+		db.getBooking().checkAndClearReservation();
+		
 		int choice;
 		
 		String[] mainOption = {
@@ -55,10 +58,6 @@ public class MainController {
 			
 			
 			choice = db.getGui().detectChoice(mainOption);
-//			choice = 1;
-//			choice = 2;
-//			choice = 3;
-//			choice = 4;
 			
 			switch(choice) {
 				case 1:
@@ -73,7 +72,7 @@ public class MainController {
 				case 4:
 					bic.run(db);
 					break;
-				case 6:
+				case 5:
 					db.getGui().displayTitle("Exiting System...");
 					return;
 			}

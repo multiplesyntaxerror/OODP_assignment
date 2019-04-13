@@ -6,15 +6,14 @@ public class Customer extends Person {
 	private int pax;
 	private String date;
 	private String arrivalTime;
-	private String duration;
 
-	public Customer(String name, String contact, int pax, String date, String arrivalTime, String duration) {
+	public Customer(String name, String contact, int tableId, int pax, String date, String arrivalTime) {
 		super.name = name;
 		super.contact = contact;
+		this.tableid = tableId;
 		this.pax = pax;
 		this.date = date;
 		this.arrivalTime = arrivalTime;
-		this.setDuration(duration);
 	}
 
 	public int getTableid() {
@@ -48,13 +47,5 @@ public class Customer extends Person {
 
 	public void setArrivalTime(String arrivalTime) {
 		this.arrivalTime = arrivalTime;
-	}
-
-	public String getDuration() {
-		return duration;
-	}
-
-	public void setDuration(String duration) {
-		this.duration = duration;
 	}
 }

@@ -8,20 +8,15 @@ import service.BillingInterface;
 
 public class Bill implements BillingInterface {
 
-	private double gst = 0.17;
-
+	private static final double GST = 0.17;
+	
 	private ArrayList<String> salesDatabase = new ArrayList<String>();
 
 	public double getGst() {
-		return gst;
-	}
-
-	public void setGst(double gst) {
-		this.gst = gst;
+		return GST;
 	}
 
 	public OrderItem getBill(int tablenum, ArrayList<OrderItem> orderList) {
-
 		OrderItem order = null;
 		for (int i = 0; i < orderList.size(); i++) {
 			if (tablenum == orderList.get(i).getTableId() && !orderList.get(i).getPrintedInvoice()) {
@@ -29,9 +24,7 @@ public class Bill implements BillingInterface {
 				return order;
 			}
 		}
-
 		return order;
-
 	}
 
 	public List<SalesItem> getSalesReport(int choice, String userdate, ArrayList<OrderItem> orderList) {
@@ -40,7 +33,7 @@ public class Bill implements BillingInterface {
 		Boolean dataAvailable = false;
 		for (int i = 0; i < salesDatabase.size(); i++) {
 			String menuitem = salesDatabase.get(i);
-			SalesItem tempsalesitem = new SalesItem(); // not sure if okay
+			SalesItem tempsalesitem = new SalesItem();
 			tempsalesitem.setItemname(menuitem);
 			int qtyOrdered = 0;
 			double price = 0;
@@ -53,15 +46,12 @@ public class Bill implements BillingInterface {
 					temporder.getDate().getChars(0, 10, getperiod, 0);
 				} else if (choice == 2) {
 					temporder.getDate().getChars(3, 10, getperiod, 0);
-				}
-				else if(choice==3)
-				{
+				} else if (choice == 3) {
 					temporder.getDate().getChars(6, 10, getperiod, 0);
 				}
 				String period = new String(getperiod).trim();
-        
-				if(period.equals(userdate)) 
-				{
+
+				if (period.equals(userdate)) {
 					dataAvailable = true;
 					ArrayList<MenuItem> menulist = temporder.getAlaCarte();
 					ArrayList<PromoSet> setlist = temporder.getPromoSet();
@@ -86,12 +76,9 @@ public class Bill implements BillingInterface {
 			tempsalesitem.setQuantitySold(qtyOrdered);
 			saleslist.add(tempsalesitem);
 		}
-		if(dataAvailable)
-		{
+		if (dataAvailable) {
 			return saleslist;
-		}
-		else
-		{
+		} else {
 			return null;
 		}
 

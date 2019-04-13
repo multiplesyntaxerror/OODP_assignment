@@ -20,11 +20,19 @@ public class GUI {
 		System.out.println("-----------------------------------------------------------------------");
 	}
 	
-	public void displayRow(String title){
-		System.out.println(title);
-		System.out.println("-----------------------------------");
+	public void displayRow(String text){
+		System.out.println(text);
+		System.out.println("------------------------------------------------");
 	}
 
+	public void displayEnd(String text){
+		System.out.println("----------------------------------------" + text);
+	}
+	
+	public void displayReciept(){
+		System.out.println("================================================");
+	}
+	
 	/**
 	 * Display strings with new line.
 	 *

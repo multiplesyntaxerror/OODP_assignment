@@ -15,6 +15,7 @@ import entity.SalesItem;
  * The Class BillController.
  */
 public class BillController extends Controller {
+	
 	public void run(Database db) {
 
 		setDb(db);
@@ -22,7 +23,10 @@ public class BillController extends Controller {
 
 		int choice;
 
-		String[] billOptions = { "Print Bill Invoice", "Print Sales Revenue Report", "Back" };
+		String[] billOptions = { 
+				"Print Bill", 
+				"Print Sales Revenue Report", 
+				"Back" };
 
 		getGui().displayTitle("Billing Option");
 		choice = getGui().detectChoice(billOptions);
@@ -44,52 +48,53 @@ public class BillController extends Controller {
 	public void printBill() {
 
 		Scanner sc = new Scanner(System.in);
-		getGui().displayTitle("Billing Interface");
+		getGui().displayTitle("Printing Bill");
 
-		getGui().displayStringsB("Enter table number: ");
+		getGui().displayStrings("Enter Table Number: ");
 		while(!sc.hasNextInt())
 		{
-			getGui().displayStringsB("That is a invalid table number!");
+			getGui().displayStringsB("That Is An Invalid Table Number.");
 			sc.next();
 		}
-		int tablenum = sc.nextInt();
 		
+		int tablenum = sc.nextInt();
 		Bill bill = new Bill();
 
 		OrderItem order = bill.getBill(tablenum, getDb().getOrder().getAllOrders());
 
 		if (order == null) {
-			getGui().displayStringsB("The table has no order in place");
+			getGui().displayStringsB("The Table Has No Order");
 		} else {
 			
-			getGui().displayStringsB("Receipt No: " + String.format("%05d", order.getOrderId()));
-			getGui().displayStringsB("NOM-NOM Restaurant");
-			getGui().displayRow("");
-			getGui().displayStringsB("6 Eu Tong Sen St, 02-82/83");
-			getGui().displayStringsB("Singapore 059817");
-			getGui().displayStringsB(order.getStaff().getName());
-			getGui().displayStringsB(order.getDate());
-			getGui().displayStringsB("Table: " + tablenum);
-			getGui().displayRow("");
+			getGui().displayStringsB("");
+			getGui().displayReciept();
+			getGui().displayStringsB("NOM-NOM Restaurant\t\tReceipt #" + String.format("%05d", order.getOrderId()));
+			getGui().displayStringsB("50 Nanyang Avenue, Block N4\t S'pore 639798");
+			getGui().displayStringsB("Date/Time: " + order.getDate());
+			getGui().displayRow("Table Number: " + tablenum + "\t\t\tSever: " + order.getStaff().getName());
 
 			MenuItem item;
 			PromoSet set;
+			getGui().displayRow("QTY\tITEM\t\t\t\tPRICE");
 			for (int i = 0; i < order.getAlaCarte().size(); i++) {
 				item = order.getAlaCarte().get(i);
-				getGui().displayStringsB(item.getOrderedQuantity() + "\t" + item.getName() + "\t" + item.getPrice());
+				getGui().displayStringsB(item.getOrderedQuantity() + "\t" + item.getName());
+				getGui().displayEnd(item.getPrice() + "");
 			}
 			for (int j = 0; j < order.getPromoSet().size(); j++) {
 				set = order.getPromoSet().get(j);
-				getGui().displayStringsB(set.getOrderedQuantity() + "\tSet " + set.getSetID() + "\t" + set.getSetPrice());
+				getGui().displayStringsB(set.getOrderedQuantity() + "\tSet " + set.getSetID());
+				getGui().displayEnd("" + set.getSetPrice());
 			}
 
 			order.setTotalPrice();
 			getGui().displayRow("");
-			getGui().displayStringsB("SubTotal: " + String.format("%.2f", order.getTotalPrice()));
-			getGui().displayStringsB("GST & Service Charge " + (String.format("%.2f", order.getTotalPrice() * bill.getGst())));
-			getGui().displayRow("");
-			getGui().displayStringsB("\t\tTOTAL: " + (String.format("%.2f", order.getTotalPrice() + order.getTotalPrice() * bill.getGst())));
-			getGui().displayRow("");
+			getGui().displayStringsB("\t\tSUB-TOTAL:\t\t" + String.format("%.2f", order.getTotalPrice()));
+			getGui().displayRow("\t\tGST & Service Charge:\t" + (String.format("%.2f", order.getTotalPrice() * bill.getGst())));
+			getGui().displayRow("\tTOTAL:\t\t\t\t$" + (String.format("%.2f", order.getTotalPrice() + order.getTotalPrice() * bill.getGst())));
+			getGui().displayStringsB("\tThank You For Dining With Us!");
+			getGui().displayReciept();
+			
 			getDb().getOrder().getAllOrders().get(order.getOrderId() - 1).setPrintedInvoice();
 			getDb().getRestaurant().getTableList().get(tablenum - 1).setOccupied(false);
 			getDb().getRestaurant().updateRestaurantTables();
@@ -102,38 +107,34 @@ public class BillController extends Controller {
 	public void printSalesRevenueReport() {
 		Scanner sc = new Scanner(System.in);
 
-		getGui().displayTitle("Sales Report Interface");
-		String[] salesOptions = { "Print by Day", "Print by Month", "Print by Year"};
+		getGui().displayTitle("Printing Sales Report");
+		String[] salesOptions = { "Print By Day", "Print By Month", "Print By Year" };
 		int choice = getGui().detectChoice(salesOptions);
 
 		Bill bill = new Bill();
 		String tempinputdate = null;
 		if (choice == 1) {
-			getGui().displayStringsB("Enter date in format DD-MM-YYYY eg. 04-04-2019 for 4th day of the April 2019");
+			getGui().displayStringsB("Enter Date In Format DD-MM-YYYY eg. 04-04-2019 For 4th Of April 2019");
 			tempinputdate = sc.nextLine().trim();
-			while(!tempinputdate.matches("([0-3][0-9])-([0-3][0-9])-([0-9][0-9][0-9][0-9])"))
-			{
-				getGui().displayStringsB("Invalid input!\n");
-				getGui().displayStringsB("Enter date in format DD-MM-YYYY eg. 04-04-2019 for 4th day of the April 2019");
+			while (!tempinputdate.matches("([0-3][0-9])-([0-3][0-9])-([0-9][0-9][0-9][0-9])")) {
+				getGui().displayStringsB("Invalid Input.\n");
+				getGui().displayStringsB("Enter Date In Format DD-MM-YYYY eg. 04-04-2019 For 4th Of April 2019");
 				tempinputdate = sc.nextLine().trim();
 			}
 		} else if (choice == 2) {
-			getGui().displayStringsB("Enter date in format MM-YYYY eg. 04-2019 for the month of April 2019");
+			getGui().displayStringsB("Enter Date In Format MM-YYYY eg. 04-2019 The Month April 2019");
 			tempinputdate = sc.nextLine().trim();
-			while(!tempinputdate.matches("([0-3][0-9])-([0-9][0-9][0-9][0-9])"))
-			{
-				getGui().displayStringsB("Invalid input!\n");
-				getGui().displayStringsB("Enter date in format MM-YYYY eg. 04-2019 for the month of April 2019");
+			while (!tempinputdate.matches("([0-3][0-9])-([0-9][0-9][0-9][0-9])")) {
+				getGui().displayStringsB("Invalid Input.\n");
+				getGui().displayStringsB("Enter Date In Format MM-YYYY eg. 04-2019 The Month April 2019");
 				tempinputdate = sc.nextLine().trim();
 			}
-		}else if (choice==3)
-		{
-			getGui().displayStringsB("Enter date in format YYYY eg. 2019 for the year 2019");
+		} else if (choice == 3) {
+			getGui().displayStringsB("Enter Date In Format YYYY eg. 2019 For Year 2019");
 			tempinputdate = sc.nextLine().trim();
-			while(!tempinputdate.matches("[0-9][0-9][0-9][0-9]"))
-			{
-				getGui().displayStringsB("Invalid input!\n");
-				getGui().displayStringsB("Enter date in format YYYY eg. 2019 for the year 2019");
+			while (!tempinputdate.matches("[0-9][0-9][0-9][0-9]")) {
+				getGui().displayStringsB("Invalid Input.\n");
+				getGui().displayStringsB("Enter Date In Format YYYY eg. 2019 For Year 2019");
 				tempinputdate = sc.nextLine().trim();
 			}
 		}
@@ -147,29 +148,35 @@ public class BillController extends Controller {
 			getGui().displayStringsB("No Available Data For The Period Specified.");
 		} else {
 
-			getGui().displayStringsB("Sales Report for the period: "+ userinputdate);
+			getGui().displayRow("\nSales Report For The Period: " + userinputdate);
 			double totalRevenue = 0;
-			getGui().displayRow("Ala Carte");
-			getGui().displayRow("");
+			getGui().displayRow("ALA CARTE");
+			getGui().displayRow("QTY\tITEM\t\t\t\tREVENUE");
 
-			int i=0;
+			int i = 0;
 			for (; i < salesList.size(); i++) {
 				SalesItem salesitem = salesList.get(i);
 				if (salesList.get(i).isPromo()) {
 					break;
 				}
-				getGui().displayStringsB("Item name: " + salesitem.getItemname() + "\tQty: " + salesitem.getQuantitySold() + "\tRevenue from this item: " + String.format("%.2f", (salesitem.getQuantitySold() * salesitem.getPrice())));
+				getGui().displayStringsB(salesitem.getQuantitySold() + "\t" + salesitem.getItemname());
+				getGui().displayEnd(String.format("%.2f", (salesitem.getQuantitySold() * salesitem.getPrice())));
 				totalRevenue += salesitem.getQuantitySold() * salesitem.getPrice();
 			}
-			getGui().displayRow("Promo Item");
+
 			getGui().displayRow("");
+			getGui().displayRow("PROMO SET");
+			getGui().displayRow("QTY\tITEM\t\t\t\tREVENUE");
 			for (; i < salesList.size(); i++) {
 				SalesItem promoitem = salesList.get(i);
-				getGui().displayStringsB("Promo Set: " + promoitem.getItemname() + "\tQty: " + promoitem.getQuantitySold() + "\tRevenue from this item: " + String.format("%.2f", (promoitem.getQuantitySold() * promoitem.getPrice())));
+				getGui().displayStringsB(promoitem.getQuantitySold() + "\t" + promoitem.getItemname());
+				getGui().displayEnd(String.format("%.2f", (promoitem.getQuantitySold() * promoitem.getPrice())));
 				totalRevenue += promoitem.getQuantitySold() * promoitem.getPrice();
 			}
 
-			getGui().displayStringsB("Total Revenue: " + String.format("%.2f", totalRevenue));
+			getGui().displayRow("");
+			getGui().displayStringsB("TOTAL REVENUE");
+			getGui().displayEnd(String.format("%.2f", totalRevenue));
 		}
 
 	};
