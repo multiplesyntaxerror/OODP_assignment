@@ -40,7 +40,7 @@ public class Restaurant {
         		Database.getGui().displayStringsB("");
         		Database.getGui().displayStrings(table.getNoOfSeat() + " Seater :");
         	}
-        	if (!table.isOccupied() || !table.isReserved()) {
+        	if (!table.isOccupied() && !table.isReserved()) {
         		Database.getGui().displayStrings("(" + table.getTableId() + ")");
         	}
         	previous = table.getNoOfSeat();
