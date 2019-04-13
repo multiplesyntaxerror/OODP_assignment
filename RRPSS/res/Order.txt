@@ -1,1 +1,2 @@
-1|30|true|qinkai**13-04-2019 04:17 AM|Jack's Special Steak**1**29.90
+1|2|true|bryan**13-04-2019 02:48 PM|Jack's Special Steak**3**89.70**Bearnaise Steak**1**29.50|1**4**139.60**2**1**12.50
+2|2|false|lin**13-04-2019 02:50 PM|Jack's Special Steak**1**29.90|1**1**34.90
