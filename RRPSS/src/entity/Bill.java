@@ -7,18 +7,9 @@ import service.BillingInterface;
 
 public class Bill implements BillingInterface {
 
-	private String printSeperator = "    ";
 	private double gst = 0.17;
 
 	private ArrayList<String> salesDatabase = new ArrayList<String>();
-
-	public String getPrintSeperator() {
-		return printSeperator;
-	}
-
-	public void setPrintSeperator(String printSeperator) {
-		this.printSeperator = printSeperator;
-	}
 
 	public double getGst() {
 		return gst;

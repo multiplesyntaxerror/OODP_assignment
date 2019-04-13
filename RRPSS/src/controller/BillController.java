@@ -98,12 +98,12 @@ public class BillController extends Controller {
 		Scanner sc = new Scanner(System.in);
 
 		getGui().displayTitle("Sales Report Interface");
-		String[] salesOptions = { "Print by Day", "Print by Month" };
+		String[] salesOptions = { "Print By Day", "Print By Month" };
 		int choice = getGui().detectChoice(salesOptions);
 
 		Bill bill = new Bill();
 		if (choice == 1) {
-			getGui().displayStringsB("Enter date in format DD eg. 04 for 4th day of the month");
+			getGui().displayStringsB("Enter Date In Format DD eg. 04/4 for 4th Day Of The Month");
 		} else if (choice == 2) {
 			getGui().displayStringsB("Enter date in format MM eg. 04 for April");
 		}
@@ -114,7 +114,7 @@ public class BillController extends Controller {
 		List<SalesItem> salesList = bill.getSalesReport(choice, userinputdate, getDb().getOrder().getAllOrders());
 
 		if (salesList == null) {
-			getGui().displayStringsB("No available data for the period specified");
+			getGui().displayStringsB("No Available Data For The Period Specified.");
 		} else {
 			double totalRevenue = 0;
 			getGui().displayRow("Ala Carte");
@@ -126,23 +126,18 @@ public class BillController extends Controller {
 				if (salesList.get(i).isPromo()) {
 					break;
 				}
-
-				getGui().displayStringsB("Item name: " + salesitem.getItemname() + bill.getPrintSeperator() + "Qty: "
-						+ salesitem.getQuantitySold() + bill.getPrintSeperator() + "Revenue from this item: "
-						+ String.format("%.2f", (salesitem.getQuantitySold() * salesitem.getPrice())));
+				getGui().displayStringsB("Item name: " + salesitem.getItemname() + "\tQty: " + salesitem.getQuantitySold() + "\tRevenue from this item: " + String.format("%.2f", (salesitem.getQuantitySold() * salesitem.getPrice())));
 				totalRevenue += salesitem.getQuantitySold() * salesitem.getPrice();
 			}
 			getGui().displayRow("Promo Item");
 			getGui().displayRow("");
 			for (int i = 0; i < salesList.size(); i++) {
 				SalesItem promoitem = salesList.get(i);
-				getGui().displayStringsB("Promo Set: " + promoitem.getItemname() + bill.getPrintSeperator() + "Qty: "
-						+ promoitem.getQuantitySold() + bill.getPrintSeperator() + "Revenue from this item: "
-						+ String.format("%.2f", (promoitem.getQuantitySold() * promoitem.getPrice())));
+				getGui().displayStringsB("Promo Set: " + promoitem.getItemname() + "\tQty: " + promoitem.getQuantitySold() + "\tRevenue from this item: " + String.format("%.2f", (promoitem.getQuantitySold() * promoitem.getPrice())));
 				totalRevenue += promoitem.getQuantitySold() * promoitem.getPrice();
 			}
 
-			System.out.println("Total Revenue: " + String.format("%.2f", totalRevenue));
+			getGui().displayStringsB("Total Revenue: " + String.format("%.2f", totalRevenue));
 		}
 
 	};
