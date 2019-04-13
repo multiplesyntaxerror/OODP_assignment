@@ -206,6 +206,7 @@ public class Order implements OrderInterface{
         for (int i = 0 ; i < stringArray.size() ; i++) {
         	ArrayList<PromoSet> promoSet = new ArrayList<PromoSet>();
         	ArrayList<MenuItem> alaCarte = new ArrayList<MenuItem>();
+//        	Staff staff = new Staff(name, contact, employeeId, jobTitle, salary);
         	Staff staff = new Staff();
 			String st = (String)stringArray.get(i);
 			StringTokenizer star = new StringTokenizer(st, Database.getSeparator());	

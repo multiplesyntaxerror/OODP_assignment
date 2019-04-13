@@ -83,8 +83,8 @@ public class OrderController extends Controller{
 			}
 		} while (tableId <= 0 || tableId > 30);
 		
-		if(getDb().getTable()[tableId-1].getOccupied() == true) {
-			getGui().displayStringsB("Table is already occupied!.\n");
+		if(getDb().getRestaurant().getTableList().get(tableId - 1).isOccupied() == true) {
+			getGui().displayStringsB("Table Is Already Occupied.\n");
 		}
 		else {
 		
@@ -146,7 +146,9 @@ public class OrderController extends Controller{
 						boolean created = getDb().getOrder().createOrder(order);
 						if (created == true) {
 							getGui().displayStringsB("Order Created!");
-							getDb().getTable()[tableId - 1].setOccupied(true);
+							getDb().getRestaurant().getTableList().get(tableId - 1).setOccupied(true);
+							getDb().getRestaurant().updateRestaurantTables();
+							
 						} else if (created != true) {
 							getGui().displayStringsB("Order not Created!");
 						}
@@ -192,11 +194,7 @@ public class OrderController extends Controller{
 					getGui().displayStringsB("PromoSet Successfully Removed!");
 				}
 			}
-		}
-		else {
-			getGui().displayStringsB("Order Does not exist!");
-		}
-		
+		}		
 	}
 	
 	public void addItemToExistingOrder() {

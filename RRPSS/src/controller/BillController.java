@@ -50,7 +50,7 @@ public class BillController extends Controller {
 			getGui().displayStringsB("The table has no order in place");
 		} else {
 			getDb().getOrder().getAllOrders().get(printedId - 1).setPrintedInvoice();
-			getDb().getTable()[tablenum - 1].setOccupied(false);
+			getDb().getRestaurant().getTableList().get(tablenum).setOccupied(false);
 			getDb().getOrder().callWrite();
 		}
 
