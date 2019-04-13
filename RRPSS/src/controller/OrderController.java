@@ -168,35 +168,33 @@ public class OrderController extends Controller{
 		getGui().displayStrings("Enter Order ID to Update: ");
 		OrderItem order = getDb().getOrder().pickOrderItems("Exit");
 		
-		if(order.getPrintedInvoice() == true) {
-			getGui().displayStringsB("Order is closed and cannot be editted! \n");
-			return;
-		}
 				
 		if(order != null) {
-			getGui().displayStringsB("Choose item to update ");
-			String[] orderlist = getDb().getOrder().getSpecificOrder(order.getOrderId());
-			int choice = getGui().detectChoice(orderlist);
-			getGui().displayStrings("Enter quantity to remove: ");
-			int qtyToRemove = sc.nextInt();
+			if(order.getPrintedInvoice() == true) {
+				getGui().displayStringsB("Order is closed and cannot be editted! \n");
+				return;
+			}
+			else {
+				getGui().displayStringsB("Choose item to update ");
+				String[] orderlist = getDb().getOrder().getSpecificOrder(order.getOrderId());
+				int choice = getGui().detectChoice(orderlist);
+				getGui().displayStrings("Enter quantity to remove: ");
+				int qtyToRemove = sc.nextInt();
 
-			if (choice <= getDb().getOrder().getAllOrders().get(order.getOrderId() - 1).getAlaCarte().size()) {
-				boolean removed = getDb().getOrder().removeMenuItemOrder(order.getOrderId(), choice, qtyToRemove);
-				if(removed == true) {
-					getGui().displayStringsB("Item Successfully Removed!");
-				}
-			} else {
-				choice = choice - getDb().getOrder().getAllOrders().get(order.getOrderId() - 1).getAlaCarte().size();
-				boolean removedP = getDb().getOrder().removePromoSetOrder(order.getOrderId(), choice, qtyToRemove);
-				if(removedP == true) {
-					getGui().displayStringsB("PromoSet Successfully Removed!");
+				if (choice <= getDb().getOrder().getAllOrders().get(order.getOrderId() - 1).getAlaCarte().size()) {
+					boolean removed = getDb().getOrder().removeMenuItemOrder(order.getOrderId(), choice, qtyToRemove);
+					if (removed == true) {
+						getGui().displayStringsB("Item Successfully Removed!");
+					}
+				} else {
+					choice = choice - getDb().getOrder().getAllOrders().get(order.getOrderId() - 1).getAlaCarte().size();
+					boolean removedP = getDb().getOrder().removePromoSetOrder(order.getOrderId(), choice, qtyToRemove);
+					if (removedP == true) {
+						getGui().displayStringsB("PromoSet Successfully Removed!");
+					}
 				}
 			}
-		}
-		else {
-			getGui().displayStringsB("Order Does not exist!");
-		}
-		
+		}	
 	}
 	
 	public void addItemToExistingOrder() {
@@ -205,67 +203,71 @@ public class OrderController extends Controller{
 		getGui().displayStringsB("Enter Order ID To Add: ");
 		OrderItem order = getDb().getOrder().pickOrderItems("Exit");
 			
-		if(order.getPrintedInvoice() == true) {
-			getGui().displayStringsB("Order is closed and cannot be editted! \n");
-			return;
-		}
 		
 		MenuItem item;
 		PromoSet set;
 		if(order != null) {
-			int choice;
-			do {
-				
-				String[] options = {
-						"Ala Carte",
-						"Promo Set",
-						"Done"
-				};
-				
-				getGui().displayStringsB("Add Ala Carte Or Promo Set: ");
-				
-				choice = getGui().detectChoice(options);
-				
-				switch (choice) {
-				case 1:
-					do {
-						getGui().displayStringsB("Enter Choice To Add Item Into Order: ");
-						item = getDb().getMenu().pickMenuItems("Done");
-						if (item != null) {
-							getGui().displayStrings("Enter Quantity: ");
-							int qty = sc.nextInt();
-							item.setOrderedQuantity(qty);
-							boolean updated = getDb().getOrder().updateMenuItemOrder(item, order.getOrderId());
-							if(updated == true) {
-								getGui().displayStringsB("Order Updated!");
+			
+			if(order.getPrintedInvoice() == true) {
+				getGui().displayStringsB("Order is closed and cannot be editted! \n");
+				return;
+			}
+			else {
+				int choice;
+				do {
+					
+					String[] options = {
+							"Ala Carte",
+							"Promo Set",
+							"Done"
+					};
+					
+					getGui().displayStringsB("Add Ala Carte Or Promo Set: ");
+					
+					choice = getGui().detectChoice(options);
+					
+					switch (choice) {
+					case 1:
+						do {
+							getGui().displayStringsB("Enter Choice To Add Item Into Order: ");
+							item = getDb().getMenu().pickMenuItems("Done");
+							if (item != null) {
+								getGui().displayStrings("Enter Quantity: ");
+								int qty = sc.nextInt();
+								item.setOrderedQuantity(qty);
+								boolean updated = getDb().getOrder().updateMenuItemOrder(item, order.getOrderId());
+								if(updated == true) {
+									getGui().displayStringsB("Order Updated!");
+								}
+								else {
+									getGui().displayStringsB("Order Not Updated!");
+								}
 							}
-							else {
-								getGui().displayStringsB("Order Not Updated!");
-							}
-						}
-					} while (item != null);
-					break;
+						} while (item != null);
+						break;
 
-				case 2:
-					do { 
-						getGui().displayStringsB("Enter Choice To Add Item Into Order: ");
-						set = getDb().getMenu().pickPromoSet("Done");
-						if (set != null) {
-							getGui().displayStrings("Enter Quantity: ");
-							int qty = sc.nextInt();
-							set.setOrderedQuantity(qty);
-							boolean updated = getDb().getOrder().updatePromoSetOrder(set, order.getOrderId());
-							if(updated == true) {
-								getGui().displayStringsB("Order Updated!");
-							}
-							else {
-								getGui().displayStringsB("Order Not Updated!");
-							}
-						} 
-					} while (set != null);
-					break; 
-				}
-			} while (choice == 1 || choice == 2);
+					case 2:
+						do { 
+							getGui().displayStringsB("Enter Choice To Add Item Into Order: ");
+							set = getDb().getMenu().pickPromoSet("Done");
+							if (set != null) {
+								getGui().displayStrings("Enter Quantity: ");
+								int qty = sc.nextInt();
+								set.setOrderedQuantity(qty);
+								boolean updated = getDb().getOrder().updatePromoSetOrder(set, order.getOrderId());
+								if(updated == true) {
+									getGui().displayStringsB("Order Updated!");
+								}
+								else {
+									getGui().displayStringsB("Order Not Updated!");
+								}
+							} 
+						} while (set != null);
+						break; 
+					}
+				} while (choice == 1 || choice == 2);
+			}
+			
 		}
 	}
 	
