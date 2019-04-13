@@ -50,9 +50,13 @@ public class Bill implements BillingInterface {
 				temporder = orderList.get(j);
 				char[] getperiod = new char[20];
 				if (choice == 1) {
-					temporder.getDate().getChars(0, 2, getperiod, 0);
+					temporder.getDate().getChars(0, 10, getperiod, 0);
 				} else if (choice == 2) {
-					temporder.getDate().getChars(3, 5, getperiod, 0);
+					temporder.getDate().getChars(3, 10, getperiod, 0);
+				}
+				else if(choice==3)
+				{
+					temporder.getDate().getChars(6, 10, getperiod, 0);
 				}
 				String period = new String(getperiod).trim();
         
