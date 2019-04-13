@@ -133,7 +133,7 @@ public class BillController extends Controller {
 			while(!tempinputdate.matches("[0-9][0-9][0-9][0-9]"))
 			{
 				getGui().displayStringsB("Invalid input!\n");
-				getGui().displayStringsB("Enter date in format MM-YYYY eg. 04-2019 for the month of April 2019");
+				getGui().displayStringsB("Enter date in format YYYY eg. 2019 for the year 2019");
 				tempinputdate = sc.nextLine().trim();
 			}
 		}
