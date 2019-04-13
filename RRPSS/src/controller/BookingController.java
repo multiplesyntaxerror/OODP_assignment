@@ -3,7 +3,9 @@ package controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
@@ -26,6 +28,7 @@ public class BookingController extends Controller {
 				"Display All Bookings", 
 				"Display All Available Tables", 
 				"Add Booking", 
+				"Allocate Table By Booking",
 				"Delete Booking",
 				"Back" };
 
@@ -34,20 +37,23 @@ public class BookingController extends Controller {
 
 		switch (choice) {
 		case 1:
-			getDb().getBooking().printBooking();
+			getDb().getBooking().printBookings();
 			break;
 		case 2:
 			getDb().getRestaurant().showAvailableTable();
 			break;
 		case 3:
-			deleteBooking();
-			break;
-		case 4:
 			createBooking();
 			break;
+		case 4:
+			allocateTableByBooking();
+			break;
 		case 5:
-			getGui().displayStringsB("Returning ...");
+			deleteBooking();
 			return;
+		case 6:
+			getGui().displayStringsB("Returning ...");
+			break;
 		}
 
 	}
@@ -61,29 +67,27 @@ public class BookingController extends Controller {
 	 * 
 	 */
 
+	private void allocateTableByBooking() {
+		
+		
+	}
+
 	public void createBooking() {
 
-		/**for opening closing time. commented for testing**/
-//		Date curTime = new Date();
-//		SimpleDateFormat parser = new SimpleDateFormat("HH");
-//		boolean nonBooking=true;
-//		try {
-//			Date eleven = parser.parse("11");
-//			Date fifteen = parser.parse("15");
-//			Date eighteen = parser.parse("18");
-//			Date twenty2 = parser.parse("22");
-//			if ((curTime.after(eleven) && curTime.before(fifteen)) || (curTime.before(twenty2) && curTime.after(eighteen))) {
-//				nonBooking = false;
-//			}
-//			}catch (ParseException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
+//		Date date = new Date();   // given date
+//		Calendar calendar = GregorianCalendar.getInstance(); // creates a new calendar instance
+//		calendar.setTime(date);
+		
+		int currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
 
-//		if (!nonBooking) {
-		if(true) {
+		boolean nonBooking = true;
+		if ((currentHour >= 11 && currentHour < 15) || (currentHour >= 18 && currentHour < 22)) {
+			nonBooking = false;
+		}
+
+		if (!nonBooking) {
 			Scanner sc = new Scanner(System.in);
-			getGui().displayTitle("Adding New Customer To BookingList");
+			getGui().displayTitle("Adding New Customer To Booking");
 			Customer customer = null;
 
 			while (true) {
@@ -220,6 +224,9 @@ public class BookingController extends Controller {
 					getGui().displayStringsB("Booking Already Exist.\n");
 				sc.nextLine();
 			}
+		}
+		else {
+			getGui().displayStringsB("Booking Is Unavaliable At This Timing.");
 		}
 	}
 

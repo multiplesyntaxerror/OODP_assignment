@@ -30,7 +30,7 @@ public class Booking implements BookingInterface {
 		if (index == -1) {
 			bookingList.add(customer);
 			callWrite();
-			printBooking();
+			printBookings();
 			return true;
 		}
 		return false;
@@ -67,7 +67,7 @@ public class Booking implements BookingInterface {
 		return customer;
 	}
 
-	public void printBooking() {
+	public void printBookings() {
 		Database.getGui().displayStringsB("");
 		for (int i = 0; i < bookingList.size(); i++) {
 			Customer customer = (Customer) bookingList.get(i);
