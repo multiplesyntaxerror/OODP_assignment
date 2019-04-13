@@ -111,7 +111,7 @@ public class BillController extends Controller {
 		if (choice == 1) {
 			getGui().displayStringsB("Enter date in format DD-MM-YYYY eg. 04-04-2019 for 4th day of the April 2019");
 			tempinputdate = sc.nextLine().trim();
-			while(!tempinputdate.matches("([0-3][0-9])-([0-3][0-9])-([0-9][0-9][0-9][0-9])"))
+			while(!tempinputdate.matches("([0-3][0-9])-([0-1][0-9])-([0-9][0-9][0-9][0-9])"))
 			{
 				getGui().displayStringsB("Invalid input!\n");
 				getGui().displayStringsB("Enter date in format DD-MM-YYYY eg. 04-04-2019 for 4th day of the April 2019");
@@ -120,7 +120,7 @@ public class BillController extends Controller {
 		} else if (choice == 2) {
 			getGui().displayStringsB("Enter date in format MM-YYYY eg. 04-2019 for the month of April 2019");
 			tempinputdate = sc.nextLine().trim();
-			while(!tempinputdate.matches("([0-3][0-9])-([0-9][0-9][0-9][0-9])"))
+			while(!tempinputdate.matches("([0-1][0-9])-([0-9][0-9][0-9][0-9])"))
 			{
 				getGui().displayStringsB("Invalid input!\n");
 				getGui().displayStringsB("Enter date in format MM-YYYY eg. 04-2019 for the month of April 2019");
