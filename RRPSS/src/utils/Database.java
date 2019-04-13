@@ -1,7 +1,16 @@
 package utils;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import entity.Booking;
+import entity.Customer;
+import entity.Table;
 import entity.Menu;
 import entity.Order;
+import entity.Restaurant;
+import entity.Table;
 import view.GUI;
 
 /**
@@ -17,25 +26,38 @@ public class Database {
 	
 	/** The Constant SETSEPARATOR for promotional set. */
 	private static final String SETSEPARATOR = "+";
-	
+
+	/** The Constant TXTSEPARATOR for order. */
 	private static final String TXTSEPARATOR = "**";
 
 	/** The GUI. */
 	private static GUI gui;
 	
+	private Restaurant restaurant;
+	
 	/** The menu. */
 	private Menu menu;
+	
+	/** The order. */
 	private Order order;
+	
+	/** the booking */
+	private Booking booking;
+
+
 	
 	/** 
 	 * Initialize data.
 	 */
 	public void initializeData() {
 		gui = new GUI();
+		restaurant = new Restaurant();
 		menu = new Menu();
 		order = new Order();
+		booking = new Booking();
+		
 	}
-
+	
 	/**
 	 * Gets the rw file.
 	 *
@@ -64,12 +86,29 @@ public class Database {
 	}
 	
 	/**
+	 * Gets the order separator.
+	 *
+	 * @return the order separator
+	 */
+	public static String getTXTSeparator() {
+		return TXTSEPARATOR;
+	}
+	
+	/**
 	 * Gets the GUI.
 	 *
 	 * @return the GUI
 	 */
 	public static GUI getGui() {
 		return gui;
+	}
+
+	public Restaurant getRestaurant() {
+		return restaurant;
+	}
+
+	public void setRestaurant(Restaurant restaurant) {
+		this.restaurant = restaurant;
 	}
 
 	/**
@@ -97,8 +136,13 @@ public class Database {
 	public void setOrder(Order order) {
 		this.order = order;
 	}
-
-	public static String getTXTSeparator() {
-		return TXTSEPARATOR;
+	
+	public Booking getBooking() {
+		return booking;
 	}
+
+	public void setBooking(Booking book) {
+		this.booking = book;
+	}
+	
 }

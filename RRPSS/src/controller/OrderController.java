@@ -3,6 +3,7 @@ package controller;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import entity.MenuItem;
@@ -69,87 +70,100 @@ public class OrderController extends Controller{
 				getGui().displayStringsB("Please Enter Something.\n");
 		} while (name.isEmpty());
 		
-		
-		OrderItem order = new OrderItem(0, null, alaCarteOrder, promoSetOrder,server);
-		
-		String pattern = "dd-MM-yyyy hh:mm a";
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-		String date = simpleDateFormat.format(new Date());
-		order.setDate(date);
-		int choice;
-		
+		int tableId = 0;
 		do {
-			
-			String[] options = {
-					"Ala Carte",
-					"Promo Set",
-					"Done"
-			};
-			
-			getGui().displayStringsB("Order Ala Carte Or Promo Set: ");
-			
-			choice = getGui().detectChoice(options);
-			
-			switch(choice) {
-			case 1:
-
-				MenuItem item;
-				// addAlcart
-				do {
-					getGui().displayStringsB("Enter Choice Of Item To Add Into Order: ");
-					item = getDb().getMenu().pickMenuItems("Done");
-					if (item != null) {
-						getGui().displayStrings("Enter Quantity: ");
-						int qty = sc.nextInt();
-						item.setOrderedQuantity(qty);
-					
-						if(order.getOrder().size() == 0) {
-							order.getOrder().add(item);
-						}
-						else {
-							addItemToNewOrder(order, item);						
-						}
-					}
-				} while(item != null);
-				break;
-				
-			case 2: 
-				PromoSet set;
-				do {
-					getGui().displayStringsB("Enter Choice To Add Item Into Order: ");
-					set = getDb().getMenu().pickPromoSet("Done");
-					if (set != null) {
-						getGui().displayStrings("Enter Quantity: ");
-						int qty = sc.nextInt();
-						set.setOrderedQuantity(qty);
-					
-						if(order.getPromoSet().size() == 0) {
-							order.getPromoSet().add(set);
-						}
-						else {
-							addPromoSetToNewOrder(order, set);
-						}
-					}
-				} while(set != null);
-				break;
-			case 3:
-				if(order.getOrder().size() != 0 || order.getPromoSet().size() != 0) {
-					boolean created = getDb().getOrder().createOrder(order);
-					if(created == true) {
-						getGui().displayStringsB("Order Created!");
-					}
-					else if(created != true){
-						getGui().displayStringsB("Order not Created!");
-					}
-				}
-				else {
-					getGui().displayStringsB("Order is empty, returning to system Menu!");					
-				}
-				break;
-			default :
-				
+			try {
+				getGui().displayStrings("Enter Table Number: ");
+				tableId = sc.nextInt();
+				if (tableId <= 0 || tableId > 30) 
+					getGui().displayStringsB("Table Only Ranges From 1-30.\n");
+			} catch(InputMismatchException e) {
+				getGui().displayStringsB("ERROR: Your Input Is Invalid.\n");
+				sc.nextLine();
 			}
-		} while(choice == 1 || choice == 2);
+		} while (tableId <= 0 || tableId > 30);
+		if(getDb().getRestaurant().getTableList().get(tableId - 1).isOccupied() == true) {
+			getGui().displayStringsB("Table Is Already Occupied.\n");
+		}
+		else {
+		
+			OrderItem order = new OrderItem(0, tableId, server, null, 0, alaCarteOrder, promoSetOrder, false);
+
+			String pattern = "dd-MM-yyyy hh:mm a";
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+			String date = simpleDateFormat.format(new Date());
+			order.setDate(date);
+			order.setTableId(tableId);
+			int choice;
+
+			do {
+
+				String[] options = { 
+						"Ala Carte", 
+						"Promo Set", 
+						"Done" };
+
+				getGui().displayStringsB("Order Ala Carte Or Promo Set: ");
+				choice = getGui().detectChoice(options);
+				switch (choice) {
+				case 1:
+					MenuItem item;
+					do {
+						getGui().displayStringsB("Enter Choice Of Item To Add Into Order: ");
+						item = getDb().getMenu().pickMenuItems("Done");
+						if (item != null) {
+							getGui().displayStrings("Enter Quantity: ");
+							int qty = sc.nextInt();
+							item.setOrderedQuantity(qty);
+
+							if (order.getAlaCarte().size() == 0) {
+								order.getAlaCarte().add(item);
+							} else {
+								addItemToNewOrder(order, item);
+							}
+						}
+					} while (item != null);
+					break;
+
+				case 2:
+					PromoSet set;
+					do {
+						getGui().displayStringsB("Enter Choice To Add Item Into Order: ");
+						set = getDb().getMenu().pickPromoSet("Done");
+						if (set != null) {
+							getGui().displayStrings("Enter Quantity: ");
+							int qty = sc.nextInt();
+							set.setOrderedQuantity(qty);
+
+							if (order.getPromoSet().size() == 0) {
+								order.getPromoSet().add(set);
+							} else {
+								addPromoSetToNewOrder(order, set);
+							}
+						}
+					} while (set != null);
+					break;
+				case 3:
+					if (order.getAlaCarte().size() != 0 || order.getPromoSet().size() != 0) {
+						boolean created = getDb().getOrder().createOrder(order);
+						if (created == true) {
+							getGui().displayStringsB("Order Created!");
+							getDb().getRestaurant().getTableList().get(tableId - 1).setOccupied(true);
+							getDb().getRestaurant().updateRestaurantTables();
+							
+						} else if (created != true) {
+							getGui().displayStringsB("Order not Created!");
+						}
+					} else {
+						getGui().displayStringsB("Order is empty, returning to system Menu!");
+					}
+					break;
+				default:
+
+				}
+
+			} while (choice == 1 || choice == 2);
+		}
 	}
 	
 	public void removeItemFromExistingOrder() {
@@ -157,32 +171,35 @@ public class OrderController extends Controller{
 		getGui().displayTitle("Update Exisiting Orders");
 		getGui().displayStrings("Enter Order ID to Update: ");
 		OrderItem order = getDb().getOrder().pickOrderItems("Exit");
+		
 				
 		if(order != null) {
-			getGui().displayStringsB("Choose item to update ");
-			String[] orderlist = getDb().getOrder().getSpecificOrder(order.getOrderId());
-			int choice = getGui().detectChoice(orderlist);
-			getGui().displayStrings("Enter quantity to remove: ");
-			int qtyToRemove = sc.nextInt();
+			if(order.getPrintedInvoice() == true) {
+				getGui().displayStringsB("Order is closed and cannot be editted! \n");
+				return;
+			}
+			else {
+				getGui().displayStringsB("Choose item to update ");
+				String[] orderlist = getDb().getOrder().getSpecificOrder(order.getOrderId());
+				int choice = getGui().detectChoice(orderlist);
+				getGui().displayStrings("Enter quantity to remove: ");
+				int qtyToRemove = sc.nextInt();
 
-			if (choice <= getDb().getOrder().getAllOrders().get(order.getOrderId() - 1).getOrder().size()) {
-				boolean removed = getDb().getOrder().removeMenuItemOrder(order.getOrderId(), choice, qtyToRemove);
-				if(removed == true) {
-					getGui().displayStringsB("Item Successfully Removed!");
-				}
-			} else {
-				choice = choice - getDb().getOrder().getAllOrders().get(order.getOrderId() - 1).getOrder().size();
-				boolean removedP = getDb().getOrder().removePromoSetOrder(order.getOrderId(), choice, qtyToRemove);
-				if(removedP == true) {
-					getGui().displayStringsB("PromoSet Successfully Removed!");
+				if (choice <= getDb().getOrder().getAllOrders().get(order.getOrderId() - 1).getAlaCarte().size()) {
+					boolean removed = getDb().getOrder().removeMenuItemOrder(order.getOrderId(), choice, qtyToRemove);
+					if(removed == true) {
+						getGui().displayStringsB("Item Successfully Removed!");
+					}
+				} else {
+					choice = choice - getDb().getOrder().getAllOrders().get(order.getOrderId() - 1).getAlaCarte().size();
+					boolean removedP = getDb().getOrder().removePromoSetOrder(order.getOrderId(), choice, qtyToRemove);
+					if(removedP == true) {
+						getGui().displayStringsB("PromoSet Successfully Removed!");
+					}
 				}
 			}
 		}
-		else {
-			getGui().displayStringsB("Order Does not exist!");
-		}
-		
-	}
+  }
 	
 	public void addItemToExistingOrder() {
 		Scanner sc = new Scanner(System.in);
@@ -190,6 +207,11 @@ public class OrderController extends Controller{
 		getGui().displayStringsB("Enter Order ID To Add: ");
 		OrderItem order = getDb().getOrder().pickOrderItems("Exit");
 			
+		if(order.getPrintedInvoice() == true) {
+			getGui().displayStringsB("Order is closed and cannot be editted! \n");
+			return;
+		}
+		
 		MenuItem item;
 		PromoSet set;
 		if(order != null) {
@@ -251,15 +273,15 @@ public class OrderController extends Controller{
 	
 	public void addItemToNewOrder(OrderItem order, MenuItem item) {
 		boolean dupe = false;
-		for(int i = 0 ; i<order.getOrder().size(); i++) {
-			if(order.getOrder().get(i).getName().equals(item.getName())) {
-				order.getOrder().get(i).addOrderedQuantity(item.getOrderedQuantity());
+		for(int i = 0 ; i<order.getAlaCarte().size(); i++) {
+			if(order.getAlaCarte().get(i).getName().equals(item.getName())) {
+				order.getAlaCarte().get(i).addOrderedQuantity(item.getOrderedQuantity());
 				dupe = true;
 				break;
 			}
 		}
 		if(dupe == false) {
-			order.getOrder().add(item);
+			order.getAlaCarte().add(item);
 		}
 	}
 	

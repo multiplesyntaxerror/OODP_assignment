@@ -1,8 +1,8 @@
 package service;
 
-/**
- * The Interface BookingInterface.
- */
-public interface BookingInterface {
+import entity.Customer;
 
+public interface BookingInterface {
+	public boolean createBooking(Customer customer);
+	public boolean deleteBooking(Customer customer);
 }

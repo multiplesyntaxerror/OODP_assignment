@@ -14,6 +14,8 @@ public class MainController {
 	/** The menu controller. */
 	private MenuController mc;
 	private OrderController oc;
+	private BookingController boc;
+	private BillController bic;
 	
 	/**
 	 * Instantiates a new main controller.
@@ -24,6 +26,8 @@ public class MainController {
 		this.db = db;
 		this.mc = new MenuController();
 		this.oc = new OrderController();
+		this.boc= new BookingController();
+		this.bic = new BillController();
 	}
 	
 	/**
@@ -32,7 +36,10 @@ public class MainController {
 	 * 
 	 */
 	public void run() {
+		
 
+		db.getBooking().checkAndClearReservation();
+		
 		int choice;
 		
 		String[] mainOption = {
@@ -40,7 +47,6 @@ public class MainController {
 				"Order Options",
 				"Booking Options",
 				"Billing Options",
-				"Print Sales Revenue",
 				"Exit System"
 		};
 
@@ -52,11 +58,6 @@ public class MainController {
 			
 			
 			choice = db.getGui().detectChoice(mainOption);
-//			choice = 1;
-//			choice = 2;
-//			choice = 3;
-//			choice = 4;
-//			choice = 5;
 			
 			switch(choice) {
 				case 1:
@@ -66,12 +67,12 @@ public class MainController {
 					oc.run(db);
 					break;
 				case 3:
+					boc.run(db);
 					break;
 				case 4:
+					bic.run(db);
 					break;
 				case 5:
-					break;
-				case 6:
 					db.getGui().displayTitle("Exiting System...");
 					return;
 			}
