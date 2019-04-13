@@ -56,8 +56,9 @@ public class Order implements OrderInterface{
 		callRead();	
 		boolean updated = false;
 		int index = orderId - 1;
-		if(qty <= allOrders.get(index).getAlaCarte().get(index).getOrderedQuantity()) {
-			allOrders.get(index).getAlaCarte().get(index).addOrderedQuantity(-qty);	
+		int itemIndex = choice - 1;
+		if(qty <= allOrders.get(index).getAlaCarte().get(itemIndex).getOrderedQuantity()) {
+			allOrders.get(index).getAlaCarte().get(itemIndex).addOrderedQuantity(-qty);	
 			updated = true;
 		}
 		else {
@@ -93,8 +94,9 @@ public class Order implements OrderInterface{
 		callRead();	
 		boolean updated = false;
 		int index = orderId - 1;
-		if(qty <= allOrders.get(index).getPromoSet().get(index).getOrderedQuantity()) {
-			allOrders.get(index).getPromoSet().get(index).addOrderedQuantity(-qty);	
+		int itemIndex = choice - 1;
+		if(qty <= allOrders.get(index).getPromoSet().get(itemIndex).getOrderedQuantity()) {
+			allOrders.get(index).getPromoSet().get(itemIndex).addOrderedQuantity(-qty);	
 			updated = true;
 		}
 		else {
@@ -206,6 +208,7 @@ public class Order implements OrderInterface{
         for (int i = 0 ; i < stringArray.size() ; i++) {
         	ArrayList<PromoSet> promoSet = new ArrayList<PromoSet>();
         	ArrayList<MenuItem> alaCarte = new ArrayList<MenuItem>();
+//        	Staff staff = new Staff(name, contact, employeeId, jobTitle, salary);
         	Staff staff = new Staff();
 			String st = (String)stringArray.get(i);
 			StringTokenizer star = new StringTokenizer(st, Database.getSeparator());	

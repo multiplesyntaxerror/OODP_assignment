@@ -1,42 +1,33 @@
 package entity;
 
-public class Staff {
-	private String name;
-	private char gender;
-	private int employeeID;
+public class Staff extends Person {
+	
+	private int employeeId;
 	private String jobTitle;
+	private double salary;
 	
-	public Staff(String name, char gender, int employeeID, String jobTitle){
-		this.name = name;
-		this.gender = gender;
-		this.employeeID = employeeID;
+	public Staff(String name, String contact, int employeeId, String jobTitle, double salary){
+		super.name = name;
+		super.contact = contact;
+		this.employeeId = employeeId;
 		this.jobTitle = jobTitle;
+		this.salary = salary;
 	}
 	
-	public Staff(){}
-	
-	public void setName(String name){
-		this.name = name;
+	//TODO remove
+	public Staff() {
 	}
-	
-	public String getName() {
-		return name;
+
+	public void setEmployeeId(int employeeId) {
+		this.employeeId = employeeId;
 	}
-	
-	public void setGender(char gender) {
-		this.gender = gender;
-	}
-	
-	public char getGender() {
-		return gender;
-	}
-	
-	public void setEmployeeID(int employeeID) {
-		this.employeeID = employeeID;
+
+	public int getEmployeeId() {
+		return employeeId;
 	}
 	
 	public int getEmployeeID(){
-		return employeeID;
+		return employeeId;
 	}
 	
 	public void setJobTitle(String jobTitle) {
@@ -46,4 +37,15 @@ public class Staff {
 	public String getJobTitle() {
 		return jobTitle;
 	}
+
+	public double getSalary() {
+		return salary;
+	}
+
+	public void setSalary(double salary) {
+		this.salary = salary;
+	}
+
+	
+	
 }

@@ -12,7 +12,7 @@ import utils.ReadWriteFile;
 
 public class Booking implements BookingInterface {
 
-	private static final String FILENAME = "res/Booking.txt";
+	private static final String BOOKFILENAME = "res/Booking.txt";
 
 	private ArrayList<Customer> bookingList = new ArrayList<Customer>();
 
@@ -74,25 +74,15 @@ public class Booking implements BookingInterface {
 			System.out.println("Name: " + customer.getName());
 			System.out.println("Contact: " + customer.getContact());
 			System.out.println("Date: " + customer.getDate());
-			System.out.println("Arrival Time: " + customer.getATime());
+			System.out.println("Arrival Time: " + customer.getArrivalTime());
 			System.out.println("Number of people: " + customer.getPax());
 			System.out.println();
 		}
 	}
 
-	public String displayTableAvailable(Database db) {
-		int count = 0;
-		for (int i = 0; i < db.getTable().length; i++) {
-			if (db.getTable()[i].getReserved() == false) {
-				count++;
-			}
-		}
-		return Integer.toString(count);
-	}
+	public ArrayList<Customer> readBooking() throws IOException {
 
-	public ArrayList<Customer> readBooking(String filename) throws IOException {
-
-		ArrayList<String> stringArray = (ArrayList<String>) Database.getRwFile().read(filename);
+		ArrayList<String> stringArray = (ArrayList<String>) Database.getRwFile().read(BOOKFILENAME);
 
 		for (int i = 0; i < stringArray.size(); i++) {
 			String st = (String) stringArray.get(i);
@@ -123,17 +113,17 @@ public class Booking implements BookingInterface {
 			st.append(Database.getSeparator());
 			st.append(customer.getDate().trim());
 			st.append(Database.getSeparator());
-			st.append(customer.getATime().trim());
+			st.append(customer.getArrivalTime().trim());
 			st.append(Database.getSeparator());
 			st.append(customer.getDuration().trim());
 			alw.add(st.toString());
 		}
-		Database.getRwFile().write(FILENAME, alw);
+		Database.getRwFile().write(BOOKFILENAME, alw);
 	}
 	
 	private boolean callRead() {
 		try {
-			readBooking(FILENAME);
+			readBooking();
 			return true;
 		} catch (IOException e) {
 			System.out.println("IOException > " + e.getMessage());

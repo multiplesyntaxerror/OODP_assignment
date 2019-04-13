@@ -7,25 +7,19 @@ public class Table {
 	private boolean occupied;
 	private boolean reserved;
 
-	public Table() {
-		occupied = false;
-		reserved = false;
-	}
-
-	public boolean getOccupied() {
-		return occupied;
-	}
-
-	public void setOccupied(boolean occupied) {
+	public Table(int tableId, int noOfSeat, boolean occupied, boolean reserved) {
+		this.tableId = tableId;
+		this.noOfSeat = noOfSeat;
 		this.occupied = occupied;
-	}
-
-	public boolean getReserved() {
-		return reserved;
-	}
-
-	public void setReserved(boolean reserved) {
 		this.reserved = reserved;
+	}
+
+	public int getTableId() {
+		return tableId;
+	}
+
+	public void setTableId(int tableid) {
+		this.tableId = tableid;
 	}
 
 	public int getNoOfSeat() {
@@ -36,12 +30,21 @@ public class Table {
 		this.noOfSeat = noOfSeat;
 	}
 
-	public int getTableId() {
-		return tableId;
+	public boolean isOccupied() {
+		return occupied;
 	}
 
-	public void setTableId(int tableid) {
-		this.tableId = tableid;
+	public void setOccupied(boolean occupied) {
+		this.occupied = occupied;
 	}
+
+	public boolean isReserved() {
+		return reserved;
+	}
+
+	public void setReserved(boolean reserved) {
+		this.reserved = reserved;
+	}
+	
 
 }

@@ -1,21 +1,19 @@
 package entity;
 
-public class Customer {
+public class Customer extends Person {
 
-	private String name;
-	private String contact;
+	private int tableid;
 	private int pax;
 	private String date;
-	private String atime;
+	private String arrivalTime;
 	private String duration;
-	private int tableid;
 
-	public Customer(String name, String contact, int pax, String date, String atime, String duration) {
-		this.name = name;
-		this.contact = contact;
+	public Customer(String name, String contact, int pax, String date, String arrivalTime, String duration) {
+		super.name = name;
+		super.contact = contact;
 		this.pax = pax;
 		this.date = date;
-		this.atime = atime;
+		this.arrivalTime = arrivalTime;
 		this.setDuration(duration);
 	}
 
@@ -25,22 +23,6 @@ public class Customer {
 
 	public void setTableid(int tableid) {
 		this.tableid = tableid;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getContact() {
-		return contact;
-	}
-
-	public void setContact(String contact) {
-		this.contact = contact;
 	}
 
 	public int getPax() {
@@ -59,12 +41,13 @@ public class Customer {
 		this.date = date;
 	}
 
-	public String getATime() {
-		return atime;
+
+	public String getArrivalTime() {
+		return arrivalTime;
 	}
 
-	public void setATime(String atime) {
-		this.atime = atime;
+	public void setArrivalTime(String arrivalTime) {
+		this.arrivalTime = arrivalTime;
 	}
 
 	public String getDuration() {

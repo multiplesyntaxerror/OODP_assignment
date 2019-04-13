@@ -1,9 +1,15 @@
 package utils;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import entity.Booking;
+import entity.Customer;
 import entity.Table;
 import entity.Menu;
 import entity.Order;
+import entity.Restaurant;
 import entity.Table;
 import view.GUI;
 
@@ -27,43 +33,29 @@ public class Database {
 	/** The GUI. */
 	private static GUI gui;
 	
+	private Restaurant restaurant;
+	
 	/** The menu. */
 	private Menu menu;
 	
-	/** The Order. */
+	/** The order. */
 	private Order order;
 	
 	/** the booking */
 	private Booking booking;
-	
-	private Table[] table;
+
+
 	
 	/** 
 	 * Initialize data.
 	 */
 	public void initializeData() {
 		gui = new GUI();
+		restaurant = new Restaurant();
 		menu = new Menu();
 		order = new Order();
 		booking = new Booking();
 		
-		table = new Table[30];
-		for(int i = 0; i<table.length; i++) {
-			table[i] = new Table();
-			table[i].setTableId(i + 1);
-			if(i<10) {
-				table[i].setNoOfSeat(2);
-			}
-			if(i>=10 && i<20) {
-				table[i].setNoOfSeat(4);
-			}
-			if(i>=20 && i<25) { 
-				table[i].setNoOfSeat(8);
-			}
-			if(i>=25 && i<30) {
-				table[i].setNoOfSeat(10);
-			}
-		}
 	}
 	
 	/**
@@ -111,6 +103,14 @@ public class Database {
 		return gui;
 	}
 
+	public Restaurant getRestaurant() {
+		return restaurant;
+	}
+
+	public void setRestaurant(Restaurant restaurant) {
+		this.restaurant = restaurant;
+	}
+
 	/**
 	 * Gets the menu.
 	 *
@@ -144,8 +144,5 @@ public class Database {
 	public void setBooking(Booking book) {
 		this.booking = book;
 	}
-
-	public Table[] getTable() {
-		return table;
-	}
+	
 }

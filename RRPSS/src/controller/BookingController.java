@@ -22,10 +22,14 @@ public class BookingController extends Controller {
 
 		int choice;
 
-		String[] menuOptions = { "Display All Bookings", "Add Booking", "Delete Booking",
-				"Display All Available Tables", "Back" };
+		String[] menuOptions = { 
+				"Display All Bookings", 
+				"Display All Available Tables", 
+				"Add Booking", 
+				"Delete Booking",
+				"Back" };
 
-		getGui().displayTitle("Menu Option");
+		getGui().displayTitle("Booking Option");
 		choice = getGui().detectChoice(menuOptions);
 
 		switch (choice) {
@@ -33,13 +37,13 @@ public class BookingController extends Controller {
 			getDb().getBooking().printBooking();
 			break;
 		case 2:
-			createBooking();
+			getDb().getRestaurant().showAvailableTable();
 			break;
 		case 3:
 			deleteBooking();
 			break;
 		case 4:
-			getDb().getBooking().displayTableAvailable(db);
+			createBooking();
 			break;
 		case 5:
 			getGui().displayStringsB("Returning ...");

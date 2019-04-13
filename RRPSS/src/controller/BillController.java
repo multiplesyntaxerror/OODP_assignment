@@ -92,7 +92,8 @@ public class BillController extends Controller {
 			
 			
 			getDb().getOrder().getAllOrders().get(order.getOrderId() - 1).setPrintedInvoice();
-			getDb().getTable()[tablenum - 1].setOccupied(false);
+			getDb().getRestaurant().getTableList().get(tablenum).setOccupied(false);
+      getDb().getRestaurant().updateR
 			getDb().getOrder().callWrite();
 			
 		}
