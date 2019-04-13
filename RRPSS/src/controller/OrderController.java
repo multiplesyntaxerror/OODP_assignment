@@ -82,9 +82,8 @@ public class OrderController extends Controller{
 				sc.nextLine();
 			}
 		} while (tableId <= 0 || tableId > 30);
-		
-		if(getDb().getRestaurant().getTableList().get(tableId-1).isOccupied() == true) {
-			getGui().displayStringsB("Table is already occupied!.\n");
+		if(getDb().getRestaurant().getTableList().get(tableId - 1).isOccupied() == true) {
+			getGui().displayStringsB("Table Is Already Occupied.\n");
 		}
 		else {
 		
@@ -99,7 +98,10 @@ public class OrderController extends Controller{
 
 			do {
 
-				String[] options = { "Ala Carte", "Promo Set", "Done" };
+				String[] options = { 
+						"Ala Carte", 
+						"Promo Set", 
+						"Done" };
 
 				getGui().displayStringsB("Order Ala Carte Or Promo Set: ");
 				choice = getGui().detectChoice(options);
@@ -197,10 +199,7 @@ public class OrderController extends Controller{
 				}
 			}
 		}
-	}		
-			
-		
-	
+  }
 	
 	public void addItemToExistingOrder() {
 		Scanner sc = new Scanner(System.in);
