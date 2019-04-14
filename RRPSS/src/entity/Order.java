@@ -125,7 +125,17 @@ public class Order implements OrderInterface{
 		callWrite();
 		return updated;
 	}
-	 
+
+	/**
+	 * Updates order print status to true
+	 * 
+	 * @param orderId the order ID
+	 */
+	public void updateOrderPrintStatus(int orderId) {
+		allOrders.get(orderId - 1).setPrintedInvoice(true);
+		callWrite();
+	}
+	
 	/**
 	 * Prints the order.
 	 */
@@ -433,7 +443,7 @@ public class Order implements OrderInterface{
 	 *
 	 * @return true, if write successful
 	 */
-	public boolean callWrite() {
+	private boolean callWrite() {
 		try {
 			writeOrderItem();
 			return true;

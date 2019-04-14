@@ -6,10 +6,10 @@ package entity;
 public class Person {
 
 	/** The person name. */
-	String name;
+	protected String name;
 	
 	/** The person contact. */
-	String contact;
+	protected String contact;
 
 	/**
 	 * Gets the person name.

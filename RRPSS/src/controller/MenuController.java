@@ -267,7 +267,7 @@ public class MenuController extends Controller {
 	/**
 	 * Updates a promotional set item.
 	 */
-	private void updatePromoItem() {
+	public void updatePromoItem() {
 		
 		Scanner sc = new Scanner(System.in);
 		getGui().displayTitle("Updating Promotional Set Package");
@@ -306,7 +306,7 @@ public class MenuController extends Controller {
 	/**
 	 * Delete a promotional set item.
 	 */
-	private void deletePromoItem() {
+	public void deletePromoItem() {
 		
 		getGui().displayTitle("Deleting Promotional Set");
 		getGui().displayStringsB("Choose Promotional Set To Delete: ");

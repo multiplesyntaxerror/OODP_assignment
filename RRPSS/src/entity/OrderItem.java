@@ -199,7 +199,7 @@ public class OrderItem {
 	/**
 	 * Sets the value of printed receipt.
 	 */
-	public void setPrintedInvoice() {
-		this.printedInvoice = !printedInvoice;
+	public void setPrintedInvoice(boolean printedInvoice) {
+		this.printedInvoice = printedInvoice;
 	}
 }

@@ -1,0 +1,747 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>10</x>
+      <y>0</y>
+      <w>660</w>
+      <h>580</h>
+    </coordinates>
+    <panel_attributes>entity::Menu
+--
+-ITEMSFILENAME = "res/MenuItems.txt": String
+-SETSFILENAME = "res/PromoSets.txt": String
+-mcList = new ArrayList&lt;MainCourse&gt;(): ArrayList&lt;MainCourse&gt;
+-deList = new ArrayList&lt;Dessert&gt;(): ArrayList&lt;Dessert&gt;
+-drList = new ArrayList&lt;Drinks&gt;(): ArrayList&lt;Drinks&gt;
+-menuItemsList = new ArrayList(): ArrayList
+-promoSetList = new ArrayList&lt;PromoSet&gt;(): ArrayList&lt;PromoSet&gt;
+--
++Menu(): ctor
++getMenuList(): ArrayList
++getMenuItem(String name): MenuItem
++createMenuItem(MenuItem item): boolean
++updateMenuItem(MenuItem item, String newName, String newDescription, double newPrice): boolean
++deleteMenuItem(MenuItem item): boolean
++itemExistReturnIndex(MenuItem item): int[]
++printMenuItems(): void
++pickMenuItems(String text): MenuItem
++countItems(): int
+-readMenuItem(): void
+-writeMenuItem(): void
++getPromoSetList(): ArrayList&lt;PromoSet&gt;
++getPromoSet(int index): PromoSet
++createPromoItem(PromoSet set): boolean
++updatePromoItem(PromoSet set, String newDescription, double newPrice): boolean
++deletePromoItem(PromoSet set): boolean
++printPromoSets(): void
++pickPromoSet(String text): PromoSet
++countPromoSet(): int
+-readPromoSets(): void
+-writePromoSets(): void
+-callRead(): boolean
+-callWrite(): boolean
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>680</x>
+      <y>0</y>
+      <w>1120</w>
+      <h>480</h>
+    </coordinates>
+    <panel_attributes>entity::OrderItem
+--
+-orderId: int
+-tableId: int
+-staffName: String
+-date: String
+-totalPrice: double
+-alaCarte = new ArrayList&lt;MenuItem&gt;(): ArrayList&lt;MenuItem&gt;
+-promoSet = new ArrayList&lt;PromoSet&gt;(): ArrayList&lt;PromoSet&gt;
+-printedInvoice = false: Boolean
+--
++OrderItem(int orderId, int tableId, String staffName, String date, double totalPrice, ArrayList&lt;MenuItem&gt; alaCarte, ArrayList&lt;PromoSet&gt; promoSet, Boolean printedInvoice): ctor
++getOrderId(): int
++setOrderId(int orderId): void
++getTableId(): int
++setTableId(int tableId): void
++getStaffName(): String
++setstaffName(String staffName): void
++getDate(): String
++setDate(String date): void
++getTotalPrice(): double
++setTotalPrice(): void
++getAlaCarte(): ArrayList&lt;MenuItem&gt;
++setAlaCarte(ArrayList&lt;MenuItem&gt; order): void
++getPromoSet(): ArrayList&lt;PromoSet&gt;
++setPromoSet(ArrayList&lt;PromoSet&gt; set): void
++getPrintedInvoice(): Boolean
++setPrintedInvoice(boolean printedInvoice): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1810</x>
+      <y>0</y>
+      <w>300</w>
+      <h>450</h>
+    </coordinates>
+    <panel_attributes>utils::Database
+--
+-rwFile = new ReadWriteFile(): ReadWriteFile
+-SEPARATOR = "|": String
+-SETSEPARATOR = "+": String
+-TXTSEPARATOR = "**": String
+-gui: GUI
+-restaurant: Restaurant
+-menu: Menu
+-order: Order
+-booking: Booking
+--
++initializeData(): void
++getRwFile(): ReadWriteFile
++getSeparator(): String
++getSetSeparator(): String
++getTXTSeparator(): String
++getGui(): GUI
++getRestaurant(): Restaurant
++setRestaurant(Restaurant restaurant): void
++getMenu(): Menu
++setMenu(Menu menu): void
++getOrder(): Order
++setOrder(Order order): void
++getBooking(): Booking
++setBooking(Booking booking): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>10</x>
+      <y>590</y>
+      <w>350</w>
+      <h>400</h>
+    </coordinates>
+    <panel_attributes>entity::Restaurant
+--
+-TABLEFILENAME = "res/Table.txt": String
+-STAFFFILENAME = "res/Staff.txt": String
+-TABLE = 1: int
+-STAFF = 2: int
+-tableList = new ArrayList&lt;Table&gt;(): ArrayList&lt;Table&gt;
+-staffList = new ArrayList&lt;Staff&gt;(): ArrayList&lt;Staff&gt;
+--
++Restaurant(): ctor
++getTableList(): ArrayList&lt;Table&gt;
++updateRestaurantTables(): void
++getTableIdByPax(int pax): int
++showAvailableTable(): void
+-readTable(): void
+-writeTable(): void
++getStaffList(): ArrayList&lt;Staff&gt;
++pickStaff(String text): Staff
++countStaff(): int
+-readStaff(): void
+-writeStaff(): void
+-callRead(int choice): boolean
+-callWrite(int choice): boolean
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>370</x>
+      <y>590</y>
+      <w>410</w>
+      <h>360</h>
+    </coordinates>
+    <panel_attributes>entity::Order
+--
+-ITEMSFILENAME = "res/Order.txt": String
+-allOrders = new ArrayList&lt;OrderItem&gt;(): ArrayList&lt;OrderItem&gt;
+--
++getAllOrders(): ArrayList&lt;OrderItem&gt;
++createOrder(OrderItem order): boolean
++updateMenuItemOrder(MenuItem item, int orderId): boolean
++removeMenuItemOrder(int orderId, int choice, int qty): boolean
++updatePromoSetOrder(PromoSet set, int orderId): boolean
++removePromoSetOrder(int orderId, int choice, int qty): boolean
++updateOrderPrintStatus(int orderId): void
++printOrder(): void
++pickOrderItems(String text): OrderItem
++countOrders(): int
++getSpecificOrder(int orderID): String[]
++listToStringArray(List&lt;String&gt; orderlist): String[]
+-readOrderItem(): void
+-writeOrderItem(): void
+-callRead(): boolean
+-callWrite(): boolean
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>790</x>
+      <y>590</y>
+      <w>530</w>
+      <h>350</h>
+    </coordinates>
+    <panel_attributes>/entity::MenuItem/
+--
+-name: String
+-description: String
+#type: String
+-price: double
+-orderedQuantity: int
+--
++MenuItem(String name, String description, double price, int orderedQuantity): ctor
++getName(): String
++setName(String name): void
++getDescription(): String
++setDescription(String description): void
++getType(): String
++setType(String type): void
++getPrice(): double
++setPrice(double price): void
++getOrderedQuantity(): int
++setOrderedQuantity(int orderedQuantity): void
++addOrderedQuantity(int orderedQuantity): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1330</x>
+      <y>590</y>
+      <w>560</w>
+      <h>350</h>
+    </coordinates>
+    <panel_attributes>entity::PromoSet
+--
+-setID: int
+-setDescription: String
+-setItems: ArrayList&lt;MenuItem&gt;
+-setPrice: double
+-orderedQuantity: int
+--
++PromoSet(String setDescription, ArrayList&lt;MenuItem&gt; setItems, double setPrice): ctor
++getSetID(): int
++setSetID(int setID): void
++getSetDescription(): String
++setSetDescription(String setDescription): void
++getSetItems(): ArrayList&lt;MenuItem&gt;
++setSetItems(ArrayList&lt;MenuItem&gt; setItems): void
++getSetPrice(): double
++setSetPrice(double setPrice): void
++getOrderedQuantity(): int
++setOrderedQuantity(int orderedQuantity): void
++addOrderedQuantity(int orderedQuantity): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1900</x>
+      <y>590</y>
+      <w>420</w>
+      <h>330</h>
+    </coordinates>
+    <panel_attributes>entity::Booking
+--
+-BOOKFILENAME = "res/Booking.txt": String
+-bookingList = new ArrayList&lt;Customer&gt;(): ArrayList&lt;Customer&gt;
+--
++Booking(): ctor
++getBooking(): ArrayList&lt;Customer&gt;
++createBooking(Customer customer): boolean
++deleteBooking(Customer customer): boolean
++customerExistReturnIndex(String contact): int
++checkAndClearReservation(): void
++getCustomer(String name): Customer
++printBookings(): void
++pickBooking(String text): Customer
++countBooking(): int
+-readBooking(): void
+-writeBooking(): void
+-callRead(): boolean
+-callWrite(): boolean
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>10</x>
+      <y>1000</y>
+      <w>610</w>
+      <h>280</h>
+    </coordinates>
+    <panel_attributes>entity::Customer
+--
+-tableid: int
+-pax: int
+-date: String
+-arrivalTime: String
+--
++Customer(String name, String contact, int tableId, int pax, String date, String arrivalTime): ctor
++getTableid(): int
++setTableid(int tableid): void
++getPax(): int
++setPax(int pax): void
++getDate(): String
++setDate(String date): void
++getArrivalTime(): String
++setArrivalTime(String arrivalTime): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>630</x>
+      <y>1000</y>
+      <w>480</w>
+      <h>280</h>
+    </coordinates>
+    <panel_attributes>entity::Table
+--
+-tableId: int
+-noOfSeat: int
+-occupied: boolean
+-reserved: boolean
+--
++Table(int tableId, int noOfSeat, boolean occupied, boolean reserved): ctor
++getTableId(): int
++setTableId(int tableid): void
++getNoOfSeat(): int
++setNoOfSeat(int noOfSeat): void
++isOccupied(): boolean
++setOccupied(boolean occupied): void
++isReserved(): boolean
++setReserved(boolean reserved): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1120</x>
+      <y>1000</y>
+      <w>250</w>
+      <h>260</h>
+    </coordinates>
+    <panel_attributes>entity::SalesItem
+--
+-itemName: String
+-quantitySold: int
+-price: double
+-isPromo: boolean
+--
++isPromo(): boolean
++setPromo(boolean isPromo): void
++getItemname(): String
++setItemname(String itemname): void
++getQuantitySold(): int
++setQuantitySold(int quantitySold): void
++getPrice(): double
++setPrice(double price): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1380</x>
+      <y>1000</y>
+      <w>550</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>entity::Staff
+--
+-employeeId: int
+-jobTitle: String
+-salary: double
+--
++Staff(String name, String contact, int employeeId, String jobTitle, double salary): ctor
++getEmployeeId(): int
++setEmployeeId(int employeeId): void
++getJobTitle(): String
++setJobTitle(String jobTitle): void
++getSalary(): double
++setSalary(double salary): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1940</x>
+      <y>1000</y>
+      <w>250</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>view::GUI
+--
+--
++displayTitle(String title): void
++displayRow(String text): void
++displayEnd(String text): void
++displayReceipt(): void
++displayStringsB(String text): void
++displayStrings(String text): void
++displayOptions(String[] options): void
++detectChoice(String[] options): int
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>10</x>
+      <y>1290</y>
+      <w>240</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>controller::MainController
+--
+-db: Database
+-mc: MenuController
+-oc: OrderController
+-boc: BookingController
+-bic: BillController
+--
++MainController(Database db): ctor
++run(): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>260</x>
+      <y>1290</y>
+      <w>180</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>controller::MenuController
+--
+--
++run(Database db): void
++createMenuItem(): void
++updateMenuItem(): void
++deleteMenuItem(): void
++createPromoItem(): void
++updatePromoItem(): void
++deletePromoItem(): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>450</x>
+      <y>1290</y>
+      <w>660</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+service::MenuInterface
+--
+--
++createMenuItem(MenuItem item): boolean
++updateMenuItem(MenuItem item, String newName, String newDescription, double newPrice): boolean
++deleteMenuItem(MenuItem item): boolean
++createPromoItem(PromoSet set): boolean
++updatePromoItem(PromoSet set, String newDescription, double newPrice): boolean
++deletePromoItem(PromoSet set): boolean
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1120</x>
+      <y>1290</y>
+      <w>190</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>/controller::Controller/
+--
+-gui: GUI
+-db: Database
+--
++getGui(): GUI
++setGui(GUI gui): void
++getDb(): Database
++setDb(Database db): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1320</x>
+      <y>1290</y>
+      <w>470</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>controller::OrderController
+--
+--
++run(Database db): void
++createOrder(): void
++removeItemFromExistingOrder(): void
++addItemToExistingOrder(): void
++addItemToNewOrder(OrderItem order, MenuItem item): void
++addPromoSetToNewOrder(OrderItem order, PromoSet promoSet): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1800</x>
+      <y>1290</y>
+      <w>600</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>entity::Bill
+--
+-GST = 0.17: double
+-salesDatabase = new ArrayList&lt;String&gt;(): ArrayList&lt;String&gt;
+--
++getGst(): double
++getBill(int tablenum, ArrayList&lt;OrderItem&gt; orderList): OrderItem
++getSalesReport(int choice, String userdate, ArrayList&lt;OrderItem&gt; orderList): List&lt;SalesItem&gt;
++getSalesDatabase(Menu menu): ArrayList&lt;String&gt;
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>10</x>
+      <y>1480</y>
+      <w>220</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>entity::Person
+--
+-name: String
+-contact: String
+--
++getName(): String
++setName(String name): void
++getContact(): String
++setContact(String contact): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>240</x>
+      <y>1480</y>
+      <w>410</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+service::OrderInterface
+--
+--
++createOrder(OrderItem order): boolean
++updateMenuItemOrder(MenuItem item, int orderIs): boolean
++removeMenuItemOrder(int orderId, int choice, int qty): boolean
++updatePromoSetOrder(PromoSet set, int orderID): boolean
++removePromoSetOrder(int orderId, int choice, int qty): boolean
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>660</x>
+      <y>1480</y>
+      <w>610</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+service::BillingInterface
+--
+--
++getBill(int tableNum, ArrayList&lt;OrderItem&gt; orderList): OrderItem
++getSalesReport(int choice, String userDate, ArrayList&lt;OrderItem&gt; orderList): List&lt;SalesItem&gt;
++getSalesDatabase(Menu menu): ArrayList&lt;String&gt;
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1280</x>
+      <y>1480</y>
+      <w>230</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>controller::BillController
+--
+--
++run(Database db): void
++printBill(): void
++printSalesRevenueReport(): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1520</x>
+      <y>1480</y>
+      <w>200</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>controller::BookingController
+--
+--
++run(Database db): void
++createBooking(): void
++deleteBooking(): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1730</x>
+      <y>1480</y>
+      <w>310</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+service::BookingInterface
+--
+--
++createBooking(Customer customer): boolean
++deleteBooking(Customer customer): boolean
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>10</x>
+      <y>1650</y>
+      <w>260</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>utils::ReadWriteFile
+--
+--
++write(String fileName, List data): void
++read(String fileName): List
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>280</x>
+      <y>1650</y>
+      <w>180</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>app::RRPSS
+--
+--
++main(String args[]): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>470</x>
+      <y>1650</y>
+      <w>520</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>entity::Dessert
+--
+--
++Dessert(String name, String description, double price, int orderedQuantity): ctor
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1000</x>
+      <y>1650</y>
+      <w>510</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>entity::Drinks
+--
+--
++Drinks(String name, String description, double price, int orderedQuantity): ctor
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1520</x>
+      <y>1650</y>
+      <w>540</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>entity::MainCourse
+--
+--
++MainCourse(String name, String description, double price, int orderedQuantity): ctor
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

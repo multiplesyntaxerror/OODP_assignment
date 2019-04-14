@@ -104,10 +104,9 @@ public class BillController extends Controller {
 			getGui().displayStringsB("\tThank You For Dining With Us!");
 			getGui().displayReceipt();
 			
-			getDb().getOrder().getAllOrders().get(order.getOrderId() - 1).setPrintedInvoice();
+			getDb().getOrder().updateOrderPrintStatus(tablenum - 1);
 			getDb().getRestaurant().getTableList().get(tablenum - 1).setOccupied(false);
 			getDb().getRestaurant().updateRestaurantTables();
-			getDb().getOrder().callWrite();
 
 		}
 

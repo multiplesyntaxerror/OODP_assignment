@@ -1,5 +1,6 @@
 package utils;
 
+import entity.Bill;
 import entity.Booking;
 import entity.Menu;
 import entity.Order;
