@@ -3,7 +3,6 @@ package controller;
 import utils.Database;
 import view.GUI;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Controller.
  */

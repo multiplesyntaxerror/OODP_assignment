@@ -1,13 +1,12 @@
 package entity;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Drinks.
  */
 public class Drinks extends MenuItem {
 
 	/**
-	 * Instantiates a new drinks.
+	 * Instantiates a new drinks and set type to "Drinks".
 	 *
 	 * @param name the name of the drink
 	 * @param description the description of the drink

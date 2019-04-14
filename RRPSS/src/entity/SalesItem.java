@@ -1,13 +1,12 @@
 package entity;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SalesItem.
  */
 public class SalesItem {
 
-	/** The itemname. */
-	private String itemname;
+	/** The item name. */
+	private String itemName;
 	
 	/** The quantity sold. */
 	private int quantitySold;
@@ -15,43 +14,43 @@ public class SalesItem {
 	/** The price. */
 	private double price;
 	
-	/** The is promo. */
+	/** Check if promotional. */
 	private boolean isPromo;
 
 	/**
-	 * Checks if is promo.
+	 * Checks if is promotional.
 	 *
-	 * @return true, if is promo
+	 * @return true, if is promotional
 	 */
 	public boolean isPromo() {
 		return isPromo;
 	}
 
 	/**
-	 * Sets the promo.
+	 * Sets the promotional.
 	 *
-	 * @param isPromo the new promo
+	 * @param isPromo the new promotional
 	 */
 	public void setPromo(boolean isPromo) {
 		this.isPromo = isPromo;
 	}
 
 	/**
-	 * Gets the itemname.
+	 * Gets the item name.
 	 *
-	 * @return the itemname
+	 * @return the item name
 	 */
 	public String getItemname() {
-		return itemname;
+		return itemName;
 	}
 
 	/**
-	 * Sets the itemname.
+	 * Sets the item name.
 	 *
-	 * @param itemname the new itemname
+	 * @param itemname the new item name
 	 */
 	public void setItemname(String itemname) {
-		this.itemname = itemname;
+		this.itemName = itemname;
 	}
 
 	/**

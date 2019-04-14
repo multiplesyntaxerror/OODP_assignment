@@ -5,127 +5,126 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class OrderItem.
  */
 public class OrderItem {
 	
-	/** The order id. */
+	/** The order ID. */
 	private int orderId;
 	
-	/** The table id. */
+	/** The table ID. */
 	private int tableId;
 	
-	/** The staff. */
-	private Staff staff;
+	/** The staff's name. */
+	private String staffName;
 	
-	/** The date. */
+	/** The date order was created. */
 	private String date;
 	
-	/** The total price. */
+	/** The total price of order. */
 	private double totalPrice;
 	
-	/** The ala carte. */
+	/** The list of ala carte in order. */
 	private ArrayList<MenuItem> alaCarte = new ArrayList<MenuItem>();
 	
-	/** The promo set. */
+	/** The list of promotional set in order. */
 	private ArrayList<PromoSet> promoSet = new ArrayList<PromoSet>();
 	
-	/** The printed invoice. */
+	/** The receipt billed or not. */
 	private Boolean printedInvoice = false;
 	
 	
 	/**
 	 * Instantiates a new order item.
 	 *
-	 * @param orderId the order id
-	 * @param tableId the table id
-	 * @param staff the staff
-	 * @param date the date
+	 * @param orderId the order ID
+	 * @param tableId the table ID
+	 * @param staffName the staff name
+	 * @param date the order date
 	 * @param totalPrice the total price
-	 * @param alaCart the ala cart
-	 * @param promoSet the promo set
+	 * @param alaCarte the list of ala carte
+	 * @param promoSet the list of promotional set
 	 * @param printedInvoice the printed invoice
 	 */
-	public OrderItem(int orderId, int tableId, Staff staff, String date, double totalPrice, ArrayList<MenuItem> alaCart, ArrayList<PromoSet> promoSet, Boolean printedInvoice) {
+	public OrderItem(int orderId, int tableId, String staffName, String date, double totalPrice, ArrayList<MenuItem> alaCarte, ArrayList<PromoSet> promoSet, Boolean printedInvoice) {
 		this.orderId = orderId;
 		this.tableId = tableId;
-		this.staff = staff;
+		this.staffName = staffName;
 		this.date = date;
 		this.totalPrice = totalPrice;
-		this.alaCarte = alaCart;
+		this.alaCarte = alaCarte;
 		this.promoSet = promoSet;
 		this.printedInvoice = printedInvoice;
 	}
 	
 	/**
-	 * Gets the order id.
+	 * Gets the order ID.
 	 *
-	 * @return the order id
+	 * @return the order ID
 	 */
 	public int getOrderId() {
 		return orderId;
 	}
 
 	/**
-	 * Sets the order id.
+	 * Sets the order ID.
 	 *
-	 * @param orderId the new order id
+	 * @param orderId the new order ID
 	 */
 	public void setOrderId(int orderId) {
 		this.orderId = orderId;
 	}
 
 	/**
-	 * Gets the table id.
+	 * Gets the table ID.
 	 *
-	 * @return the table id
+	 * @return the table ID
 	 */
 	public int getTableId() {
 		return tableId;
 	}
 
 	/**
-	 * Sets the table id.
+	 * Sets the table ID.
 	 *
-	 * @param tableId the new table id
+	 * @param tableId the new table ID
 	 */
 	public void setTableId(int tableId) {
 		this.tableId = tableId;
 	}
 
 	/**
-	 * Gets the staff.
+	 * Gets the staff name.
 	 *
-	 * @return the staff
+	 * @return the staff name
 	 */
-	public Staff getStaff() {
-		return staff;
+	public String getStaffName() {
+		return staffName;
 	}
 
 	/**
-	 * Sets the staff.
+	 * Sets the staff name.
 	 *
-	 * @param staff the new staff
+	 * @param staffName the new staff name
 	 */
-	public void setStaff(Staff staff) {
-		this.staff = staff;
+	public void setstaffName(String staffName) {
+		this.staffName = staffName;
 	}
 
 	/**
-	 * Gets the date.
+	 * Gets the order date.
 	 *
-	 * @return the date
+	 * @return the order date
 	 */
 	public String getDate() {
 		return date;
 	}
 
 	/**
-	 * Sets the date.
+	 * Sets the order date.
 	 *
-	 * @param date the new date
+	 * @param date the new order date
 	 */
 	public void setDate(String date) {
 		this.date = date;
@@ -153,52 +152,52 @@ public class OrderItem {
 	}
 	
 	/**
-	 * Gets the ala carte.
+	 * Gets the list of ala carte.
 	 *
-	 * @return the ala carte
+	 * @return the list ala carte
 	 */
 	public ArrayList<MenuItem> getAlaCarte() {
 		return alaCarte;
 	}
 	
 	/**
-	 * Sets the ala carte.
+	 * Sets the list of ala carte.
 	 *
-	 * @param order the new ala carte
+	 * @param order the new list of ala carte
 	 */
 	public void setAlaCarte(ArrayList<MenuItem> order) {
 		this.alaCarte = order;
 	}
 
 	/**
-	 * Gets the promo set.
+	 * Gets the list of promotional set.
 	 *
-	 * @return the promo set
+	 * @return the list of promotional set
 	 */
 	public ArrayList<PromoSet> getPromoSet() {
 		return promoSet;
 	}
 
 	/**
-	 * Sets the promo set.
+	 * Sets the list of promotional set.
 	 *
-	 * @param set the new promo set
+	 * @param set the new list of promotional set
 	 */
 	public void setPromoSet(ArrayList<PromoSet> set) {
 		this.promoSet = set;
 	}
 
 	/**
-	 * Gets the printed invoice.
+	 * Gets the value of printed receipt.
 	 *
-	 * @return the printed invoice
+	 * @return the value of printed receipt.
 	 */
 	public Boolean getPrintedInvoice() {
 		return printedInvoice;
 	}
 	
 	/**
-	 * Sets the printed invoice.
+	 * Sets the value of printed receipt.
 	 */
 	public void setPrintedInvoice() {
 		this.printedInvoice = !printedInvoice;

@@ -1,13 +1,12 @@
 package entity;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class MainCourse.
  */
 public class MainCourse extends MenuItem {
 	
 	/**
-	 * Instantiates a new main course.
+	 * Instantiates a new main course and set type to "Main Course".
 	 *
 	 * @param name the name of the main course
 	 * @param description the description of the main course

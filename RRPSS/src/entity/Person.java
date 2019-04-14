@@ -1,48 +1,47 @@
 package entity;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Person.
  */
 public class Person {
 
-	/** The name. */
+	/** The person name. */
 	String name;
 	
-	/** The contact. */
+	/** The person contact. */
 	String contact;
 
 	/**
-	 * Gets the name.
+	 * Gets the person name.
 	 *
-	 * @return the name
+	 * @return the person name
 	 */
 	public String getName() {
 		return name;
 	}
 
 	/**
-	 * Sets the name.
+	 * Sets the person name.
 	 *
-	 * @param name the new name
+	 * @param name the new person name
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
 	/**
-	 * Gets the contact.
+	 * Gets the person contact.
 	 *
-	 * @return the contact
+	 * @return the person contact
 	 */
 	public String getContact() {
 		return contact;
 	}
 
 	/**
-	 * Sets the contact.
+	 * Sets the person contact.
 	 *
-	 * @param contact the new contact
+	 * @param contact the new person contact
 	 */
 	public void setContact(String contact) {
 		this.contact = contact;

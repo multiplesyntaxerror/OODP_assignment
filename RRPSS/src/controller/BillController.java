@@ -11,16 +11,15 @@ import entity.OrderItem;
 import entity.PromoSet;
 import entity.SalesItem;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class BillController.
  */
 public class BillController extends Controller {
 	
 	/**
-	 * Run.
+	 * Runs the billing options.
 	 *
-	 * @param db the db
+	 * @param db the database
 	 */
 	public void run(Database db) {
 
@@ -52,7 +51,8 @@ public class BillController extends Controller {
 	}
 
 	/**
-	 * Prints the bill.
+	 * Prints a bill.
+	 * Sets table to vacated
 	 */
 	public void printBill() {
 
@@ -80,7 +80,7 @@ public class BillController extends Controller {
 			getGui().displayStringsB("NOM-NOM Restaurant\t\tReceipt #" + String.format("%05d", order.getOrderId()));
 			getGui().displayStringsB("50 Nanyang Avenue, Block N4\t S'pore 639798");
 			getGui().displayStringsB("Date/Time: " + order.getDate());
-			getGui().displayRow("Table No. " + tablenum + "\t\t\tSever: " + order.getStaff().getName());
+			getGui().displayRow("Table No. " + tablenum + "\t\t\tSever: " + order.getStaffName());
 
 			MenuItem item;
 			PromoSet set;
@@ -114,7 +114,7 @@ public class BillController extends Controller {
 	};
 
 	/**
-	 * Prints the sales revenue report.
+	 * Prints the sales revenue report according to day, month or year.
 	 */
 	public void printSalesRevenueReport() {
 		Scanner sc = new Scanner(System.in);

@@ -10,20 +10,27 @@ import java.util.StringTokenizer;
 
 import utils.Database;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Restaurant.
  */
 public class Restaurant {
 	
-	/** The Constant ITEMSFILENAME for menu item data path. */
+	/** The Constant TABLEFILENAME for table data path. */
 	private static final String TABLEFILENAME = "res/Table.txt";
-	private static final int TABLE = 1;
-	private ArrayList<Table> tableList = new ArrayList<Table>();
 	
-	/** The Constant SETSFILENAME for promotional set data path. */
+	/** The Constant STAFFFILENAME for staff data path. */
 	private static final String STAFFFILENAME = "res/Staff.txt";
+
+	/** The Constant value of TABLE. */
+	private static final int TABLE = 1;
+
+	/** The Constant value of STAFF. */
 	private static final int STAFF = 2;
+
+	/** The list tables in restaurant. */
+	private ArrayList<Table> tableList = new ArrayList<Table>();
+
+	/** The list staff that are allowed to use the system. */
 	private ArrayList<Staff> staffList = new ArrayList<Staff>();
 	
 	/**
@@ -51,10 +58,10 @@ public class Restaurant {
 	}
 	
 	/**
-	 * Gets the table id by pax.
+	 * Gets the table ID by number of people.
 	 *
-	 * @param pax the pax
-	 * @return the table id by pax
+	 * @param pax the number of people 
+	 * @return the table ID
 	 */
 	public int getTableIdByPax(int pax) {
 		
@@ -67,10 +74,8 @@ public class Restaurant {
 		return 0;
 	}
 	
-
-	
 	/**
-	 * Show available table.
+	 * Shows the available table for booking.
 	 */
 	public void showAvailableTable() {
 		int previous = 0;
@@ -90,7 +95,7 @@ public class Restaurant {
 	}
 	
 	/**
-	 * Read table.
+	 * Reads the table from the database Table.txt file in resource folder and store them in system.
 	 *
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
@@ -114,7 +119,7 @@ public class Restaurant {
 	}
 
 	/**
-	 * Write table.
+	 * Writes the data from system into the database Table.txt file in resource folder
 	 *
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
@@ -149,14 +154,12 @@ public class Restaurant {
 	 * Allows staff to identify themselves from the list.
 	 *
 	 * @param text string for the last option (back/exit)
-	 * @return a promotional set
+	 * @return the staff
 	 */
 	public Staff pickStaff(String text) {
 
 		Database.getGui().displayStringsB("");
-		
 		Staff staff = null;
-		
 		String listOfStaff[] = new String[countStaff() + 1];
 				
 		for (int i = 0; i < staffList.size(); i++) {
@@ -189,7 +192,7 @@ public class Restaurant {
 	}
 	
 	/**
-	 * Read staff.
+	 * Reads the staff from the database Staff.txt file in resource folder and store them in system.
 	 *
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
@@ -214,7 +217,7 @@ public class Restaurant {
 	}
 	
 	/**
-	 * Write table.
+	 * Writes the data from system into the database Table.txt file in resource folder
 	 *
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
@@ -239,9 +242,9 @@ public class Restaurant {
 	}
 	
 	/**
-	 * Call read.
+	 * Reads the database in resource.
 	 *
-	 * @return true, if successful
+	 * @return true, if read successful
 	 */
 	private boolean callRead(int choice) {
 		try {
@@ -263,9 +266,9 @@ public class Restaurant {
 	}
 
 	/**
-	 * Call write.
+	 * Writes the database with new data.
 	 *
-	 * @return true, if successful
+	 * @return true, if write successful
 	 */
 	private boolean callWrite(int choice) {
 		try {

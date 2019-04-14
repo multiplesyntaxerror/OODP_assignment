@@ -13,19 +13,15 @@ import entity.Booking;
 import entity.Customer;
 import utils.Database;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class BookingController.
  */
 public class BookingController extends Controller {
 
-	/** The booking list. */
-	private static ArrayList<Customer> bookingList;
-
 	/**
-	 * Run.
+	 * Runs the booking options.
 	 *
-	 * @param db the db
+	 * @param db the database
 	 */
 	public void run(Database db) {
 
@@ -65,7 +61,7 @@ public class BookingController extends Controller {
 	}
 	
 	/**
-	 * Creates the booking.
+	 * Creates a booking.
 	 */
 	public void createBooking() {
 
@@ -76,7 +72,7 @@ public class BookingController extends Controller {
 		}
 
 		//Remove comment for testing
-//		nonBooking = false;
+		//nonBooking = false;
 		
 		if (!nonBooking) {
 			Scanner sc = new Scanner(System.in);
@@ -202,7 +198,7 @@ public class BookingController extends Controller {
 	}
 
 	/**
-	 * Delete booking.
+	 * Delete a booking.
 	 */
 	public void deleteBooking() {
 

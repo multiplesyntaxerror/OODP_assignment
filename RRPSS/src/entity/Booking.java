@@ -14,16 +14,15 @@ import service.BookingInterface;
 import utils.Database;
 import utils.ReadWriteFile;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Booking.
  */
 public class Booking implements BookingInterface {
 
-	/** The Constant BOOKFILENAME. */
+	/** The Constant BOOKFILENAME for booking data path.  */
 	private static final String BOOKFILENAME = "res/Booking.txt";
 
-	/** The booking list. */
+	/** The list of bookings. */ 
 	private ArrayList<Customer> bookingList = new ArrayList<Customer>();
 
 	/**
@@ -34,9 +33,9 @@ public class Booking implements BookingInterface {
 	}
 
 	/**
-	 * Gets the booking.
+	 * Gets the booking list.
 	 *
-	 * @return the booking
+	 * @return the booking list
 	 */
 	public ArrayList<Customer> getBooking() {
 		return bookingList;
@@ -56,21 +55,6 @@ public class Booking implements BookingInterface {
 		return false;
 	}
 
-	/**
-	 * Customer exist return index.
-	 *
-	 * @param contact the contact
-	 * @return the int
-	 */
-	public int customerExistReturnIndex(String contact) {
-		for (Customer i : bookingList) {
-			if (i.getContact().equalsIgnoreCase(contact)) {
-				return bookingList.indexOf(i);
-			}
-		}
-		return -1;
-	}
-
 	/* (non-Javadoc)
 	 * @see service.BookingInterface#deleteBooking(entity.Customer)
 	 */
@@ -81,9 +65,24 @@ public class Booking implements BookingInterface {
 		callRead();
 		return true;
 	}
+
+	/**
+	 * Checks existence of customer and return its index.
+	 *
+	 * @param contact the customer
+	 * @return the index of the customer
+	 */
+	public int customerExistReturnIndex(String contact) {
+		for (Customer i : bookingList) {
+			if (i.getContact().equalsIgnoreCase(contact)) {
+				return bookingList.indexOf(i);
+			}
+		}
+		return -1;
+	}
 	
 	/**
-	 * Check and clear reservation.
+	 * Check and clear reservation if reservation exceed 30 minutes.
 	 */
 	public void checkAndClearReservation() {
 
@@ -106,9 +105,9 @@ public class Booking implements BookingInterface {
 	}
 
 	/**
-	 * Gets the customer.
+	 * Gets the customer by name.
 	 *
-	 * @param name the name
+	 * @param name the name of the customer
 	 * @return the customer
 	 */
 	public Customer getCustomer(String name) {
@@ -124,7 +123,7 @@ public class Booking implements BookingInterface {
 	}
 
 	/**
-	 * Prints the bookings.
+	 * Prints all the reservations.
 	 */
 	public void printBookings() {
 		Database.getGui().displayStringsB("");
@@ -138,10 +137,10 @@ public class Booking implements BookingInterface {
 	}
 
 	/**
-	 * Pick booking.
+	 * Allows user to pick a reservations from the list.
 	 *
-	 * @param text the text
-	 * @return the customer
+	 * @param text string for the last option (back/exit)
+	 * @return a customer
 	 */
 	public Customer pickBooking(String text) {
 
@@ -172,21 +171,20 @@ public class Booking implements BookingInterface {
 	}
 	
 	/**
-	 * Count booking.
+	 * Count the number of total reservations.
 	 *
-	 * @return the int
+	 * @return the total number of reservations
 	 */
 	public int countBooking() {
 		return bookingList.size();
 	}
 	
 	/**
-	 * Read booking.
+	 * Reads the bookings from the database Booking.txt file in resource folder and store them in system.
 	 *
-	 * @return the array list
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	public ArrayList<Customer> readBooking() throws IOException {
+	private void readBooking() throws IOException {
 
 		ArrayList<String> stringArray = (ArrayList<String>) Database.getRwFile().read(BOOKFILENAME);
 
@@ -204,15 +202,14 @@ public class Booking implements BookingInterface {
 			Customer customer = new Customer(name, contact, tableId ,pax, date, atime);
 			bookingList.add(customer);
 		}
-		return bookingList;
 	}
 
 	/**
-	 * Write booking.
+	 * Writes the data from system into the database Booking.txt file in resource folder.
 	 *
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	public void writeBooking() throws IOException {
+	private void writeBooking() throws IOException {
 		List alw = new ArrayList();
 
 		for (int i = 0; i < bookingList.size(); i++) {
@@ -235,9 +232,9 @@ public class Booking implements BookingInterface {
 	}
 	
 	/**
-	 * Call read.
+	 * Reads the database in resource.
 	 *
-	 * @return true, if successful
+	 * @return true, if read successful
 	 */
 	private boolean callRead() {
 		try {
@@ -251,9 +248,9 @@ public class Booking implements BookingInterface {
 	}
 
 	/**
-	 * Call write.
+	 * Writes the database with new data.
 	 *
-	 * @return true, if successful
+	 * @return true, if write successful
 	 */
 	private boolean callWrite() {
 		try {

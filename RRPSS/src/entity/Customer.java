@@ -1,21 +1,20 @@
 package entity;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Customer.
  */
 public class Customer extends Person {
 
-	/** The tableid. */
+	/** The table ID. */
 	private int tableid;
 	
-	/** The pax. */
+	/** The number of people at table. */
 	private int pax;
 	
-	/** The date. */
+	/** The reservation date. */
 	private String date;
 	
-	/** The arrival time. */
+	/** The reservation time. */
 	private String arrivalTime;
 
 	/**
@@ -38,54 +37,53 @@ public class Customer extends Person {
 	}
 
 	/**
-	 * Gets the tableid.
 	 *
-	 * @return the tableid
+	 * @return the table ID
 	 */
 	public int getTableid() {
 		return tableid;
 	}
 
 	/**
-	 * Sets the tableid.
+	 * Sets the table ID.
 	 *
-	 * @param tableid the new tableid
+	 * @param tableid the new table ID
 	 */
 	public void setTableid(int tableid) {
 		this.tableid = tableid;
 	}
 
 	/**
-	 * Gets the pax.
+	 * Gets number of pax.
 	 *
-	 * @return the pax
+	 * @return the number of pax
 	 */
 	public int getPax() {
 		return pax;
 	}
 
 	/**
-	 * Sets the pax.
+	 * Sets the number of pax.
 	 *
-	 * @param pax the new pax
+	 * @param pax the new number of pax
 	 */
 	public void setPax(int pax) {
 		this.pax = pax;
 	}
 
 	/**
-	 * Gets the date.
+	 * Gets the reservation date.
 	 *
-	 * @return the date
+	 * @return the reservation date
 	 */
 	public String getDate() {
 		return date;
 	}
 
 	/**
-	 * Sets the date.
+	 * Sets the reservation date.
 	 *
-	 * @param date the new date
+	 * @param date the new reservation date
 	 */
 	public void setDate(String date) {
 		this.date = date;
@@ -93,18 +91,18 @@ public class Customer extends Person {
 
 
 	/**
-	 * Gets the arrival time.
+	 * Gets the reservation time.
 	 *
-	 * @return the arrival time
+	 * @return the reservation time
 	 */
 	public String getArrivalTime() {
 		return arrivalTime;
 	}
 
 	/**
-	 * Sets the arrival time.
+	 * Sets the reservation time.
 	 *
-	 * @param arrivalTime the new arrival time
+	 * @param arrivalTime the new reservation time
 	 */
 	public void setArrivalTime(String arrivalTime) {
 		this.arrivalTime = arrivalTime;

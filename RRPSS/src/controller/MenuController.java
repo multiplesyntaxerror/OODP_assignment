@@ -11,7 +11,6 @@ import entity.MenuItem;
 import entity.PromoSet;
 import utils.Database;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class MenuController.
  */
@@ -77,7 +76,7 @@ public class MenuController extends Controller {
 	}
 	
 	/**
-	 * Creates a menu item.
+	 * Create a menu item.
 	 */
 	public void createMenuItem() {
 

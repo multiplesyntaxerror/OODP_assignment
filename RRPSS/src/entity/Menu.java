@@ -8,7 +8,6 @@ import java.util.StringTokenizer;
 import service.MenuInterface;
 import utils.Database;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Menu.
  */
@@ -32,7 +31,7 @@ public class Menu implements MenuInterface{
 	/** The menu items list of all 3 types. */
 	private ArrayList menuItemsList = new ArrayList();
 	
-	/** The promotional sets list. */
+	/** The list promotional sets. */
 	private ArrayList<PromoSet> promoSetList = new ArrayList<PromoSet>();
 	
 	/**
@@ -399,9 +398,7 @@ public class Menu implements MenuInterface{
 	public PromoSet pickPromoSet(String text) {
 
 		Database.getGui().displayStringsB("");
-		
 		PromoSet set = null;
-		
 		String listOfPromoItem[] = new String[countPromoSet() + 1];
 		
 		int count = 0;

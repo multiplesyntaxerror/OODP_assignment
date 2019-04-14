@@ -12,16 +12,15 @@ import entity.PromoSet;
 import entity.Staff;
 import utils.Database;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class OrderController.
  */
 public class OrderController extends Controller{
 
 	/**
-	 * Run.
+	 * Runs the order options.
 	 *
-	 * @param db the db
+	 * @param db the database
 	 */
 	public void run(Database db) {
 
@@ -62,7 +61,7 @@ public class OrderController extends Controller{
 	} 
 	
 	/**
-	 * Creates the order.
+	 * Create an order.
 	 */
 	public void createOrder() {
 		
@@ -95,7 +94,7 @@ public class OrderController extends Controller{
 		}
 		else {
 		
-			OrderItem order = new OrderItem(0, tableId, staff, null, 0, alaCarteOrder, promoSetOrder, false);
+			OrderItem order = new OrderItem(0, tableId, staff.getName(), null, 0, alaCarteOrder, promoSetOrder, false);
 
 			String pattern = "dd-MM-yyyy hh:mm a";
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
@@ -175,7 +174,7 @@ public class OrderController extends Controller{
 	}
 	
 	/**
-	 * Removes the item from existing order.
+	 * Remove items from existing order.
 	 */
 	public void removeItemFromExistingOrder() {
 		Scanner sc = new Scanner(System.in);
@@ -213,7 +212,7 @@ public class OrderController extends Controller{
   }
 	
 	/**
-	 * Adds the item to existing order.
+	 * Add items to existing order.
 	 */
 	public void addItemToExistingOrder() {
 		Scanner sc = new Scanner(System.in);
@@ -286,10 +285,10 @@ public class OrderController extends Controller{
 	}
 	
 	/**
-	 * Adds the item to new order.
+	 * Add an item to new order.
 	 *
-	 * @param order the order
-	 * @param item the item
+	 * @param order the created order
+	 * @param item the menu item
 	 */
 	public void addItemToNewOrder(OrderItem order, MenuItem item) {
 		boolean dupe = false;
@@ -306,10 +305,10 @@ public class OrderController extends Controller{
 	}
 	
 	/**
-	 * Adds the promo set to new order.
+	 * Adds the promotional set to new order.
 	 *
-	 * @param order the order
-	 * @param promoSet the promo set
+	 * @param order the created order
+	 * @param promoSet the promotional set
 	 */
 	public void addPromoSetToNewOrder(OrderItem order, PromoSet promoSet){
 		boolean dupe = false;

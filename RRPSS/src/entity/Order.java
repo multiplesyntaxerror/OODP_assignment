@@ -8,36 +8,25 @@ import java.util.StringTokenizer;
 import service.OrderInterface;
 import utils.Database;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Order.
  */
 public class Order implements OrderInterface{
 	
-	/** The Constant ITEMSFILENAME. */
+	/** The Constant ITEMSFILENAME for order data path.  */
 	private static final String ITEMSFILENAME = "res/Order.txt";
-	
-	/** The all orders. */
+
+	/** The list of orders. */ 
 	private ArrayList<OrderItem> allOrders = new ArrayList<OrderItem>();
 	
 	/**
-	 * Gets the all orders.
+	 * Gets the order list.
 	 *
-	 * @return the all orders
+	 * @return the the order list
 	 */
 	public ArrayList<OrderItem> getAllOrders(){
 		callRead();
 		return this.allOrders;
-	}
-
-	/**
-	 * Count orders.
-	 *
-	 * @return the int
-	 */
-	public int countOrders() {
-		callRead();
-		return allOrders.size();
 	}
 	
 	/* (non-Javadoc)
@@ -157,7 +146,7 @@ public class Order implements OrderInterface{
 				else {
 					bill = "Not Billed";
 				}
-				Database.getGui().displayStringsB("Served By: " + order.getStaff().getName() + " / " + bill);
+				Database.getGui().displayStringsB("Served By: " + order.getStaffName() + " / " + bill);
 				Database.getGui().displayStringsB("Date: \t" + order.getDate());
 				Database.getGui().displayRow("QTY\tITEM");
 				for(int j = 0; j<allOrders.get(i).getAlaCarte().size();j++) {
@@ -213,9 +202,20 @@ public class Order implements OrderInterface{
 		
 		return order;
 	}
+
+	/**
+	 * Count the number of orders in the list.
+	 *
+	 * @return the number of orders in the list.
+	 */
+	public int countOrders() {
+		callRead();
+		return allOrders.size();
+	}
+	
 	
 	/**
-	 * Gets the specific order.
+	 * Gets a specific order.
 	 *
 	 * @param orderID the order ID
 	 * @return the specific order
@@ -235,10 +235,10 @@ public class Order implements OrderInterface{
 	}
 
 	/**
-	 * List to string array.
+	 * puts order list into an array of strings.
 	 *
-	 * @param orderlist the orderlist
-	 * @return the string[]
+	 * @param orderlist the list of orders
+	 * @return the array of string[]
 	 */
 	public String[] listToStringArray(List<String> orderlist) {
 		
@@ -252,7 +252,7 @@ public class Order implements OrderInterface{
 	}
 	
 	/**
-	 * Read order item.
+	 * Reads the orders from the database Order.txt file in resource folder and store them in system.
 	 *
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
@@ -265,8 +265,6 @@ public class Order implements OrderInterface{
         for (int i = 0 ; i < stringArray.size() ; i++) {
         	ArrayList<PromoSet> promoSet = new ArrayList<PromoSet>();
         	ArrayList<MenuItem> alaCarte = new ArrayList<MenuItem>();
-//        	Staff staff = new Staff(name, contact, employeeId, jobTitle, salary);
-        	Staff staff = new Staff();
 			String st = (String)stringArray.get(i);
 			StringTokenizer star = new StringTokenizer(st, Database.getSeparator());	
 			
@@ -280,7 +278,6 @@ public class Order implements OrderInterface{
 				String name = star2.nextToken().trim();
 				String date = star2.nextToken().trim();
 
-				
 				boolean hasMore = true;			
 				while (hasMore) {
 					if(star.hasMoreElements()) {
@@ -330,15 +327,14 @@ public class Order implements OrderInterface{
 						hasMore = false;
 					}
 				}
-				staff.setName(name);
-				OrderItem oi = new OrderItem(orderID, tableID, staff, date, 0, alaCarte, promoSet, printed);
+				OrderItem oi = new OrderItem(orderID, tableID, name, date, 0, alaCarte, promoSet, printed);
 				allOrders.add(oi);
 			}
 		}
 	}
 	
 	/**
-	 * Write order item.
+	 * Writes the data from system into the database Order.txt file in resource folder
 	 *
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
@@ -372,7 +368,7 @@ public class Order implements OrderInterface{
 				st.append(Database.getSeparator());
 				st.append(orderItem.getPrintedInvoice());
 				st.append(Database.getSeparator());
-				st.append(orderItem.getStaff().getName());
+				st.append(orderItem.getStaffName());
 				st.append(Database.getTXTSeparator());
 				st.append(orderItem.getDate());
 				
@@ -417,9 +413,9 @@ public class Order implements OrderInterface{
 	}
 	
 	/**
-	 * Call read.
+	 * Reads the database in resource.
 	 *
-	 * @return true, if successful
+	 * @return true, if read successful
 	 */
 	private boolean callRead(){
 		try {
@@ -433,9 +429,9 @@ public class Order implements OrderInterface{
 	}
 	
 	/**
-	 * Call write.
+	 * Writes the database with new data.
 	 *
-	 * @return true, if successful
+	 * @return true, if write successful
 	 */
 	public boolean callWrite() {
 		try {

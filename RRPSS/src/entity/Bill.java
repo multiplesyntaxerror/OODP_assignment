@@ -6,22 +6,21 @@ import java.util.List;
 
 import service.BillingInterface;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Bill.
  */
 public class Bill implements BillingInterface {
 
-	/** The Constant GST. */
+	/** The Constant GST for receipt. */
 	private static final double GST = 0.17;
 	
-	/** The sales database. */
+	/** The sales list. */
 	private ArrayList<String> salesDatabase = new ArrayList<String>();
 
 	/**
-	 * Gets the gst.
+	 * Gets the GST.
 	 *
-	 * @return the gst
+	 * @return the GST
 	 */
 	public double getGst() {
 		return GST;
