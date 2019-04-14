@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>10</zoom_level>
+  <zoom_level>3</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>10</x>
-      <y>0</y>
-      <w>660</w>
-      <h>580</h>
+      <x>375</x>
+      <y>156</y>
+      <w>198</w>
+      <h>174</h>
     </coordinates>
     <panel_attributes>entity::Menu
 --
@@ -44,16 +44,17 @@
 -callRead(): boolean
 -callWrite(): boolean
 --
-</panel_attributes>
+
+group=12</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>680</x>
-      <y>0</y>
-      <w>1120</w>
-      <h>480</h>
+      <x>162</x>
+      <y>504</y>
+      <w>336</w>
+      <h>144</h>
     </coordinates>
     <panel_attributes>entity::OrderItem
 --
@@ -84,16 +85,17 @@
 +getPrintedInvoice(): Boolean
 +setPrintedInvoice(boolean printedInvoice): void
 --
-</panel_attributes>
+
+group=12</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1810</x>
-      <y>0</y>
-      <w>300</w>
-      <h>450</h>
+      <x>669</x>
+      <y>309</y>
+      <w>90</w>
+      <h>135</h>
     </coordinates>
     <panel_attributes>utils::Database
 --
@@ -122,16 +124,782 @@
 +getBooking(): Booking
 +setBooking(Booking booking): void
 --
-</panel_attributes>
+
+group=10</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>10</x>
-      <y>590</y>
-      <w>350</w>
-      <h>400</h>
+      <x>522</x>
+      <y>540</y>
+      <w>123</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>entity::Order
+--
+-ITEMSFILENAME = "res/Order.txt": String
+-allOrders = new ArrayList&lt;OrderItem&gt;(): ArrayList&lt;OrderItem&gt;
+--
++getAllOrders(): ArrayList&lt;OrderItem&gt;
++createOrder(OrderItem order): boolean
++updateMenuItemOrder(MenuItem item, int orderId): boolean
++removeMenuItemOrder(int orderId, int choice, int qty): boolean
++updatePromoSetOrder(PromoSet set, int orderId): boolean
++removePromoSetOrder(int orderId, int choice, int qty): boolean
++updateOrderPrintStatus(int orderId): void
++printOrder(): void
++pickOrderItems(String text): OrderItem
++countOrders(): int
++getSpecificOrder(int orderID): String[]
++listToStringArray(List&lt;String&gt; orderlist): String[]
+-readOrderItem(): void
+-writeOrderItem(): void
+-callRead(): boolean
+-callWrite(): boolean
+--
+
+group=12</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>162</x>
+      <y>291</y>
+      <w>159</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>/entity::MenuItem/
+--
+-name: String
+-description: String
+#type: String
+-price: double
+-orderedQuantity: int
+--
++MenuItem(String name, String description, double price, int orderedQuantity): ctor
++getName(): String
++setName(String name): void
++getDescription(): String
++setDescription(String description): void
++getType(): String
++setType(String type): void
++getPrice(): double
++setPrice(double price): void
++getOrderedQuantity(): int
++setOrderedQuantity(int orderedQuantity): void
++addOrderedQuantity(int orderedQuantity): void
+--
+
+group=12</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>393</x>
+      <y>384</y>
+      <w>180</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>entity::PromoSet
+--
+-setID: int
+-setDescription: String
+-setItems: ArrayList&lt;MenuItem&gt;
+-setPrice: double
+-orderedQuantity: int
+--
++PromoSet(String setDescription, ArrayList&lt;MenuItem&gt; setItems, double setPrice): ctor
++getSetID(): int
++setSetID(int setID): void
++getSetDescription(): String
++setSetDescription(String setDescription): void
++getSetItems(): ArrayList&lt;MenuItem&gt;
++setSetItems(ArrayList&lt;MenuItem&gt; setItems): void
++getSetPrice(): double
++setSetPrice(double setPrice): void
++getOrderedQuantity(): int
++setOrderedQuantity(int orderedQuantity): void
++addOrderedQuantity(int orderedQuantity): void
+--
+
+group=12</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>846</x>
+      <y>543</y>
+      <w>75</w>
+      <h>78</h>
+    </coordinates>
+    <panel_attributes>entity::SalesItem
+--
+-itemName: String
+-quantitySold: int
+-price: double
+-isPromo: boolean
+--
++isPromo(): boolean
++setPromo(boolean isPromo): void
++getItemname(): String
++setItemname(String itemname): void
++getQuantitySold(): int
++setQuantitySold(int quantitySold): void
++getPrice(): double
++setPrice(double price): void
+--
+
+group=12</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>672</x>
+      <y>189</y>
+      <w>75</w>
+      <h>57</h>
+    </coordinates>
+    <panel_attributes>view::GUI
+--
+--
++displayTitle(String title): void
++displayRow(String text): void
++displayEnd(String text): void
++displayReceipt(): void
++displayStringsB(String text): void
++displayStrings(String text): void
++displayOptions(String[] options): void
++detectChoice(String[] options): int
+--
+
+group=10</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>588</x>
+      <y>144</y>
+      <w>72</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>controller::MainController
+--
+-db: Database
+-mc: MenuController
+-oc: OrderController
+-boc: BookingController
+-bic: BillController
+--
++MainController(Database db): ctor
++run(): void
+--
+
+group=10</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>162</x>
+      <y>225</y>
+      <w>54</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>controller::MenuController
+--
+--
++run(Database db): void
++createMenuItem(): void
++updateMenuItem(): void
++deleteMenuItem(): void
++createPromoItem(): void
++updatePromoItem(): void
++deletePromoItem(): void
+--
+
+group=12</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>162</x>
+      <y>156</y>
+      <w>198</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+service::MenuInterface
+--
+--
++createMenuItem(MenuItem item): boolean
++updateMenuItem(MenuItem item, String newName, String newDescription, double newPrice): boolean
++deleteMenuItem(MenuItem item): boolean
++createPromoItem(PromoSet set): boolean
++updatePromoItem(PromoSet set, String newDescription, double newPrice): boolean
++deletePromoItem(PromoSet set): boolean
+--
+
+group=12</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>864</x>
+      <y>456</y>
+      <w>57</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;abstract&gt;&gt;
+/controller::Controller/
+--
+
+-gui: GUI
+-db: Database
+
+--
+
++getGui(): GUI
++setGui(GUI gui): void
++getDb(): Database
++setDb(Database db): void
+
+--
+
+
+
+group=10</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>657</x>
+      <y>540</y>
+      <w>141</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>controller::OrderController
+--
+--
++run(Database db): void
++createOrder(): void
++removeItemFromExistingOrder(): void
++addItemToExistingOrder(): void
++addItemToNewOrder(OrderItem order, MenuItem item): void
++addPromoSetToNewOrder(OrderItem order, PromoSet promoSet): void
+--
+
+group=12</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>942</x>
+      <y>501</y>
+      <w>180</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>entity::Bill
+--
+-GST = 0.17: double
+-salesDatabase = new ArrayList&lt;String&gt;(): ArrayList&lt;String&gt;
+--
++getGst(): double
++getBill(int tablenum, ArrayList&lt;OrderItem&gt; orderList): OrderItem
++getSalesReport(int choice, String userdate, ArrayList&lt;OrderItem&gt; orderList): List&lt;SalesItem&gt;
++getSalesDatabase(Menu menu): ArrayList&lt;String&gt;
+--
+
+group=12</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>675</x>
+      <y>600</y>
+      <w>123</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+service::OrderInterface
+--
+--
++createOrder(OrderItem order): boolean
++updateMenuItemOrder(MenuItem item, int orderIs): boolean
++removeMenuItemOrder(int orderId, int choice, int qty): boolean
++updatePromoSetOrder(PromoSet set, int orderID): boolean
++removePromoSetOrder(int orderId, int choice, int qty): boolean
+--
+
+group=12</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>939</x>
+      <y>615</y>
+      <w>183</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+service::BillingInterface
+--
+--
++getBill(int tableNum, ArrayList&lt;OrderItem&gt; orderList): OrderItem
++getSalesReport(int choice, String userDate, ArrayList&lt;OrderItem&gt; orderList): List&lt;SalesItem&gt;
++getSalesDatabase(Menu menu): ArrayList&lt;String&gt;
+--
+
+group=12</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1053</x>
+      <y>570</y>
+      <w>69</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>controller::BillController
+--
+--
++run(Database db): void
++printBill(): void
++printSalesRevenueReport(): void
+--
+
+group=12</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>777</x>
+      <y>270</y>
+      <w>60</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>controller::BookingController
+--
+--
++run(Database db): void
++createBooking(): void
++deleteBooking(): void
+--
+
+group=12</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>618</x>
+      <y>456</y>
+      <w>78</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>utils::ReadWriteFile
+--
+--
++write(String fileName, List data): void
++read(String fileName): List
+--
+
+group=10</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>615</x>
+      <y>267</y>
+      <w>54</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>app::RRPSS
+--
+--
++main(String args[]): void
+--
+
+group=10</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>162</x>
+      <y>411</y>
+      <w>156</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>entity::Dessert
+--
+--
++Dessert(String name, String description, double price, int orderedQuantity): ctor
+--
+
+group=12</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>189</x>
+      <y>438</y>
+      <w>153</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>entity::Drinks
+--
+--
++Drinks(String name, String description, double price, int orderedQuantity): ctor
+--
+
+group=12</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>210</x>
+      <y>468</y>
+      <w>162</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>entity::MainCourse
+--
+--
++MainCourse(String name, String description, double price, int orderedQuantity): ctor
+--
+
+group=12</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>306</x>
+      <y>393</y>
+      <w>63</w>
+      <h>81</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+group=12</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0;190.0;40.0;190.0;250.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>639</x>
+      <y>195</y>
+      <w>18</w>
+      <h>78</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-x
+runs
+group=10</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;240.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>639</x>
+      <y>285</y>
+      <w>36</w>
+      <h>75</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.x
+initialize
+
+group=10</panel_attributes>
+    <additional_attributes>100.0;220.0;10.0;220.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>711</x>
+      <y>243</y>
+      <w>15</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-x
+has
+
+group=10</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;220.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>141</x>
+      <y>129</y>
+      <w>483</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-x
+runs
+group=10</panel_attributes>
+    <additional_attributes>70.0;370.0;10.0;370.0;10.0;10.0;1590.0;10.0;1590.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>258</x>
+      <y>270</y>
+      <w>123</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+group=12</panel_attributes>
+    <additional_attributes>390.0;10.0;10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>480</x>
+      <y>327</y>
+      <w>9</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=
+group=12</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;190.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>318</x>
+      <y>360</y>
+      <w>90</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+group=12</panel_attributes>
+    <additional_attributes>280.0;80.0;280.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>357</x>
+      <y>171</y>
+      <w>24</w>
+      <h>9</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+group=12</panel_attributes>
+    <additional_attributes>60.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>495</x>
+      <y>621</y>
+      <w>33</w>
+      <h>9</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+group=12</panel_attributes>
+    <additional_attributes>90.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>642</x>
+      <y>621</y>
+      <w>39</w>
+      <h>9</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+group=12</panel_attributes>
+    <additional_attributes>110.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>141</x>
+      <y>246</y>
+      <w>729</w>
+      <h>426</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+group=10</panel_attributes>
+    <additional_attributes>2410.0;820.0;2250.0;820.0;2250.0;1400.0;10.0;1400.0;10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1017</x>
+      <y>546</y>
+      <w>9</w>
+      <h>75</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+group=12</panel_attributes>
+    <additional_attributes>10.0;230.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>918</x>
+      <y>546</y>
+      <w>69</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+group=12</panel_attributes>
+    <additional_attributes>210.0;10.0;210.0;120.0;10.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>594</x>
+      <y>195</y>
+      <w>108</w>
+      <h>351</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-x
+runs
+group=10</panel_attributes>
+    <additional_attributes>340.0;1150.0;340.0;1030.0;10.0;1030.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>657</x>
+      <y>162</y>
+      <w>126</w>
+      <h>123</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-x
+runs
+group=10</panel_attributes>
+    <additional_attributes>400.0;390.0;360.0;390.0;360.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>627</x>
+      <y>129</y>
+      <w>525</w>
+      <h>459</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-x
+runs
+group=10</panel_attributes>
+    <additional_attributes>1650.0;1510.0;1700.0;1510.0;1700.0;10.0;10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>213</x>
+      <y>231</y>
+      <w>168</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-x
+runs
+group=12</panel_attributes>
+    <additional_attributes>540.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>306</x>
+      <y>393</y>
+      <w>33</w>
+      <h>51</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+group=12</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0;90.0;40.0;90.0;150.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>306</x>
+      <y>393</y>
+      <w>9</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+group=12</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>594</x>
+      <y>510</y>
+      <w>87</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-x
+runs
+group=12</panel_attributes>
+    <additional_attributes>10.0;100.0;10.0;20.0;270.0;20.0;270.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1083</x>
+      <y>546</y>
+      <w>18</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-x
+runs
+group=12</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>714</x>
+      <y>441</y>
+      <w>156</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-x
+has
+
+group=10</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0;500.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>639</x>
+      <y>381</y>
+      <w>36</w>
+      <h>81</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-x
+has
+
+group=10</panel_attributes>
+    <additional_attributes>10.0;250.0;10.0;10.0;100.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>816</x>
+      <y>318</y>
+      <w>105</w>
+      <h>120</h>
     </coordinates>
     <panel_attributes>entity::Restaurant
 --
@@ -157,113 +925,17 @@
 -callRead(int choice): boolean
 -callWrite(int choice): boolean
 --
-</panel_attributes>
+
+group=12</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>370</x>
-      <y>590</y>
-      <w>410</w>
-      <h>360</h>
-    </coordinates>
-    <panel_attributes>entity::Order
---
--ITEMSFILENAME = "res/Order.txt": String
--allOrders = new ArrayList&lt;OrderItem&gt;(): ArrayList&lt;OrderItem&gt;
---
-+getAllOrders(): ArrayList&lt;OrderItem&gt;
-+createOrder(OrderItem order): boolean
-+updateMenuItemOrder(MenuItem item, int orderId): boolean
-+removeMenuItemOrder(int orderId, int choice, int qty): boolean
-+updatePromoSetOrder(PromoSet set, int orderId): boolean
-+removePromoSetOrder(int orderId, int choice, int qty): boolean
-+updateOrderPrintStatus(int orderId): void
-+printOrder(): void
-+pickOrderItems(String text): OrderItem
-+countOrders(): int
-+getSpecificOrder(int orderID): String[]
-+listToStringArray(List&lt;String&gt; orderlist): String[]
--readOrderItem(): void
--writeOrderItem(): void
--callRead(): boolean
--callWrite(): boolean
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>790</x>
-      <y>590</y>
-      <w>530</w>
-      <h>350</h>
-    </coordinates>
-    <panel_attributes>/entity::MenuItem/
---
--name: String
--description: String
-#type: String
--price: double
--orderedQuantity: int
---
-+MenuItem(String name, String description, double price, int orderedQuantity): ctor
-+getName(): String
-+setName(String name): void
-+getDescription(): String
-+setDescription(String description): void
-+getType(): String
-+setType(String type): void
-+getPrice(): double
-+setPrice(double price): void
-+getOrderedQuantity(): int
-+setOrderedQuantity(int orderedQuantity): void
-+addOrderedQuantity(int orderedQuantity): void
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>1330</x>
-      <y>590</y>
-      <w>560</w>
-      <h>350</h>
-    </coordinates>
-    <panel_attributes>entity::PromoSet
---
--setID: int
--setDescription: String
--setItems: ArrayList&lt;MenuItem&gt;
--setPrice: double
--orderedQuantity: int
---
-+PromoSet(String setDescription, ArrayList&lt;MenuItem&gt; setItems, double setPrice): ctor
-+getSetID(): int
-+setSetID(int setID): void
-+getSetDescription(): String
-+setSetDescription(String setDescription): void
-+getSetItems(): ArrayList&lt;MenuItem&gt;
-+setSetItems(ArrayList&lt;MenuItem&gt; setItems): void
-+getSetPrice(): double
-+setSetPrice(double setPrice): void
-+getOrderedQuantity(): int
-+setOrderedQuantity(int orderedQuantity): void
-+addOrderedQuantity(int orderedQuantity): void
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>1900</x>
-      <y>590</y>
-      <w>420</w>
-      <h>330</h>
+      <x>783</x>
+      <y>147</y>
+      <w>126</w>
+      <h>99</h>
     </coordinates>
     <panel_attributes>entity::Booking
 --
@@ -285,16 +957,17 @@
 -callRead(): boolean
 -callWrite(): boolean
 --
-</panel_attributes>
+
+group=12</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>10</x>
-      <y>1000</y>
-      <w>610</w>
-      <h>280</h>
+      <x>939</x>
+      <y>147</y>
+      <w>183</w>
+      <h>84</h>
     </coordinates>
     <panel_attributes>entity::Customer
 --
@@ -313,16 +986,17 @@
 +getArrivalTime(): String
 +setArrivalTime(String arrivalTime): void
 --
-</panel_attributes>
+
+group=12</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>630</x>
-      <y>1000</y>
-      <w>480</w>
-      <h>280</h>
+      <x>978</x>
+      <y>399</y>
+      <w>144</w>
+      <h>93</h>
     </coordinates>
     <panel_attributes>entity::Table
 --
@@ -341,43 +1015,17 @@
 +isReserved(): boolean
 +setReserved(boolean reserved): void
 --
-</panel_attributes>
+
+group=12</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1120</x>
-      <y>1000</y>
-      <w>250</w>
-      <h>260</h>
-    </coordinates>
-    <panel_attributes>entity::SalesItem
---
--itemName: String
--quantitySold: int
--price: double
--isPromo: boolean
---
-+isPromo(): boolean
-+setPromo(boolean isPromo): void
-+getItemname(): String
-+setItemname(String itemname): void
-+getQuantitySold(): int
-+setQuantitySold(int quantitySold): void
-+getPrice(): double
-+setPrice(double price): void
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>1380</x>
-      <y>1000</y>
-      <w>550</w>
-      <h>230</h>
+      <x>957</x>
+      <y>318</y>
+      <w>165</w>
+      <h>69</h>
     </coordinates>
     <panel_attributes>entity::Staff
 --
@@ -393,168 +1041,17 @@
 +getSalary(): double
 +setSalary(double salary): void
 --
-</panel_attributes>
+
+group=12</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1940</x>
-      <y>1000</y>
-      <w>250</w>
-      <h>190</h>
-    </coordinates>
-    <panel_attributes>view::GUI
---
---
-+displayTitle(String title): void
-+displayRow(String text): void
-+displayEnd(String text): void
-+displayReceipt(): void
-+displayStringsB(String text): void
-+displayStrings(String text): void
-+displayOptions(String[] options): void
-+detectChoice(String[] options): int
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>10</x>
-      <y>1290</y>
-      <w>240</w>
-      <h>180</h>
-    </coordinates>
-    <panel_attributes>controller::MainController
---
--db: Database
--mc: MenuController
--oc: OrderController
--boc: BookingController
--bic: BillController
---
-+MainController(Database db): ctor
-+run(): void
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>260</x>
-      <y>1290</y>
-      <w>180</w>
-      <h>180</h>
-    </coordinates>
-    <panel_attributes>controller::MenuController
---
---
-+run(Database db): void
-+createMenuItem(): void
-+updateMenuItem(): void
-+deleteMenuItem(): void
-+createPromoItem(): void
-+updatePromoItem(): void
-+deletePromoItem(): void
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>450</x>
-      <y>1290</y>
-      <w>660</w>
-      <h>180</h>
-    </coordinates>
-    <panel_attributes>&lt;&lt;interface&gt;&gt;
-service::MenuInterface
---
---
-+createMenuItem(MenuItem item): boolean
-+updateMenuItem(MenuItem item, String newName, String newDescription, double newPrice): boolean
-+deleteMenuItem(MenuItem item): boolean
-+createPromoItem(PromoSet set): boolean
-+updatePromoItem(PromoSet set, String newDescription, double newPrice): boolean
-+deletePromoItem(PromoSet set): boolean
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>1120</x>
-      <y>1290</y>
-      <w>190</w>
-      <h>160</h>
-    </coordinates>
-    <panel_attributes>/controller::Controller/
---
--gui: GUI
--db: Database
---
-+getGui(): GUI
-+setGui(GUI gui): void
-+getDb(): Database
-+setDb(Database db): void
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>1320</x>
-      <y>1290</y>
-      <w>470</w>
-      <h>160</h>
-    </coordinates>
-    <panel_attributes>controller::OrderController
---
---
-+run(Database db): void
-+createOrder(): void
-+removeItemFromExistingOrder(): void
-+addItemToExistingOrder(): void
-+addItemToNewOrder(OrderItem order, MenuItem item): void
-+addPromoSetToNewOrder(OrderItem order, PromoSet promoSet): void
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>1800</x>
-      <y>1290</y>
-      <w>600</w>
-      <h>160</h>
-    </coordinates>
-    <panel_attributes>entity::Bill
---
--GST = 0.17: double
--salesDatabase = new ArrayList&lt;String&gt;(): ArrayList&lt;String&gt;
---
-+getGst(): double
-+getBill(int tablenum, ArrayList&lt;OrderItem&gt; orderList): OrderItem
-+getSalesReport(int choice, String userdate, ArrayList&lt;OrderItem&gt; orderList): List&lt;SalesItem&gt;
-+getSalesDatabase(Menu menu): ArrayList&lt;String&gt;
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>10</x>
-      <y>1480</y>
-      <w>220</w>
-      <h>160</h>
+      <x>1056</x>
+      <y>252</y>
+      <w>66</w>
+      <h>48</h>
     </coordinates>
     <panel_attributes>entity::Person
 --
@@ -566,92 +1063,17 @@ service::MenuInterface
 +getContact(): String
 +setContact(String contact): void
 --
-</panel_attributes>
+
+group=12</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>240</x>
-      <y>1480</y>
-      <w>410</w>
-      <h>160</h>
-    </coordinates>
-    <panel_attributes>&lt;&lt;interface&gt;&gt;
-service::OrderInterface
---
---
-+createOrder(OrderItem order): boolean
-+updateMenuItemOrder(MenuItem item, int orderIs): boolean
-+removeMenuItemOrder(int orderId, int choice, int qty): boolean
-+updatePromoSetOrder(PromoSet set, int orderID): boolean
-+removePromoSetOrder(int orderId, int choice, int qty): boolean
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>660</x>
-      <y>1480</y>
-      <w>610</w>
-      <h>120</h>
-    </coordinates>
-    <panel_attributes>&lt;&lt;interface&gt;&gt;
-service::BillingInterface
---
---
-+getBill(int tableNum, ArrayList&lt;OrderItem&gt; orderList): OrderItem
-+getSalesReport(int choice, String userDate, ArrayList&lt;OrderItem&gt; orderList): List&lt;SalesItem&gt;
-+getSalesDatabase(Menu menu): ArrayList&lt;String&gt;
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>1280</x>
-      <y>1480</y>
-      <w>230</w>
-      <h>110</h>
-    </coordinates>
-    <panel_attributes>controller::BillController
---
---
-+run(Database db): void
-+printBill(): void
-+printSalesRevenueReport(): void
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>1520</x>
-      <y>1480</y>
-      <w>200</w>
-      <h>110</h>
-    </coordinates>
-    <panel_attributes>controller::BookingController
---
---
-+run(Database db): void
-+createBooking(): void
-+deleteBooking(): void
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>1730</x>
-      <y>1480</y>
-      <w>310</w>
-      <h>110</h>
+      <x>912</x>
+      <y>261</y>
+      <w>93</w>
+      <h>33</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 service::BookingInterface
@@ -660,88 +1082,131 @@ service::BookingInterface
 +createBooking(Customer customer): boolean
 +deleteBooking(Customer customer): boolean
 --
-</panel_attributes>
+
+group=12</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
-    <id>UMLClass</id>
+    <id>Relation</id>
     <coordinates>
-      <x>10</x>
-      <y>1650</y>
-      <w>260</w>
-      <h>90</h>
+      <x>918</x>
+      <y>402</y>
+      <w>66</w>
+      <h>12</h>
     </coordinates>
-    <panel_attributes>utils::ReadWriteFile
---
---
-+write(String fileName, List data): void
-+read(String fileName): List
---
-</panel_attributes>
-    <additional_attributes/>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1= 0..*
+group=12</panel_attributes>
+    <additional_attributes>10.0;10.0;200.0;10.0</additional_attributes>
   </element>
   <element>
-    <id>UMLClass</id>
+    <id>Relation</id>
     <coordinates>
-      <x>280</x>
-      <y>1650</y>
-      <w>180</w>
-      <h>70</h>
+      <x>879</x>
+      <y>243</y>
+      <w>39</w>
+      <h>42</h>
     </coordinates>
-    <panel_attributes>app::RRPSS
---
---
-+main(String args[]): void
---
-</panel_attributes>
-    <additional_attributes/>
+    <panel_attributes>lt=&lt;&lt;.
+group=12</panel_attributes>
+    <additional_attributes>110.0;120.0;10.0;120.0;10.0;10.0</additional_attributes>
   </element>
   <element>
-    <id>UMLClass</id>
+    <id>Relation</id>
     <coordinates>
-      <x>470</x>
-      <y>1650</y>
-      <w>520</w>
-      <h>70</h>
+      <x>1020</x>
+      <y>273</y>
+      <w>42</w>
+      <h>51</h>
     </coordinates>
-    <panel_attributes>entity::Dessert
---
---
-+Dessert(String name, String description, double price, int orderedQuantity): ctor
---
-</panel_attributes>
-    <additional_attributes/>
+    <panel_attributes>lt=&lt;&lt;-
+group=12</panel_attributes>
+    <additional_attributes>120.0;10.0;10.0;10.0;10.0;150.0</additional_attributes>
   </element>
   <element>
-    <id>UMLClass</id>
+    <id>Relation</id>
     <coordinates>
-      <x>1000</x>
-      <y>1650</y>
-      <w>510</w>
-      <h>70</h>
+      <x>1020</x>
+      <y>228</y>
+      <w>42</w>
+      <h>54</h>
     </coordinates>
-    <panel_attributes>entity::Drinks
---
---
-+Drinks(String name, String description, double price, int orderedQuantity): ctor
---
-</panel_attributes>
-    <additional_attributes/>
+    <panel_attributes>lt=&lt;&lt;-
+group=12</panel_attributes>
+    <additional_attributes>120.0;160.0;10.0;160.0;10.0;10.0</additional_attributes>
   </element>
   <element>
-    <id>UMLClass</id>
+    <id>Relation</id>
     <coordinates>
-      <x>1520</x>
-      <y>1650</y>
-      <w>540</w>
-      <h>70</h>
+      <x>906</x>
+      <y>192</y>
+      <w>39</w>
+      <h>9</h>
     </coordinates>
-    <panel_attributes>entity::MainCourse
---
---
-+MainCourse(String name, String description, double price, int orderedQuantity): ctor
---
-</panel_attributes>
-    <additional_attributes/>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+group=12</panel_attributes>
+    <additional_attributes>10.0;10.0;110.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>780</x>
+      <y>477</y>
+      <w>90</w>
+      <h>69</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+group=10</panel_attributes>
+    <additional_attributes>280.0;10.0;10.0;10.0;10.0;210.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>807</x>
+      <y>243</y>
+      <w>18</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-x
+runs
+group=12</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>918</x>
+      <y>330</y>
+      <w>45</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1= 0..*
+group=12</panel_attributes>
+    <additional_attributes>10.0;10.0;130.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>783</x>
+      <y>300</y>
+      <w>87</w>
+      <h>165</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+group=10</panel_attributes>
+    <additional_attributes>270.0;530.0;10.0;530.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>831</x>
+      <y>504</y>
+      <w>312</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+group=10</panel_attributes>
+    <additional_attributes>110.0;10.0;10.0;10.0;10.0;540.0;1020.0;540.0;1020.0;290.0;970.0;290.0</additional_attributes>
   </element>
 </diagram>
