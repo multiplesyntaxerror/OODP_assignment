@@ -20,16 +20,29 @@ public class GUI {
 		System.out.println("-----------------------------------------------------------------------");
 	}
 	
+	/**
+	 * Display text with row of line.
+	 *
+	 * @param text the text to display before the row
+	 */
 	public void displayRow(String text){
 		System.out.println(text);
 		System.out.println("------------------------------------------------");
 	}
-
+	
+	/**
+	 * Display text at the end line.
+	 *
+	 * @param text the text to display at the end
+	 */
 	public void displayEnd(String text){
 		System.out.println("----------------------------------------" + text);
 	}
 	
-	public void displayReciept(){
+	/**
+	 * Display spacer for receipt.
+	 */
+	public void displayReceipt(){
 		System.out.println("================================================");
 	}
 	

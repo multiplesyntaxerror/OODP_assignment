@@ -12,8 +12,17 @@ import entity.PromoSet;
 import entity.Staff;
 import utils.Database;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class OrderController.
+ */
 public class OrderController extends Controller{
 
+	/**
+	 * Run.
+	 *
+	 * @param db the db
+	 */
 	public void run(Database db) {
 
 		setDb(db);
@@ -52,6 +61,9 @@ public class OrderController extends Controller{
 	
 	} 
 	
+	/**
+	 * Creates the order.
+	 */
 	public void createOrder() {
 		
 		Scanner sc = new Scanner(System.in);
@@ -59,16 +71,12 @@ public class OrderController extends Controller{
 		ArrayList<MenuItem> alaCarteOrder = new ArrayList<MenuItem>();
 		ArrayList<PromoSet> promoSetOrder = new ArrayList<PromoSet>();
 		
-		//staff not created here
-		Staff server = new Staff();
-		String name;
-		do {
-			getGui().displayStrings("Enter Server Name: ");
-			name = sc.nextLine();
-			server.setName(name);
-			if (name.isEmpty())
-				getGui().displayStringsB("Please Enter Something.\n");
-		} while (name.isEmpty());
+		getGui().displayStrings("Served By: ");
+		Staff staff = getDb().getRestaurant().pickStaff("Exit");
+		if (staff == null) {
+			getGui().displayStringsB("Returning to System Menu.\n");
+			return;
+		}
 		
 		int tableId = 0;
 		do {
@@ -82,12 +90,12 @@ public class OrderController extends Controller{
 				sc.nextLine();
 			}
 		} while (tableId <= 0 || tableId > 30);
-		if(getDb().getRestaurant().getTableList().get(tableId - 1).isOccupied() == true) {
-			getGui().displayStringsB("Table Is Already Occupied.\n");
+		if(getDb().getRestaurant().getTableList().get(tableId - 1).isOccupied() || getDb().getRestaurant().getTableList().get(tableId - 1).isReserved()) {
+			getGui().displayStringsB("Table Is Not Available.");
 		}
 		else {
 		
-			OrderItem order = new OrderItem(0, tableId, server, null, 0, alaCarteOrder, promoSetOrder, false);
+			OrderItem order = new OrderItem(0, tableId, staff, null, 0, alaCarteOrder, promoSetOrder, false);
 
 			String pattern = "dd-MM-yyyy hh:mm a";
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
@@ -166,6 +174,9 @@ public class OrderController extends Controller{
 		}
 	}
 	
+	/**
+	 * Removes the item from existing order.
+	 */
 	public void removeItemFromExistingOrder() {
 		Scanner sc = new Scanner(System.in);
 		getGui().displayTitle("Update Exisiting Orders");
@@ -201,6 +212,9 @@ public class OrderController extends Controller{
 		}
   }
 	
+	/**
+	 * Adds the item to existing order.
+	 */
 	public void addItemToExistingOrder() {
 		Scanner sc = new Scanner(System.in);
 		getGui().displayTitle("Adding Item To Exisiting Orders");
@@ -271,6 +285,12 @@ public class OrderController extends Controller{
 		}
 	}
 	
+	/**
+	 * Adds the item to new order.
+	 *
+	 * @param order the order
+	 * @param item the item
+	 */
 	public void addItemToNewOrder(OrderItem order, MenuItem item) {
 		boolean dupe = false;
 		for(int i = 0 ; i<order.getAlaCarte().size(); i++) {
@@ -285,6 +305,12 @@ public class OrderController extends Controller{
 		}
 	}
 	
+	/**
+	 * Adds the promo set to new order.
+	 *
+	 * @param order the order
+	 * @param promoSet the promo set
+	 */
 	public void addPromoSetToNewOrder(OrderItem order, PromoSet promoSet){
 		boolean dupe = false;
 		for(int i = 0 ; i<order.getPromoSet().size(); i++) {

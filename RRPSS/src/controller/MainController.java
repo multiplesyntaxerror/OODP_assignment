@@ -2,6 +2,7 @@ package controller;
 
 import utils.Database;
 
+// TODO: Auto-generated Javadoc
 /**
  * 
  * Main Application.
@@ -13,8 +14,14 @@ public class MainController {
 	
 	/** The menu controller. */
 	private MenuController mc;
+	
+	/** The oc. */
 	private OrderController oc;
+	
+	/** The boc. */
 	private BookingController boc;
+	
+	/** The bic. */
 	private BillController bic;
 	
 	/**
@@ -32,8 +39,6 @@ public class MainController {
 	
 	/**
 	 * Runs the main system menu.
-	 * @throws Exception 
-	 * 
 	 */
 	public void run() {
 		

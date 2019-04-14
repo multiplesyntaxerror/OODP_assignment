@@ -22,16 +22,18 @@ public class RRPSS {
 		db.initializeData();
 		final MainController mainController = new MainController(db);
 		
+		//Timer task to remove reservation over 30 mins
 		TimerTask task = new TimerTask() {
 			@Override	
 			public void run() {
 				db.getBooking().checkAndClearReservation();
 			}
 		};
-		Timer timer = new Timer();	    
-		long delay = 0;	    
+		
 		//30sec interval
 		long intevalPeriod = 1 * 30000;
+		Timer timer = new Timer();	    
+		long delay = 0;	   
 		timer.scheduleAtFixedRate(task, delay, intevalPeriod);
 		
 		mainController.run();

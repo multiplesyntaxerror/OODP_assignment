@@ -6,16 +6,30 @@ import java.util.List;
 
 import service.BillingInterface;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Bill.
+ */
 public class Bill implements BillingInterface {
 
+	/** The Constant GST. */
 	private static final double GST = 0.17;
 	
+	/** The sales database. */
 	private ArrayList<String> salesDatabase = new ArrayList<String>();
 
+	/**
+	 * Gets the gst.
+	 *
+	 * @return the gst
+	 */
 	public double getGst() {
 		return GST;
 	}
 
+	/* (non-Javadoc)
+	 * @see service.BillingInterface#getBill(int, java.util.ArrayList)
+	 */
 	public OrderItem getBill(int tablenum, ArrayList<OrderItem> orderList) {
 		OrderItem order = null;
 		for (int i = 0; i < orderList.size(); i++) {
@@ -27,6 +41,9 @@ public class Bill implements BillingInterface {
 		return order;
 	}
 
+	/* (non-Javadoc)
+	 * @see service.BillingInterface#getSalesReport(int, java.lang.String, java.util.ArrayList)
+	 */
 	public List<SalesItem> getSalesReport(int choice, String userdate, ArrayList<OrderItem> orderList) {
 
 		ArrayList<SalesItem> saleslist = new ArrayList<SalesItem>();
@@ -84,6 +101,9 @@ public class Bill implements BillingInterface {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see service.BillingInterface#getSalesDatabase(entity.Menu)
+	 */
 	public ArrayList<String> getSalesDatabase(Menu menu) {
 
 		ArrayList<MainCourse> mcList = (ArrayList<MainCourse>) menu.getMenuList().get(0);

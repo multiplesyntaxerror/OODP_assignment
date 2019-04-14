@@ -13,10 +13,20 @@ import entity.Booking;
 import entity.Customer;
 import utils.Database;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class BookingController.
+ */
 public class BookingController extends Controller {
 
+	/** The booking list. */
 	private static ArrayList<Customer> bookingList;
 
+	/**
+	 * Run.
+	 *
+	 * @param db the db
+	 */
 	public void run(Database db) {
 
 		setDb(db);
@@ -54,10 +64,8 @@ public class BookingController extends Controller {
 
 	}
 	
-	/*
-	 * 
-	 * if time over, table is expired. (edit deleteBooking)
-	 * 
+	/**
+	 * Creates the booking.
 	 */
 	public void createBooking() {
 
@@ -68,7 +76,7 @@ public class BookingController extends Controller {
 		}
 
 		//Remove comment for testing
-		nonBooking = false;
+//		nonBooking = false;
 		
 		if (!nonBooking) {
 			Scanner sc = new Scanner(System.in);
@@ -173,7 +181,7 @@ public class BookingController extends Controller {
 						} while (inputTime.isEmpty() || timeFormat == false);
 	
 						customer = new Customer(name, contact, tableId, pax, inputDate, inputTime);
-						getDb().getRestaurant().getTableList().get(tableId).setReserved(true);
+						getDb().getRestaurant().getTableList().get(tableId - 1).setReserved(true);
 						getDb().getRestaurant().updateRestaurantTables();
 						
 						boolean success = getDb().getBooking().createBooking(customer);
@@ -193,6 +201,9 @@ public class BookingController extends Controller {
 		}
 	}
 
+	/**
+	 * Delete booking.
+	 */
 	public void deleteBooking() {
 
 		getGui().displayTitle("Removing Reservation");

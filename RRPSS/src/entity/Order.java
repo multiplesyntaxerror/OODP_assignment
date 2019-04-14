@@ -8,22 +8,41 @@ import java.util.StringTokenizer;
 import service.OrderInterface;
 import utils.Database;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Order.
+ */
 public class Order implements OrderInterface{
 	
+	/** The Constant ITEMSFILENAME. */
 	private static final String ITEMSFILENAME = "res/Order.txt";
 	
+	/** The all orders. */
 	private ArrayList<OrderItem> allOrders = new ArrayList<OrderItem>();
 	
+	/**
+	 * Gets the all orders.
+	 *
+	 * @return the all orders
+	 */
 	public ArrayList<OrderItem> getAllOrders(){
 		callRead();
 		return this.allOrders;
 	}
 
+	/**
+	 * Count orders.
+	 *
+	 * @return the int
+	 */
 	public int countOrders() {
 		callRead();
 		return allOrders.size();
 	}
 	
+	/* (non-Javadoc)
+	 * @see service.OrderInterface#createOrder(entity.OrderItem)
+	 */
 	public boolean createOrder(OrderItem order) {
 		callRead();
 		allOrders.add(order);
@@ -31,6 +50,9 @@ public class Order implements OrderInterface{
 		return true;
 	}
 	
+	/* (non-Javadoc)
+	 * @see service.OrderInterface#updateMenuItemOrder(entity.MenuItem, int)
+	 */
 	public boolean updateMenuItemOrder(MenuItem item, int orderId) {
 		callRead();
 		boolean dupe = false;
@@ -52,6 +74,9 @@ public class Order implements OrderInterface{
 		return updated;
 	}
 
+	/* (non-Javadoc)
+	 * @see service.OrderInterface#removeMenuItemOrder(int, int, int)
+	 */
 	public boolean removeMenuItemOrder(int orderId, int choice, int qty) {
 		callRead();	
 		boolean updated = false;
@@ -68,6 +93,9 @@ public class Order implements OrderInterface{
 		return updated;
 	}
 	
+	/* (non-Javadoc)
+	 * @see service.OrderInterface#updatePromoSetOrder(entity.PromoSet, int)
+	 */
 	public boolean updatePromoSetOrder(PromoSet set, int orderId) {
 		callRead();
 		boolean dupe = false;
@@ -90,6 +118,9 @@ public class Order implements OrderInterface{
 		return updated;
 	}
 	
+	/* (non-Javadoc)
+	 * @see service.OrderInterface#removePromoSetOrder(int, int, int)
+	 */
 	public boolean removePromoSetOrder(int orderId, int choice, int qty) {
 		callRead();	
 		boolean updated = false;
@@ -106,6 +137,9 @@ public class Order implements OrderInterface{
 		return updated;
 	}
 	 
+	/**
+	 * Prints the order.
+	 */
 	public void printOrder(){
 		callRead();
 		Database.getGui().displayStringsB("");
@@ -137,6 +171,12 @@ public class Order implements OrderInterface{
 		}
 	}
 	
+	/**
+	 * Pick order items.
+	 *
+	 * @param text the text
+	 * @return the order item
+	 */
 	public OrderItem pickOrderItems(String text) { 
 		callRead();
 		Database.getGui().displayStringsB("");
@@ -174,6 +214,12 @@ public class Order implements OrderInterface{
 		return order;
 	}
 	
+	/**
+	 * Gets the specific order.
+	 *
+	 * @param orderID the order ID
+	 * @return the specific order
+	 */
 	public String[] getSpecificOrder(int orderID) {
 		callRead();
 		List<String> ordereditems = new ArrayList<>();
@@ -188,6 +234,12 @@ public class Order implements OrderInterface{
 		return  newlist;
 	}
 
+	/**
+	 * List to string array.
+	 *
+	 * @param orderlist the orderlist
+	 * @return the string[]
+	 */
 	public String[] listToStringArray(List<String> orderlist) {
 		
 		String[] newlist = new String[orderlist.size()];
@@ -199,6 +251,11 @@ public class Order implements OrderInterface{
 		return newlist;
 	}
 	
+	/**
+	 * Read order item.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	private void readOrderItem() throws IOException{
 
 		ArrayList<String> stringArray = (ArrayList<String>) Database.getRwFile().read(ITEMSFILENAME);
@@ -280,6 +337,11 @@ public class Order implements OrderInterface{
 		}
 	}
 	
+	/**
+	 * Write order item.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	private void writeOrderItem() throws IOException {	
 		List alw = new ArrayList();
 		boolean hasMenuItem;
@@ -354,6 +416,11 @@ public class Order implements OrderInterface{
         Database.getRwFile().write(ITEMSFILENAME, alw);
 	}
 	
+	/**
+	 * Call read.
+	 *
+	 * @return true, if successful
+	 */
 	private boolean callRead(){
 		try {
 			readOrderItem();
@@ -365,6 +432,11 @@ public class Order implements OrderInterface{
 		
 	}
 	
+	/**
+	 * Call write.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean callWrite() {
 		try {
 			writeOrderItem();

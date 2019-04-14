@@ -2,6 +2,7 @@ package entity;
 
 import java.util.ArrayList;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class PromoSet.
  */
@@ -108,6 +109,11 @@ public class PromoSet {
 		this.setPrice = setPrice;
 	}
 	
+	/**
+	 * Gets the ordered quantity.
+	 *
+	 * @return the ordered quantity
+	 */
 	public int getOrderedQuantity() {
 		return orderedQuantity;
 	}
@@ -120,6 +126,12 @@ public class PromoSet {
 	public void setOrderedQuantity(int orderedQuantity) {
 		this.orderedQuantity = orderedQuantity;
 	}
+	
+	/**
+	 * Adds the ordered quantity.
+	 *
+	 * @param orderedQuantity the ordered quantity
+	 */
 	public void addOrderedQuantity(int orderedQuantity) {
 		this.orderedQuantity += orderedQuantity;
 	}

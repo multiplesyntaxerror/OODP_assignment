@@ -1,16 +1,9 @@
 package utils;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import entity.Booking;
-import entity.Customer;
-import entity.Table;
 import entity.Menu;
 import entity.Order;
 import entity.Restaurant;
-import entity.Table;
 import view.GUI;
 
 /**
@@ -32,7 +25,8 @@ public class Database {
 
 	/** The GUI. */
 	private static GUI gui;
-	
+
+	/** The Restaurant. */
 	private Restaurant restaurant;
 	
 	/** The menu. */
@@ -41,10 +35,8 @@ public class Database {
 	/** The order. */
 	private Order order;
 	
-	/** the booking */
+	/**  the booking. */
 	private Booking booking;
-
-
 	
 	/** 
 	 * Initialize data.
@@ -102,11 +94,21 @@ public class Database {
 	public static GUI getGui() {
 		return gui;
 	}
-
+	
+	/**
+	 * Gets the restaurant.
+	 *
+	 * @return the restaurant
+	 */
 	public Restaurant getRestaurant() {
 		return restaurant;
 	}
 
+	/**
+	 * Sets the restaurant.
+	 *
+	 * @param restaurant the new restaurant
+	 */
 	public void setRestaurant(Restaurant restaurant) {
 		this.restaurant = restaurant;
 	}
@@ -129,20 +131,40 @@ public class Database {
 		this.menu = menu;
 	}
 
+	/**
+	 * Gets the order.
+	 *
+	 * @return the order
+	 */
 	public Order getOrder() {
 		return order;
 	}
-
+	
+	/**
+	 * Sets the order.
+	 *
+	 * @param order the new order
+	 */
 	public void setOrder(Order order) {
 		this.order = order;
 	}
-	
+
+	/**
+	 * Gets the booking.
+	 *
+	 * @return the booking
+	 */
 	public Booking getBooking() {
 		return booking;
 	}
-
-	public void setBooking(Booking book) {
-		this.booking = book;
+	
+	/**
+	 * Sets the booking.
+	 *
+	 * @param booking the new booking
+	 */
+	public void setBooking(Booking booking) {
+		this.booking = booking;
 	}
 	
 }

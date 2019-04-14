@@ -11,11 +11,17 @@ import entity.OrderItem;
 import entity.PromoSet;
 import entity.SalesItem;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class BillController.
  */
 public class BillController extends Controller {
 	
+	/**
+	 * Run.
+	 *
+	 * @param db the db
+	 */
 	public void run(Database db) {
 
 		setDb(db);
@@ -45,6 +51,9 @@ public class BillController extends Controller {
 
 	}
 
+	/**
+	 * Prints the bill.
+	 */
 	public void printBill() {
 
 		Scanner sc = new Scanner(System.in);
@@ -67,11 +76,11 @@ public class BillController extends Controller {
 		} else {
 			
 			getGui().displayStringsB("");
-			getGui().displayReciept();
+			getGui().displayReceipt();
 			getGui().displayStringsB("NOM-NOM Restaurant\t\tReceipt #" + String.format("%05d", order.getOrderId()));
 			getGui().displayStringsB("50 Nanyang Avenue, Block N4\t S'pore 639798");
 			getGui().displayStringsB("Date/Time: " + order.getDate());
-			getGui().displayRow("Table Number: " + tablenum + "\t\t\tSever: " + order.getStaff().getName());
+			getGui().displayRow("Table No. " + tablenum + "\t\t\tSever: " + order.getStaff().getName());
 
 			MenuItem item;
 			PromoSet set;
@@ -93,7 +102,7 @@ public class BillController extends Controller {
 			getGui().displayRow("\t\tGST & Service Charge:\t" + (String.format("%.2f", order.getTotalPrice() * bill.getGst())));
 			getGui().displayRow("\tTOTAL:\t\t\t\t$" + (String.format("%.2f", order.getTotalPrice() + order.getTotalPrice() * bill.getGst())));
 			getGui().displayStringsB("\tThank You For Dining With Us!");
-			getGui().displayReciept();
+			getGui().displayReceipt();
 			
 			getDb().getOrder().getAllOrders().get(order.getOrderId() - 1).setPrintedInvoice();
 			getDb().getRestaurant().getTableList().get(tablenum - 1).setOccupied(false);
@@ -104,6 +113,9 @@ public class BillController extends Controller {
 
 	};
 
+	/**
+	 * Prints the sales revenue report.
+	 */
 	public void printSalesRevenueReport() {
 		Scanner sc = new Scanner(System.in);
 

@@ -12,10 +12,31 @@ import entity.SalesItem;
  */
 public interface BillingInterface {
 	
-	public OrderItem getBill(int tablenum, ArrayList<OrderItem> orderList);
+	/**
+	 * Gets the bill.
+	 *
+	 * @param tableNum the table number
+	 * @param orderList the order list
+	 * @return the bill
+	 */
+	public OrderItem getBill(int tableNum, ArrayList<OrderItem> orderList);
 	
-	public List<SalesItem> getSalesReport(int choice,String userdate,ArrayList<OrderItem> orderList);
+	/**
+	 * Gets the sales report.
+	 *
+	 * @param choice the choice
+	 * @param userDate the input date
+	 * @param orderList the order list
+	 * @return the sales report
+	 */
+	public List<SalesItem> getSalesReport(int choice, String userDate, ArrayList<OrderItem> orderList);
 	
+	/**
+	 * Gets the sales database.
+	 *
+	 * @param menu the menu
+	 * @return the sales database
+	 */
 	public ArrayList<String> getSalesDatabase(Menu menu);
 
 }
