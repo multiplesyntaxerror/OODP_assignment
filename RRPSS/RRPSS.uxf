@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>7</zoom_level>
+  <zoom_level>4</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>546</x>
-      <y>84</y>
-      <w>462</w>
-      <h>406</h>
+      <x>348</x>
+      <y>128</y>
+      <w>264</w>
+      <h>232</h>
     </coordinates>
     <panel_attributes>entity::Menu
 --
--ITEMSFILENAME = "res/MenuItems.txt": String
--SETSFILENAME = "res/PromoSets.txt": String
+_-ITEMSFILENAME = "res/MenuItems.txt": String_
+_-SETSFILENAME = "res/PromoSets.txt": String_
 -mcList = new ArrayList&lt;MainCourse&gt;(): ArrayList&lt;MainCourse&gt;
 -deList = new ArrayList&lt;Dessert&gt;(): ArrayList&lt;Dessert&gt;
 -drList = new ArrayList&lt;Drinks&gt;(): ArrayList&lt;Drinks&gt;
@@ -44,17 +44,16 @@
 -callRead(): boolean
 -callWrite(): boolean
 --
-
-group=12</panel_attributes>
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>49</x>
-      <y>896</y>
-      <w>784</w>
-      <h>336</h>
+      <x>64</x>
+      <y>608</y>
+      <w>448</w>
+      <h>192</h>
     </coordinates>
     <panel_attributes>entity::OrderItem
 --
@@ -85,24 +84,23 @@ group=12</panel_attributes>
 +getPrintedInvoice(): Boolean
 +setPrintedInvoice(boolean printedInvoice): void
 --
-
-group=12</panel_attributes>
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1232</x>
-      <y>392</y>
-      <w>210</w>
-      <h>315</h>
+      <x>740</x>
+      <y>328</y>
+      <w>120</w>
+      <h>180</h>
     </coordinates>
     <panel_attributes>utils::Database
 --
 -rwFile = new ReadWriteFile(): ReadWriteFile
--SEPARATOR = "|": String
--SETSEPARATOR = "+": String
--TXTSEPARATOR = "**": String
+_-SEPARATOR = "|": String_
+_-SETSEPARATOR = "+": String_
+_-TXTSEPARATOR = "**": String_
 -gui: GUI
 -restaurant: Restaurant
 -menu: Menu
@@ -110,11 +108,11 @@ group=12</panel_attributes>
 -booking: Booking
 --
 +initializeData(): void
-+getRwFile(): ReadWriteFile
-+getSeparator(): String
-+getSetSeparator(): String
-+getTXTSeparator(): String
-+getGui(): GUI
+_+getRwFile(): ReadWriteFile_
+_+getSeparator(): String_
+_+getSetSeparator(): String_
+_+getTXTSeparator(): String_
+_+getGui(): GUI_
 +getRestaurant(): Restaurant
 +setRestaurant(Restaurant restaurant): void
 +getMenu(): Menu
@@ -130,14 +128,14 @@ group=12</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>889</x>
-      <y>980</y>
-      <w>287</w>
-      <h>252</h>
+      <x>556</x>
+      <y>656</y>
+      <w>164</w>
+      <h>144</h>
     </coordinates>
     <panel_attributes>entity::Order
 --
--ITEMSFILENAME = "res/Order.txt": String
+_-ITEMSFILENAME = "res/Order.txt": String_
 -allOrders = new ArrayList&lt;OrderItem&gt;(): ArrayList&lt;OrderItem&gt;
 --
 +getAllOrders(): ArrayList&lt;OrderItem&gt;
@@ -157,17 +155,16 @@ group=12</panel_attributes>
 -callRead(): boolean
 -callWrite(): boolean
 --
-
-group=12</panel_attributes>
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>49</x>
-      <y>399</y>
-      <w>371</w>
-      <h>245</h>
+      <x>64</x>
+      <y>324</y>
+      <w>212</w>
+      <h>140</h>
     </coordinates>
     <panel_attributes>/entity::MenuItem/
 --
@@ -190,17 +187,16 @@ group=12</panel_attributes>
 +setOrderedQuantity(int orderedQuantity): void
 +addOrderedQuantity(int orderedQuantity): void
 --
-
-group=12</panel_attributes>
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>588</x>
-      <y>616</y>
-      <w>420</w>
-      <h>245</h>
+      <x>372</x>
+      <y>408</y>
+      <w>240</w>
+      <h>140</h>
     </coordinates>
     <panel_attributes>entity::PromoSet
 --
@@ -223,17 +219,16 @@ group=12</panel_attributes>
 +setOrderedQuantity(int orderedQuantity): void
 +addOrderedQuantity(int orderedQuantity): void
 --
-
-group=12</panel_attributes>
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1645</x>
-      <y>987</y>
-      <w>175</w>
-      <h>182</h>
+      <x>972</x>
+      <y>700</y>
+      <w>100</w>
+      <h>104</h>
     </coordinates>
     <panel_attributes>entity::SalesItem
 --
@@ -251,17 +246,16 @@ group=12</panel_attributes>
 +getPrice(): double
 +setPrice(double price): void
 --
-
-group=12</panel_attributes>
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1099</x>
-      <y>728</y>
-      <w>175</w>
-      <h>133</h>
+      <x>664</x>
+      <y>520</y>
+      <w>100</w>
+      <h>76</h>
     </coordinates>
     <panel_attributes>view::GUI
 --
@@ -281,10 +275,10 @@ group=12</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1043</x>
-      <y>56</y>
-      <w>168</w>
-      <h>126</h>
+      <x>632</x>
+      <y>128</y>
+      <w>96</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>controller::MainController
 --
@@ -303,10 +297,10 @@ group=12</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>49</x>
-      <y>245</y>
-      <w>126</w>
-      <h>126</h>
+      <x>64</x>
+      <y>236</y>
+      <w>72</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>controller::MenuController
 --
@@ -319,17 +313,16 @@ group=12</panel_attributes>
 +updatePromoItem(): void
 +deletePromoItem(): void
 --
-
-group=12</panel_attributes>
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>49</x>
-      <y>84</y>
-      <w>462</w>
-      <h>126</h>
+      <x>64</x>
+      <y>128</y>
+      <w>264</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 service::MenuInterface
@@ -342,32 +335,27 @@ service::MenuInterface
 +updatePromoItem(PromoSet set, String newDescription, double newPrice): boolean
 +deletePromoItem(PromoSet set): boolean
 --
-
-group=12</panel_attributes>
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1687</x>
-      <y>784</y>
-      <w>133</w>
-      <h>168</h>
+      <x>968</x>
+      <y>576</y>
+      <w>76</w>
+      <h>68</h>
     </coordinates>
     <panel_attributes>&lt;&lt;abstract&gt;&gt;
 /controller::Controller/
 --
-
 -gui: GUI
 -db: Database
-
 --
-
 +getGui(): GUI
 +setGui(GUI gui): void
 +getDb(): Database
 +setDb(Database db): void
-
 --
 
 
@@ -377,10 +365,10 @@ group=12</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1204</x>
-      <y>980</y>
-      <w>329</w>
-      <h>112</h>
+      <x>732</x>
+      <y>608</y>
+      <w>188</w>
+      <h>64</h>
     </coordinates>
     <panel_attributes>controller::OrderController
 --
@@ -392,21 +380,20 @@ group=12</panel_attributes>
 +addItemToNewOrder(OrderItem order, MenuItem item): void
 +addPromoSetToNewOrder(OrderItem order, PromoSet promoSet): void
 --
-
-group=12</panel_attributes>
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1869</x>
-      <y>889</y>
-      <w>420</w>
-      <h>112</h>
+      <x>1104</x>
+      <y>604</y>
+      <w>240</w>
+      <h>64</h>
     </coordinates>
     <panel_attributes>entity::Bill
 --
--GST = 0.17: double
+_-GST = 0.17: double_
 -salesDatabase = new ArrayList&lt;String&gt;(): ArrayList&lt;String&gt;
 --
 +getGst(): double
@@ -414,17 +401,16 @@ group=12</panel_attributes>
 +getSalesReport(int choice, String userdate, ArrayList&lt;OrderItem&gt; orderList): List&lt;SalesItem&gt;
 +getSalesDatabase(Menu menu): ArrayList&lt;String&gt;
 --
-
-group=12</panel_attributes>
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1246</x>
-      <y>1120</y>
-      <w>287</w>
-      <h>112</h>
+      <x>748</x>
+      <y>736</y>
+      <w>164</w>
+      <h>64</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 service::OrderInterface
@@ -436,17 +422,16 @@ service::OrderInterface
 +updatePromoSetOrder(PromoSet set, int orderID): boolean
 +removePromoSetOrder(int orderId, int choice, int qty): boolean
 --
-
-group=12</panel_attributes>
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1862</x>
-      <y>1155</y>
-      <w>427</w>
-      <h>84</h>
+      <x>1100</x>
+      <y>756</y>
+      <w>244</w>
+      <h>48</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 service::BillingInterface
@@ -456,17 +441,16 @@ service::BillingInterface
 +getSalesReport(int choice, String userDate, ArrayList&lt;OrderItem&gt; orderList): List&lt;SalesItem&gt;
 +getSalesDatabase(Menu menu): ArrayList&lt;String&gt;
 --
-
-group=12</panel_attributes>
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2128</x>
-      <y>1050</y>
-      <w>161</w>
-      <h>77</h>
+      <x>1252</x>
+      <y>688</y>
+      <w>92</w>
+      <h>44</h>
     </coordinates>
     <panel_attributes>controller::BillController
 --
@@ -475,17 +459,16 @@ group=12</panel_attributes>
 +printBill(): void
 +printSalesRevenueReport(): void
 --
-
-group=12</panel_attributes>
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1484</x>
-      <y>350</y>
-      <w>140</w>
-      <h>77</h>
+      <x>884</x>
+      <y>296</y>
+      <w>80</w>
+      <h>44</h>
     </coordinates>
     <panel_attributes>controller::BookingController
 --
@@ -494,17 +477,16 @@ group=12</panel_attributes>
 +createBooking(): void
 +deleteBooking(): void
 --
-
-group=12</panel_attributes>
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1246</x>
-      <y>287</y>
-      <w>182</w>
-      <h>63</h>
+      <x>748</x>
+      <y>256</y>
+      <w>104</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>utils::ReadWriteFile
 --
@@ -518,15 +500,15 @@ group=12</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1106</x>
+      <x>668</x>
       <y>224</y>
-      <w>126</w>
-      <h>49</h>
+      <w>72</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>app::RRPSS
 --
 --
-+main(String args[]): void
+_+main(String args[]): void_
 --
 </panel_attributes>
     <additional_attributes/>
@@ -534,73 +516,69 @@ group=12</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>49</x>
-      <y>679</y>
-      <w>364</w>
-      <h>49</h>
+      <x>92</x>
+      <y>484</y>
+      <w>208</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>entity::Dessert
 --
 --
 +Dessert(String name, String description, double price, int orderedQuantity): ctor
 --
-
-group=12</panel_attributes>
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>112</x>
-      <y>742</y>
-      <w>357</w>
-      <h>49</h>
+      <x>128</x>
+      <y>520</y>
+      <w>204</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>entity::Drinks
 --
 --
 +Drinks(String name, String description, double price, int orderedQuantity): ctor
 --
-
-group=12</panel_attributes>
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>161</x>
-      <y>812</y>
-      <w>378</w>
-      <h>49</h>
+      <x>156</x>
+      <y>560</y>
+      <w>216</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>entity::MainCourse
 --
 --
 +MainCourse(String name, String description, double price, int orderedQuantity): ctor
 --
-
-group=12</panel_attributes>
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>385</x>
-      <y>637</y>
-      <w>147</w>
-      <h>189</h>
+      <x>248</x>
+      <y>460</y>
+      <w>108</w>
+      <h>108</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
-group=12</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;40.0;190.0;40.0;190.0;250.0</additional_attributes>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0;250.0;40.0;250.0;250.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1162</x>
-      <y>175</y>
-      <w>42</w>
-      <h>63</h>
+      <x>700</x>
+      <y>196</y>
+      <w>24</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>lt=&lt;-x
 runs</panel_attributes>
@@ -609,168 +587,166 @@ runs</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1155</x>
-      <y>266</y>
-      <w>91</w>
-      <h>245</h>
+      <x>692</x>
+      <y>248</y>
+      <w>56</w>
+      <h>140</h>
     </coordinates>
-    <panel_attributes>lt=&lt;.x
+    <panel_attributes>lt=&lt;.
 initialize
 </panel_attributes>
-    <additional_attributes>110.0;320.0;10.0;320.0;10.0;10.0</additional_attributes>
+    <additional_attributes>120.0;320.0;10.0;320.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1155</x>
-      <y>588</y>
-      <w>91</w>
-      <h>154</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-x
-has
-</panel_attributes>
-    <additional_attributes>10.0;200.0;10.0;10.0;110.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>0</x>
-      <y>21</y>
-      <w>1127</w>
-      <h>273</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-x
-runs</panel_attributes>
-    <additional_attributes>70.0;370.0;10.0;370.0;10.0;10.0;1590.0;10.0;1590.0;50.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>273</x>
-      <y>350</y>
-      <w>287</w>
-      <h>63</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
-group=12</panel_attributes>
-    <additional_attributes>390.0;10.0;10.0;10.0;10.0;70.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>791</x>
-      <y>483</y>
-      <w>21</w>
-      <h>147</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
-m1=
-group=12</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;190.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>413</x>
-      <y>560</y>
-      <w>210</w>
-      <h>70</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
-group=12</panel_attributes>
-    <additional_attributes>280.0;80.0;280.0;10.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>504</x>
-      <y>119</y>
+      <x>692</x>
+      <y>428</y>
       <w>56</w>
-      <h>21</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;.
-group=12</panel_attributes>
-    <additional_attributes>60.0;10.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>826</x>
-      <y>1169</y>
-      <w>77</w>
-      <h>21</h>
+      <h>100</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
-group=12</panel_attributes>
-    <additional_attributes>90.0;10.0;10.0;10.0</additional_attributes>
+m2=1
+
+</panel_attributes>
+    <additional_attributes>120.0;20.0;10.0;20.0;10.0;230.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1169</x>
-      <y>1169</y>
-      <w>91</w>
-      <h>21</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;.
-group=12</panel_attributes>
-    <additional_attributes>110.0;10.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>0</x>
-      <y>294</y>
-      <w>1701</w>
-      <h>994</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>2410.0;820.0;2250.0;820.0;2250.0;1400.0;10.0;1400.0;10.0;10.0;70.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>2044</x>
-      <y>994</y>
-      <w>21</w>
-      <h>175</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;.
-group=12</panel_attributes>
-    <additional_attributes>10.0;230.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1813</x>
-      <y>994</y>
-      <w>161</w>
-      <h>98</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
-group=12</panel_attributes>
-    <additional_attributes>210.0;10.0;210.0;120.0;10.0;120.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1057</x>
-      <y>175</y>
-      <w>252</w>
-      <h>819</h>
+      <x>36</x>
+      <y>108</y>
+      <w>652</w>
+      <h>156</h>
     </coordinates>
     <panel_attributes>lt=&lt;-x
 runs</panel_attributes>
-    <additional_attributes>340.0;1150.0;340.0;1030.0;10.0;1030.0;10.0;10.0</additional_attributes>
+    <additional_attributes>70.0;370.0;10.0;370.0;10.0;10.0;1610.0;10.0;1610.0;50.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1204</x>
-      <y>98</y>
-      <w>294</w>
-      <h>287</h>
+      <x>192</x>
+      <y>280</y>
+      <w>164</w>
+      <h>52</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2=3..*</panel_attributes>
+    <additional_attributes>390.0;10.0;10.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>488</x>
+      <y>356</y>
+      <w>20</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2=0..*</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>272</x>
+      <y>416</y>
+      <w>108</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m2=1..*</panel_attributes>
+    <additional_attributes>250.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>324</x>
+      <y>156</y>
+      <w>32</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>508</x>
+      <y>764</y>
+      <w>56</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2=0..*</panel_attributes>
+    <additional_attributes>120.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>716</x>
+      <y>764</y>
+      <w>40</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>80.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>36</x>
+      <y>264</y>
+      <w>1044</w>
+      <h>568</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>2590.0;820.0;2590.0;1000.0;2250.0;1000.0;2250.0;1400.0;10.0;1400.0;10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1220</x>
+      <y>704</y>
+      <w>40</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;uses&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;130.0;10.0;10.0;80.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1068</x>
+      <y>664</y>
+      <w>96</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2=1..*</panel_attributes>
+    <additional_attributes>220.0;10.0;220.0;150.0;10.0;150.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>640</x>
+      <y>196</y>
+      <w>100</w>
+      <h>440</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-x
+runs</panel_attributes>
+    <additional_attributes>230.0;1080.0;10.0;1080.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>724</x>
+      <y>152</y>
+      <w>168</w>
+      <h>164</h>
     </coordinates>
     <panel_attributes>lt=&lt;-x
 runs</panel_attributes>
@@ -779,118 +755,112 @@ runs</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1134</x>
-      <y>21</y>
-      <w>1225</w>
-      <h>1071</h>
+      <x>676</x>
+      <y>108</y>
+      <w>708</w>
+      <h>604</h>
     </coordinates>
     <panel_attributes>lt=&lt;-x
 runs</panel_attributes>
-    <additional_attributes>1650.0;1510.0;1700.0;1510.0;1700.0;10.0;10.0;10.0;10.0;50.0</additional_attributes>
+    <additional_attributes>1670.0;1490.0;1720.0;1490.0;1720.0;10.0;10.0;10.0;10.0;50.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>168</x>
-      <y>259</y>
-      <w>392</w>
-      <h>28</h>
+      <x>132</x>
+      <y>196</y>
+      <w>120</w>
+      <h>64</h>
     </coordinates>
-    <panel_attributes>lt=&lt;-x
-runs
-group=12</panel_attributes>
-    <additional_attributes>540.0;20.0;10.0;20.0</additional_attributes>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;uses&gt;&gt;</panel_attributes>
+    <additional_attributes>240.0;10.0;240.0;140.0;10.0;140.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>385</x>
-      <y>637</y>
-      <w>77</w>
-      <h>119</h>
+      <x>248</x>
+      <y>460</y>
+      <w>80</w>
+      <h>68</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
-group=12</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;40.0;90.0;40.0;90.0;150.0</additional_attributes>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0;180.0;40.0;180.0;150.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>385</x>
-      <y>637</y>
-      <w>21</w>
-      <h>56</h>
+      <x>248</x>
+      <y>460</y>
+      <w>12</w>
+      <h>32</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
-group=12</panel_attributes>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1057</x>
-      <y>910</y>
-      <w>203</w>
-      <h>84</h>
+      <x>836</x>
+      <y>668</y>
+      <w>28</w>
+      <h>76</h>
     </coordinates>
-    <panel_attributes>lt=&lt;-x
-runs
-group=12</panel_attributes>
-    <additional_attributes>10.0;100.0;10.0;20.0;270.0;20.0;270.0;100.0</additional_attributes>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;uses&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;170.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2198</x>
-      <y>994</y>
-      <w>42</w>
-      <h>70</h>
+      <x>1184</x>
+      <y>664</y>
+      <w>12</w>
+      <h>100</h>
     </coordinates>
-    <panel_attributes>lt=&lt;-x
-runs
-group=12</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;230.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1337</x>
-      <y>700</y>
-      <w>364</w>
-      <h>133</h>
+      <x>800</x>
+      <y>504</y>
+      <w>212</w>
+      <h>80</h>
     </coordinates>
     <panel_attributes>lt=&lt;-x
 has
 </panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;170.0;500.0;170.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;140.0;510.0;140.0;510.0;180.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1323</x>
-      <y>343</y>
-      <w>35</w>
-      <h>63</h>
+      <x>792</x>
+      <y>288</y>
+      <w>16</w>
+      <h>48</h>
     </coordinates>
-    <panel_attributes>lt=&lt;-x
-has
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m2=1
 </panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+    <additional_attributes>10.0;100.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1575</x>
-      <y>462</y>
-      <w>245</w>
-      <h>280</h>
+      <x>936</x>
+      <y>360</y>
+      <w>140</w>
+      <h>160</h>
     </coordinates>
     <panel_attributes>entity::Restaurant
 --
--TABLEFILENAME = "res/Table.txt": String
--STAFFFILENAME = "res/Staff.txt": String
--TABLE = 1: int
--STAFF = 2: int
+_-TABLEFILENAME = "res/Table.txt": String_
+_-STAFFFILENAME = "res/Staff.txt": String_
+_-TABLE = 1: int_
+_-STAFF = 2: int_
 -tableList = new ArrayList&lt;Table&gt;(): ArrayList&lt;Table&gt;
 -staffList = new ArrayList&lt;Staff&gt;(): ArrayList&lt;Staff&gt;
 --
@@ -909,21 +879,20 @@ has
 -callRead(int choice): boolean
 -callWrite(int choice): boolean
 --
-
-group=12</panel_attributes>
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1498</x>
-      <y>63</y>
-      <w>294</w>
-      <h>231</h>
+      <x>896</x>
+      <y>128</y>
+      <w>168</w>
+      <h>132</h>
     </coordinates>
     <panel_attributes>entity::Booking
 --
--BOOKFILENAME = "res/Booking.txt": String
+_-BOOKFILENAME = "res/Booking.txt": String_
 -bookingList = new ArrayList&lt;Customer&gt;(): ArrayList&lt;Customer&gt;
 --
 +Booking(): ctor
@@ -941,17 +910,16 @@ group=12</panel_attributes>
 -callRead(): boolean
 -callWrite(): boolean
 --
-
-group=12</panel_attributes>
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1862</x>
-      <y>63</y>
-      <w>427</w>
-      <h>196</h>
+      <x>1100</x>
+      <y>132</y>
+      <w>244</w>
+      <h>112</h>
     </coordinates>
     <panel_attributes>entity::Customer
 --
@@ -970,17 +938,16 @@ group=12</panel_attributes>
 +getArrivalTime(): String
 +setArrivalTime(String arrivalTime): void
 --
-
-group=12</panel_attributes>
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1953</x>
-      <y>651</y>
-      <w>336</w>
-      <h>217</h>
+      <x>1152</x>
+      <y>472</y>
+      <w>192</w>
+      <h>112</h>
     </coordinates>
     <panel_attributes>entity::Table
 --
@@ -999,17 +966,16 @@ group=12</panel_attributes>
 +isReserved(): boolean
 +setReserved(boolean reserved): void
 --
-
-group=12</panel_attributes>
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1904</x>
-      <y>462</y>
-      <w>385</w>
-      <h>161</h>
+      <x>1124</x>
+      <y>360</y>
+      <w>220</w>
+      <h>92</h>
     </coordinates>
     <panel_attributes>entity::Staff
 --
@@ -1025,17 +991,16 @@ group=12</panel_attributes>
 +getSalary(): double
 +setSalary(double salary): void
 --
-
-group=12</panel_attributes>
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2135</x>
-      <y>308</y>
-      <w>154</w>
-      <h>112</h>
+      <x>1256</x>
+      <y>272</y>
+      <w>88</w>
+      <h>64</h>
     </coordinates>
     <panel_attributes>entity::Person
 --
@@ -1047,17 +1012,16 @@ group=12</panel_attributes>
 +getContact(): String
 +setContact(String contact): void
 --
-
-group=12</panel_attributes>
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1799</x>
-      <y>329</y>
-      <w>217</w>
-      <h>77</h>
+      <x>1040</x>
+      <y>296</y>
+      <w>124</w>
+      <h>44</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 service::BookingInterface
@@ -1066,137 +1030,131 @@ service::BookingInterface
 +createBooking(Customer customer): boolean
 +deleteBooking(Customer customer): boolean
 --
-
-group=12</panel_attributes>
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1813</x>
-      <y>658</y>
-      <w>154</w>
-      <h>28</h>
+      <x>1072</x>
+      <y>476</y>
+      <w>88</w>
+      <h>16</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
-m1= 0..*
-group=12</panel_attributes>
+m2= 30</panel_attributes>
     <additional_attributes>10.0;10.0;200.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1722</x>
-      <y>287</y>
-      <w>91</w>
-      <h>98</h>
+      <x>1004</x>
+      <y>256</y>
+      <w>104</w>
+      <h>48</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;.
-group=12</panel_attributes>
-    <additional_attributes>110.0;120.0;10.0;120.0;10.0;10.0</additional_attributes>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>240.0;100.0;240.0;50.0;10.0;50.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2051</x>
-      <y>357</y>
-      <w>98</w>
-      <h>119</h>
+      <x>1208</x>
+      <y>296</y>
+      <w>56</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-
-group=12</panel_attributes>
-    <additional_attributes>120.0;10.0;10.0;10.0;10.0;150.0</additional_attributes>
+is a</panel_attributes>
+    <additional_attributes>120.0;20.0;10.0;20.0;10.0;160.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2051</x>
-      <y>252</y>
-      <w>98</w>
-      <h>126</h>
+      <x>1208</x>
+      <y>240</y>
+      <w>56</w>
+      <h>72</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
-group=12</panel_attributes>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>120.0;160.0;10.0;160.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1785</x>
-      <y>168</y>
-      <w>91</w>
-      <h>21</h>
+      <x>1060</x>
+      <y>188</y>
+      <w>48</w>
+      <h>16</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
-group=12</panel_attributes>
-    <additional_attributes>10.0;10.0;110.0;10.0</additional_attributes>
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;100.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1491</x>
-      <y>833</y>
-      <w>210</w>
-      <h>161</h>
+      <x>836</x>
+      <y>588</y>
+      <w>244</w>
+      <h>84</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>280.0;10.0;10.0;10.0;10.0;210.0</additional_attributes>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>590.0;10.0;590.0;190.0;250.0;190.0;250.0;10.0;10.0;10.0;10.0;50.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1554</x>
-      <y>287</y>
-      <w>42</w>
-      <h>77</h>
+      <x>960</x>
+      <y>312</y>
+      <w>88</w>
+      <h>16</h>
     </coordinates>
-    <panel_attributes>lt=&lt;-x
-runs
-group=12</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;uses&gt;&gt;</panel_attributes>
+    <additional_attributes>200.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1813</x>
-      <y>490</y>
-      <w>105</w>
-      <h>28</h>
+      <x>1072</x>
+      <y>376</y>
+      <w>60</w>
+      <h>16</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
-m1= 0..*
-group=12</panel_attributes>
+m2= 5..*</panel_attributes>
     <additional_attributes>10.0;10.0;130.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1498</x>
-      <y>420</y>
-      <w>203</w>
-      <h>385</h>
+      <x>892</x>
+      <y>336</y>
+      <w>188</w>
+      <h>264</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>270.0;530.0;10.0;530.0;10.0;10.0</additional_attributes>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>450.0;640.0;450.0;510.0;10.0;510.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1610</x>
-      <y>896</y>
-      <w>728</w>
-      <h>392</h>
+      <x>932</x>
+      <y>588</y>
+      <w>440</w>
+      <h>244</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>110.0;10.0;10.0;10.0;10.0;540.0;1020.0;540.0;1020.0;290.0;970.0;290.0</additional_attributes>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>350.0;10.0;350.0;190.0;10.0;190.0;10.0;590.0;1080.0;590.0;1080.0;320.0;1030.0;320.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1225</x>
-      <y>182</y>
-      <w>119</w>
-      <h>84</h>
+      <x>736</x>
+      <y>200</y>
+      <w>68</w>
+      <h>48</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;100.0;150.0;100.0;150.0;10.0</additional_attributes>
@@ -1204,24 +1162,49 @@ group=12</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>567</x>
-      <y>0</y>
-      <w>98</w>
-      <h>49</h>
-    </coordinates>
-    <panel_attributes>Note..</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLNote</id>
-    <coordinates>
-      <x>1253</x>
-      <y>154</y>
-      <w>168</w>
-      <h>35</h>
+      <x>752</x>
+      <y>184</y>
+      <w>96</w>
+      <h>20</h>
     </coordinates>
     <panel_attributes>Note..
 The class that run the main program</panel_attributes>
     <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>428</x>
+      <y>544</y>
+      <w>20</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m2=0..*</panel_attributes>
+    <additional_attributes>10.0;160.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>72</x>
+      <y>460</y>
+      <w>20</w>
+      <h>156</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m2=0..*</panel_attributes>
+    <additional_attributes>10.0;370.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1040</x>
+      <y>604</y>
+      <w>40</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+is a</panel_attributes>
+    <additional_attributes>10.0;20.0;80.0;20.0</additional_attributes>
   </element>
 </diagram>
