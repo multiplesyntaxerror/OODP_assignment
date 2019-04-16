@@ -870,6 +870,7 @@ _-STAFF = 2: int_
 +updateRestaurantTables(): void
 +getTableIdByPax(int pax): int
 +showAvailableTable(): void
++countAvailableTable(): int
 -readTable(): void
 -writeTable(): void
 +getStaffList(): ArrayList&lt;Staff&gt;
