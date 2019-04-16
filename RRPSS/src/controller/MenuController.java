@@ -91,7 +91,9 @@ public class MenuController extends Controller {
 				name = sc.nextLine();
 				if (name.isEmpty())
 					getGui().displayStringsB("Please Enter Something.\n");
-			} while (name.isEmpty());
+				if (!name.matches("[a-zA-Z\\s'&]+^[|*+]"))
+					getGui().displayStringsB("SYSTEM MESSAGE: Your Input Is Invalid.\n");
+			} while (name.isEmpty() || !name.matches("[a-zA-Z\\s'&]+^[|*+]"));
 			
 			item = getDb().getMenu().getMenuItem(name);
 			if (item == null) {
@@ -102,7 +104,9 @@ public class MenuController extends Controller {
 					description = sc.nextLine();
 					if (description.isEmpty())
 						getGui().displayStringsB("Please Enter Something.\n");
-				} while (description.isEmpty());
+					if (!description.matches("[a-zA-Z\\s'&]+^[|*+]"))
+						getGui().displayStringsB("SYSTEM MESSAGE: Your Input Is Invalid.\n");
+				} while (description.isEmpty() || !name.matches("[a-zA-Z\\s'&]+^[|*+]"));
 
 				double price = 0;
 				do {
@@ -112,7 +116,7 @@ public class MenuController extends Controller {
 						if (price <= 0) 
 							getGui().displayStringsB("Price Cannot Be Zero Or Negative.\n");
 					} catch(InputMismatchException e) {
-						getGui().displayStringsB("ERROR: Your Input Is Invalid.\n");
+						getGui().displayStringsB("SYSTEM MESSAGE: Your Input Is Invalid.\n");
 						sc.nextLine();
 					}
 				} while (price <= 0 );
@@ -135,9 +139,9 @@ public class MenuController extends Controller {
 				
 				boolean success = getDb().getMenu().createMenuItem(item);
 				if (success)
-					getGui().displayStringsB("SYSTEM NOTICE: Item Successfully Added");
+					getGui().displayStringsB("SYSTEM MESSAGE: Item Successfully Added");
 				else if (!success)
-					getGui().displayStringsB("SYSTEM ERROR: Item Not Added");
+					getGui().displayStringsB("SYSTEM MESSAGE: Item Not Added");
 				return;
 				
 			}
@@ -163,7 +167,9 @@ public class MenuController extends Controller {
 				newName = sc.nextLine();
 				if (newName.isEmpty())
 					getGui().displayStringsB("Please Enter Something.\n");
-			} while (newName.isEmpty());
+				if (!newName.matches("[a-zA-Z\\s'&]+^[|*+]"))
+					getGui().displayStringsB("SYSTEM MESSAGE: Your Input Is Invalid.\n");
+			} while (newName.isEmpty() || !newName.matches("[a-zA-Z\\s'&]+^[|*+]"));
 			
 			String newDescription;
 			do {
@@ -171,7 +177,9 @@ public class MenuController extends Controller {
 				newDescription = sc.nextLine();
 				if (newDescription.isEmpty())
 					getGui().displayStringsB("Please Enter Something.\n");
-			} while (newDescription.isEmpty());
+				if (!newDescription.matches("[a-zA-Z\\s'&]+^[|*+]"))
+					getGui().displayStringsB("SYSTEM MESSAGE: Your Input Is Invalid.\n");
+			} while (newDescription.isEmpty() || !newDescription.matches("[a-zA-Z\\s'&]+^[|*+]"));
 			
 			double newPrice = 0;
 			do {
@@ -181,16 +189,16 @@ public class MenuController extends Controller {
 					if (newPrice <= 0)
 						getGui().displayStringsB("Price Cannot Be Zero Or Negative.\n");
 				} catch (InputMismatchException e) {
-					getGui().displayStringsB("ERROR: Your Input Is Invalid.\n"); 
+					getGui().displayStringsB("SYSTEM MESSAGE: Your Input Is Invalid.\n"); 
 					sc.nextLine();
 				}
 			} while (newPrice <= 0 );
 			
 			boolean success = getDb().getMenu().updateMenuItem(item, newName, newDescription, newPrice);
 			if (success)
-				getGui().displayStringsB("SYSTEM NOTICE: Item Updated Successfully");
+				getGui().displayStringsB("SYSTEM MESSAGE: Item Updated Successfully");
 			else if (!success)
-				getGui().displayStringsB("SYSTEM ERROR: Item Not Updated");
+				getGui().displayStringsB("SYSTEM MESSAGE: Item Not Updated");
 		}
 	}
 	
@@ -206,9 +214,9 @@ public class MenuController extends Controller {
 		if (item != null) {
 			boolean success = getDb().getMenu().deleteMenuItem(item);
 			if (success) 
-				getGui().displayStringsB("SYSTEM NOTICE: Item Deleted Successfully");
+				getGui().displayStringsB("SYSTEM MESSAGE: Item Deleted Successfully");
 			else if (!success)
-				getGui().displayStringsB("SYSTEM ERROR: Item Not Deleted");
+				getGui().displayStringsB("SYSTEM MESSAGE: Item Not Deleted");
 		}
 	}
 	
@@ -238,7 +246,9 @@ public class MenuController extends Controller {
 				description = sc.nextLine();
 				if (description.isEmpty())
 					getGui().displayStringsB("Please Enter Something.\n");
-			} while (description.isEmpty());
+				if (!description.matches("[a-zA-Z\\s'&]+^[|*+]"))
+					getGui().displayStringsB("SYSTEM MESSAGE: Your Input Is Invalid.\n");
+			} while (description.isEmpty() || !description.matches("[a-zA-Z\\s'&]+^[|*+]"));
 
 			double price = 0;
 			do {
@@ -248,7 +258,7 @@ public class MenuController extends Controller {
 					if (price <= 0)
 						getGui().displayStringsB("Price Cannot Be Zero Or Negative.\n");
 				} catch (InputMismatchException e) {
-					getGui().displayStringsB("ERROR: Your Input Is Invalid.\n");
+					getGui().displayStringsB("SYSTEM MESSAGE: Your Input Is Invalid.\n");
 					sc.nextLine();
 				}
 			} while (price <= 0 );
@@ -256,12 +266,12 @@ public class MenuController extends Controller {
 			set = new PromoSet(description, createdItemsArray, price);
 			boolean success = getDb().getMenu().createPromoItem(set);
 			if (success)
-				getGui().displayStringsB("SYSTEM NOTICE: Set Successfully Added");
+				getGui().displayStringsB("SYSTEM MESSAGE: Set Successfully Added");
 			else if (!success)
-				getGui().displayStringsB("SYSTEM ERROR: Set Already Exist");
+				getGui().displayStringsB("SYSTEM MESSAGE: Set Already Exist");
 		}
 		else
-			getGui().displayStringsB("SYSTEM ERROR: Pleace Choose 2 Or More Items To Add Create a Set");
+			getGui().displayStringsB("SYSTEM MESSAGE: Pleace Choose 2 Or More Items To Add Create A Set");
 	}
 	
 	/**
@@ -281,7 +291,9 @@ public class MenuController extends Controller {
 				newDescription = sc.nextLine();
 				if (newDescription.isEmpty())
 					getGui().displayStringsB("Please Enter Something.\n");
-			} while (newDescription.isEmpty());
+				if (!newDescription.matches("[a-zA-Z\\s'&]+^[|*+]"))
+					getGui().displayStringsB("SYSTEM MESSAGE: Your Input Is Invalid.\n");
+			} while (newDescription.isEmpty() || !newDescription.matches("[a-zA-Z\\s'&]+^[|*+]"));
 			
 			double newPrice = 0;
 			do {
@@ -290,16 +302,16 @@ public class MenuController extends Controller {
 					if (newPrice <= 0)
 						getGui().displayStringsB("Price Cannot Be Negative.\n");
 				} catch (InputMismatchException e) {
-					getGui().displayStringsB("ERROR: Your Input Is Invalid.\n");
+					getGui().displayStringsB("SYSTEM MESSAGE: Your Input Is Invalid.\n");
 					sc.nextLine();
 				}
 			} while (newPrice <= 0 );
 			
 			boolean success = getDb().getMenu().updatePromoItem(set, newDescription, newPrice);
 			if (success)
-				getGui().displayStringsB("SYSTEM NOTICE: Item Updated Successfully");
+				getGui().displayStringsB("SYSTEM MESSAGE: Item Updated Successfully");
 			else if (!success)
-				getGui().displayStringsB("SYSTEM ERROR: Item Not Updated");
+				getGui().displayStringsB("SYSTEM MESSAGE: Item Not Updated");
 		}
 	}
 	
@@ -315,9 +327,9 @@ public class MenuController extends Controller {
 		if (set != null) {
 			boolean success = getDb().getMenu().deletePromoItem(set);
 			if (success) 
-				getGui().displayStringsB("SYSTEM NOTICE: Set Deleted Successfully");
+				getGui().displayStringsB("SYSTEM MESSAGE: Set Deleted Successfully");
 			else if (!success)
-				getGui().displayStringsB("SYSTEM ERROR: Set Not Deleted");
+				getGui().displayStringsB("SYSTEM MESSAGE: Set Not Deleted");
 		}	
 	}
 

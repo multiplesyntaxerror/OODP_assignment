@@ -62,7 +62,7 @@ public class BillController extends Controller {
 		getGui().displayStrings("Enter Table Number: ");
 		while(!sc.hasNextInt())
 		{
-			getGui().displayStringsB("That Is An Invalid Table Number.");
+			getGui().displayStringsB("SYSTEM MESSAGE: That Is An Invalid Table Number.");
 			sc.next();
 		}
 		
@@ -72,7 +72,7 @@ public class BillController extends Controller {
 		OrderItem order = bill.getBill(tablenum, getDb().getOrder().getAllOrders());
 
 		if (order == null) {
-			getGui().displayStringsB("The Table Has No Order");
+			getGui().displayStringsB("SYSTEM MESSAGE: The Table Has No Order");
 		} else {
 			
 			getGui().displayStringsB("");
@@ -127,24 +127,24 @@ public class BillController extends Controller {
 		if (choice == 1) {
 			getGui().displayStringsB("Enter Date In Format DD-MM-YYYY eg. 04-04-2019 For 4th Of April 2019");
 			tempinputdate = sc.nextLine().trim();
-			while (!tempinputdate.matches("([1-31])-([1-12])-([1000-2020])")) {
-				getGui().displayStringsB("Invalid Input.\n");
+			while (!tempinputdate.matches("(0[1-9]|1[0-9]|2[0-9]|3[0-1])-(0[1-9]|1[0-2])-(1[0-9][0-9][0-9]|2[0-9][0-9][0-9])")) {
+				getGui().displayStringsB("SYSTEM MESSAGE: Your Input Is Invalid.\n");
 				getGui().displayStringsB("Enter Date In Format DD-MM-YYYY eg. 04-04-2019 For 4th Of April 2019");
 				tempinputdate = sc.nextLine().trim();
 			}
 		} else if (choice == 2) {
 			getGui().displayStringsB("Enter Date In Format MM-YYYY eg. 04-2019 The Month Of April 2019");
 			tempinputdate = sc.nextLine().trim();
-			while (!tempinputdate.matches("([1-12])-([1000-2020])")) {
-				getGui().displayStringsB("Invalid Input.\n");
+			while (!tempinputdate.matches("(0[1-9]|1[0-2])-(1[0-9][0-9][0-9]|2[0-9][0-9][0-9])")) {
+				getGui().displayStringsB("SYSTEM MESSAGE: Your Input Is Invalid.\n");
 				getGui().displayStringsB("Enter Date In Format MM-YYYY eg. 04-2019 The Month Of April 2019");
 				tempinputdate = sc.nextLine().trim();
 			}
 		} else if (choice == 3) {
 			getGui().displayStringsB("Enter Date In Format YYYY eg. 2019 For Year 2019");
-			tempinputdate = sc.nextLine().trim();
-			while (!tempinputdate.matches("[1000-2020]")) {
-				getGui().displayStringsB("Invalid Input.\n");
+			tempinputdate = sc.nextLine();
+			while (!tempinputdate.matches("(1[0-9][0-9][0-9]|2[0-9][0-9][0-9])")) {
+				getGui().displayStringsB("SYSTEM MESSAGE: Your Input Is Invalid.\n");
 				getGui().displayStringsB("Enter Date In Format YYYY eg. 2019 For Year 2019");
 				tempinputdate = sc.nextLine().trim();
 			}
