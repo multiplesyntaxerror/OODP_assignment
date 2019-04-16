@@ -92,7 +92,23 @@ public class Restaurant {
         	previous = table.getNoOfSeat();
         }
         Database.getGui().displayStringsB("");
-	}
+	} 
+	
+	/**
+	  *Check if there are available tables for booking
+	  *
+	  */
+	public int countAvailableTable() {
+		int availableTables = tableList.size();
+        for (int i = 0 ; i < tableList.size() ; i++) {
+        	Table table = tableList.get(i);
+
+        	if (table.isOccupied() || table.isReserved()) {
+        		availableTables--;
+        	}
+        }
+        return availableTables;
+	} 
 	
 	/**
 	 * Reads the table from the database Table.txt file in resource folder and store them in system.

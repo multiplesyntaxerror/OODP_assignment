@@ -79,7 +79,11 @@ public class BookingController extends Controller {
 			getGui().displayTitle("Create Reservation");
 			Customer customer = null;
 
-			while (true) {
+			while (true) { 
+				if(getDb().getRestaurant().countAvailableTable() == 0) {
+					getGui().displayStringsB("All The Tables Are Occupied At The Moment.\n");
+					return;
+				}
 				String name;
 				do {
 					getGui().displayStrings("Enter Customer Name: ");

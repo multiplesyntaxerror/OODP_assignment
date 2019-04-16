@@ -233,7 +233,7 @@ public class OrderController extends Controller{
 	 */
 	public void addItemToExistingOrder() {
 		Scanner sc = new Scanner(System.in);
-		getGui().displayTitle("Adding Item To Exisiting Orders");
+		getGui().displayTitle("Adding Item To Existing Orders");
 		getGui().displayStringsB("Enter Order ID To Add: ");
 		OrderItem order = getDb().getOrder().pickOrderItems("Exit");
 					

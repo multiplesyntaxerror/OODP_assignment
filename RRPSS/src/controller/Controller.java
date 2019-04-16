@@ -6,7 +6,7 @@ import view.GUI;
 /**
  * The Class Controller.
  */
-public abstract class Controller {
+public class Controller {
 	
 	/** The GUI for displaying. */
 	private GUI gui;

@@ -80,7 +80,7 @@ public class BillController extends Controller {
 			getGui().displayStringsB("NOM-NOM Restaurant\t\tReceipt #" + String.format("%05d", order.getOrderId()));
 			getGui().displayStringsB("50 Nanyang Avenue, Block N4\t S'pore 639798");
 			getGui().displayStringsB("Date/Time: " + order.getDate());
-			getGui().displayRow("Table No. " + tablenum + "\t\t\tSever: " + order.getStaffName());
+			getGui().displayRow("Table No. " + tablenum + "\t\t\tServer: " + order.getStaffName());
 
 			MenuItem item;
 			PromoSet set;
@@ -133,11 +133,11 @@ public class BillController extends Controller {
 				tempinputdate = sc.nextLine().trim();
 			}
 		} else if (choice == 2) {
-			getGui().displayStringsB("Enter Date In Format MM-YYYY eg. 04-2019 The Month April 2019");
+			getGui().displayStringsB("Enter Date In Format MM-YYYY eg. 04-2019 The Month Of April 2019");
 			tempinputdate = sc.nextLine().trim();
 			while (!tempinputdate.matches("([1-12])-([1000-2020])")) {
 				getGui().displayStringsB("Invalid Input.\n");
-				getGui().displayStringsB("Enter Date In Format MM-YYYY eg. 04-2019 The Month April 2019");
+				getGui().displayStringsB("Enter Date In Format MM-YYYY eg. 04-2019 The Month Of April 2019");
 				tempinputdate = sc.nextLine().trim();
 			}
 		} else if (choice == 3) {

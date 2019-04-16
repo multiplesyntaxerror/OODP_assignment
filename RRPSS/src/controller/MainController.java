@@ -54,7 +54,7 @@ public class MainController {
 				"Exit System"
 		};
 
-		db.getGui().displayTitle("---------------------Welcome to NOM-NOM Restaruant---------------------");
+		db.getGui().displayTitle("---------------------Welcome to NOM-NOM Restaurant---------------------");
 		
 		do {
 

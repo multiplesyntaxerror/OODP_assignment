@@ -26,7 +26,11 @@ public class RRPSS {
 		TimerTask task = new TimerTask() {
 			@Override	
 			public void run() {
-				db.getBooking().checkAndClearReservation();
+				int removedId = db.getBooking().checkAndClearReservation();
+				if (removedId != 0) {
+					db.getRestaurant().getTableList().get(removedId - 1).setReserved(false);
+					db.getRestaurant().updateRestaurantTables();
+				}
 			}
 		};
 		

@@ -84,7 +84,7 @@ public class Booking implements BookingInterface {
 	/**
 	 * Check and clear reservation if reservation exceed 30 minutes.
 	 */
-	public void checkAndClearReservation() {
+	public int checkAndClearReservation() {
 
 		Date curDate = new Date();
 		for (int i = 0; i < bookingList.size(); i++) {
@@ -95,13 +95,15 @@ public class Booking implements BookingInterface {
 				time = simpleTimeFormat.parse(cus.getDate() + " " + cus.getArrivalTime());
 				long mins = TimeUnit.MINUTES.convert((curDate.getTime() - time.getTime()), TimeUnit.MILLISECONDS);
 				if (mins >= 30) {
+					Database.getGui().displayStringsB("\nReservation For Table " + cus.getTableid() + " Has Expired\n");
 					deleteBooking(cus);
-//					Database.getGui().displayStringsB("sth deleted");
+					return cus.getTableid();
 				}
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
 		}
+		return 0;
 	}
 
 	/**
