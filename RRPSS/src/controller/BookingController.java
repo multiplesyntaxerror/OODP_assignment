@@ -195,6 +195,7 @@ public class BookingController extends Controller {
 		else {
 			getGui().displayStringsB("Reservation Is Unavaliable At This Timing.\n");
 		}
+		
 	}
 
 	/**
@@ -212,6 +213,9 @@ public class BookingController extends Controller {
 				getGui().displayStringsB("SYSTEM NOTICE: Reservation Deleted Successfully");
 			else if (!success)
 				getGui().displayStringsB("SYSTEM ERROR: Reservation Not Deleted");
+		}
+		else {
+			getGui().displayStringsB("There Are No Reservation In The System.");
 		}
 
 	}

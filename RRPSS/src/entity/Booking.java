@@ -96,7 +96,7 @@ public class Booking implements BookingInterface {
 				long mins = TimeUnit.MINUTES.convert((curDate.getTime() - time.getTime()), TimeUnit.MILLISECONDS);
 				if (mins >= 30) {
 					deleteBooking(cus);
-					System.out.println("sth deleted");
+//					Database.getGui().displayStringsB("sth deleted");
 				}
 			} catch (ParseException e) {
 				e.printStackTrace();
@@ -127,12 +127,16 @@ public class Booking implements BookingInterface {
 	 */
 	public void printBookings() {
 		Database.getGui().displayStringsB("");
+
+		if(bookingList.size() == 0) {
+			Database.getGui().displayStringsB("There Are No Reservation In The System.");
+		}
 		for (int i = 0; i < bookingList.size(); i++) {
 			Customer customer = (Customer) bookingList.get(i);
-			System.out.println("Name: " + customer.getName() + "\tPax: " + customer.getPax());
-			System.out.println("Contact: " + customer.getContact());
-			System.out.println("Date/Time: " + customer.getDate() + " " + customer.getArrivalTime());
-			System.out.println();
+			Database.getGui().displayStringsB("Name: " + customer.getName() + "\tPax: " + customer.getPax());
+			Database.getGui().displayStringsB("Contact: " + customer.getContact());
+			Database.getGui().displayStringsB("Date/Time: " + customer.getDate() + " " + customer.getArrivalTime());
+			Database.getGui().displayStringsB("");
 		}
 	}
 
@@ -147,6 +151,10 @@ public class Booking implements BookingInterface {
 		Database.getGui().displayStringsB("");
 		
 		Customer customer = null;
+		
+		if(bookingList.size() == 0) {
+			return customer;
+		}
 		
 		String listOfBooking[] = new String[countBooking() + 1];
 		
@@ -241,7 +249,7 @@ public class Booking implements BookingInterface {
 			readBooking();
 			return true;
 		} catch (IOException e) {
-			System.out.println("IOException > " + e.getMessage());
+			Database.getGui().displayStringsB("IOException > " + e.getMessage());
 		}
 		return false;
 
@@ -257,7 +265,7 @@ public class Booking implements BookingInterface {
 			writeBooking();
 			return true;
 		} catch (IOException e) {
-			System.out.println("IOException > " + e.getMessage());
+			Database.getGui().displayStringsB("IOException > " + e.getMessage());
 		}
 		return false;
 	}

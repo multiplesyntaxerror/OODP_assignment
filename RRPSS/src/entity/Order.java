@@ -181,6 +181,10 @@ public class Order implements OrderInterface{
 		Database.getGui().displayStringsB("");
 		OrderItem order = null;
 		
+		if (allOrders.size() == 0) {
+			return order;
+		}
+		
 		String listOfOrderItem[] = new String[countOrders() + 1];
 		
 		int count = 0;

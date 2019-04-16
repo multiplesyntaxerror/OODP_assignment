@@ -179,10 +179,9 @@ public class OrderController extends Controller{
 	public void removeItemFromExistingOrder() {
 		Scanner sc = new Scanner(System.in);
 		getGui().displayTitle("Update Exisiting Orders");
-		getGui().displayStrings("Enter Order ID to Update: ");
+		getGui().displayStringsB("Enter Order ID to Update: ");
 		OrderItem order = getDb().getOrder().pickOrderItems("Exit");
 		
-				
 		if(order != null) {
 			if(order.getPrintedInvoice() == true) {
 				getGui().displayStringsB("Order is closed and cannot be editted! \n");
@@ -209,6 +208,9 @@ public class OrderController extends Controller{
 				}
 			}
 		}
+		else {
+			getGui().displayStringsB("There Are No Orders Yet.");
+		}
   }
 	
 	/**
@@ -219,15 +221,16 @@ public class OrderController extends Controller{
 		getGui().displayTitle("Adding Item To Exisiting Orders");
 		getGui().displayStringsB("Enter Order ID To Add: ");
 		OrderItem order = getDb().getOrder().pickOrderItems("Exit");
-			
-		if(order.getPrintedInvoice() == true) {
-			getGui().displayStringsB("Order is closed and cannot be editted! \n");
-			return;
-		}
-		
+					
 		MenuItem item;
 		PromoSet set;
 		if(order != null) {
+
+			if(order.getPrintedInvoice() == true) {
+				getGui().displayStringsB("Order is closed and cannot be editted! \n");
+				return;
+			}
+			
 			int choice;
 			do {
 				
@@ -281,6 +284,9 @@ public class OrderController extends Controller{
 					break; 
 				}
 			} while (choice == 1 || choice == 2);
+		}
+		else {
+			getGui().displayStringsB("There Are No Orders Yet.");
 		}
 	}
 	

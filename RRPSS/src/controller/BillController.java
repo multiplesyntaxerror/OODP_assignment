@@ -104,7 +104,7 @@ public class BillController extends Controller {
 			getGui().displayStringsB("\tThank You For Dining With Us!");
 			getGui().displayReceipt();
 			
-			getDb().getOrder().updateOrderPrintStatus(tablenum - 1);
+			getDb().getOrder().updateOrderPrintStatus(order.getOrderId());
 			getDb().getRestaurant().getTableList().get(tablenum - 1).setOccupied(false);
 			getDb().getRestaurant().updateRestaurantTables();
 
@@ -127,7 +127,7 @@ public class BillController extends Controller {
 		if (choice == 1) {
 			getGui().displayStringsB("Enter Date In Format DD-MM-YYYY eg. 04-04-2019 For 4th Of April 2019");
 			tempinputdate = sc.nextLine().trim();
-			while (!tempinputdate.matches("([0-3][0-9])-([0-3][0-9])-([0-9][0-9][0-9][0-9])")) {
+			while (!tempinputdate.matches("([1-31])-([1-12])-([1000-2020])")) {
 				getGui().displayStringsB("Invalid Input.\n");
 				getGui().displayStringsB("Enter Date In Format DD-MM-YYYY eg. 04-04-2019 For 4th Of April 2019");
 				tempinputdate = sc.nextLine().trim();
@@ -135,7 +135,7 @@ public class BillController extends Controller {
 		} else if (choice == 2) {
 			getGui().displayStringsB("Enter Date In Format MM-YYYY eg. 04-2019 The Month April 2019");
 			tempinputdate = sc.nextLine().trim();
-			while (!tempinputdate.matches("([0-3][0-9])-([0-9][0-9][0-9][0-9])")) {
+			while (!tempinputdate.matches("([1-12])-([1000-2020])")) {
 				getGui().displayStringsB("Invalid Input.\n");
 				getGui().displayStringsB("Enter Date In Format MM-YYYY eg. 04-2019 The Month April 2019");
 				tempinputdate = sc.nextLine().trim();
@@ -143,7 +143,7 @@ public class BillController extends Controller {
 		} else if (choice == 3) {
 			getGui().displayStringsB("Enter Date In Format YYYY eg. 2019 For Year 2019");
 			tempinputdate = sc.nextLine().trim();
-			while (!tempinputdate.matches("[0-9][0-9][0-9][0-9]")) {
+			while (!tempinputdate.matches("[1000-2020]")) {
 				getGui().displayStringsB("Invalid Input.\n");
 				getGui().displayStringsB("Enter Date In Format YYYY eg. 2019 For Year 2019");
 				tempinputdate = sc.nextLine().trim();

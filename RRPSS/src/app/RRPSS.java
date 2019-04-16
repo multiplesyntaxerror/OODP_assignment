@@ -37,6 +37,7 @@ public class RRPSS {
 		timer.scheduleAtFixedRate(task, delay, intevalPeriod);
 		
 		mainController.run();
+		timer.cancel();
 		
 		System.exit(0);
 	}
