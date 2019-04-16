@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class OrderItem.
  */
@@ -187,17 +188,21 @@ public class OrderItem {
 		this.promoSet = set;
 	}
 
+
 	/**
-	 * Gets the value of printed receipt.
+	 * Gets the printed invoice.
 	 *
-	 * @return the value of printed receipt.
+	 * @return the printed invoice
 	 */
 	public Boolean getPrintedInvoice() {
 		return printedInvoice;
 	}
+
 	
 	/**
-	 * Sets the value of printed receipt.
+	 * Sets the printed invoice.
+	 *
+	 * @param printedInvoice the new printed invoice
 	 */
 	public void setPrintedInvoice(boolean printedInvoice) {
 		this.printedInvoice = printedInvoice;
