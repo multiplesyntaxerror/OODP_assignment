@@ -90,9 +90,9 @@ public class BookingController extends Controller {
 					name = sc.nextLine();
 					if (name.isEmpty())
 						getGui().displayStringsB("SYSTEM MESSAGE: Please Enter Something.\n");
-					if (!name.matches("[a-zA-Z\\s]+^[|*+]"))
+					if (!name.matches("[a-zA-Z\\s]+"))
 						getGui().displayStringsB("SYSTEM MESSAGE: Your Input Is Invalid.\n");
-				} while (name.isEmpty() || !name.matches("[a-zA-Z\\s]+^[|*+]"));
+				} while (name.isEmpty() || !name.matches("[a-zA-Z\\s]+"));
 
 				customer = getDb().getBooking().getCustomer(name);
 
@@ -140,7 +140,7 @@ public class BookingController extends Controller {
 
 								getGui().displayStrings("Enter Reservation Date(DD-MM-YYYY): ");
 								inputDate = sc.nextLine();
-								while (!inputDate.matches("([1-31])-([1-12])-([1000-2020])")) {
+								while (!inputDate.matches("(0[1-9]|1[0-9]|2[0-9]|3[0-1])-(0[1-9]|1[0-2])-(1[0-9][0-9][0-9]|2[0-9][0-9][0-9])")) {
 									getGui().displayStringsB("SYSTEM MESSAGE: Your Input Is Invalid.\n");
 									getGui().displayStrings("Enter Reservation Date(dd-mm-yyyy): ");
 									inputDate = sc.nextLine();
@@ -155,7 +155,7 @@ public class BookingController extends Controller {
 									dateFormat = true;
 								}
 							} catch (ParseException e) {
-								getGui().displayStringsB("Please Enter In Specified Format(DD-MM-YYYY)\n");
+								getGui().displayStringsB("SYSTEM MESSAGE: Please Enter In Specified Format(DD-MM-YYYY)\n");
 							}
 							if (inputDate.isEmpty())
 								getGui().displayStringsB("SYSTEM MESSAGE: Please Enter Something.\n");
@@ -172,7 +172,7 @@ public class BookingController extends Controller {
 								getGui().displayStringsB("Opening Hours Are 11am-3pm and 6pm-10pm");
 								getGui().displayStrings("Enter Reservation Time(hh:mm AM/PM): ");
 								inputTime = sc.nextLine();
-								while (!inputTime.matches("([1-12]):([1-60]) (am|AM|pm|PM)")) {
+								while (!inputTime.matches("([1-9]|1[0-2]):([1-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9]|60) (am|AM|pm|PM)")) {
 									getGui().displayStringsB("SYSTEM MESSAGE: Your Input Is Invalid.\n");
 									getGui().displayStrings("Enter Reservation Time(hh:mm AM/PM): ");
 									inputTime = sc.nextLine();

@@ -91,9 +91,9 @@ public class MenuController extends Controller {
 				name = sc.nextLine();
 				if (name.isEmpty())
 					getGui().displayStringsB("Please Enter Something.\n");
-				if (!name.matches("[a-zA-Z\\s'&]+^[|*+]"))
+				if (!name.matches("[a-zA-Z\\s'&]+"))
 					getGui().displayStringsB("SYSTEM MESSAGE: Your Input Is Invalid.\n");
-			} while (name.isEmpty() || !name.matches("[a-zA-Z\\s'&]+^[|*+]"));
+			} while (name.isEmpty() || !name.matches("[a-zA-Z\\s'&]+"));
 			
 			item = getDb().getMenu().getMenuItem(name);
 			if (item == null) {
@@ -104,9 +104,9 @@ public class MenuController extends Controller {
 					description = sc.nextLine();
 					if (description.isEmpty())
 						getGui().displayStringsB("Please Enter Something.\n");
-					if (!description.matches("[a-zA-Z\\s'&]+^[|*+]"))
+					if (!description.matches("[a-zA-Z\\s'&]+"))
 						getGui().displayStringsB("SYSTEM MESSAGE: Your Input Is Invalid.\n");
-				} while (description.isEmpty() || !name.matches("[a-zA-Z\\s'&]+^[|*+]"));
+				} while (description.isEmpty() || !name.matches("[a-zA-Z\\s'&]+"));
 
 				double price = 0;
 				do {
@@ -167,9 +167,9 @@ public class MenuController extends Controller {
 				newName = sc.nextLine();
 				if (newName.isEmpty())
 					getGui().displayStringsB("Please Enter Something.\n");
-				if (!newName.matches("[a-zA-Z\\s'&]+^[|*+]"))
+				if (!newName.matches("[a-zA-Z\\s'&]+"))
 					getGui().displayStringsB("SYSTEM MESSAGE: Your Input Is Invalid.\n");
-			} while (newName.isEmpty() || !newName.matches("[a-zA-Z\\s'&]+^[|*+]"));
+			} while (newName.isEmpty() || !newName.matches("[a-zA-Z\\s'&]+"));
 			
 			String newDescription;
 			do {
@@ -177,9 +177,9 @@ public class MenuController extends Controller {
 				newDescription = sc.nextLine();
 				if (newDescription.isEmpty())
 					getGui().displayStringsB("Please Enter Something.\n");
-				if (!newDescription.matches("[a-zA-Z\\s'&]+^[|*+]"))
+				if (!newDescription.matches("[a-zA-Z\\s'&]+"))
 					getGui().displayStringsB("SYSTEM MESSAGE: Your Input Is Invalid.\n");
-			} while (newDescription.isEmpty() || !newDescription.matches("[a-zA-Z\\s'&]+^[|*+]"));
+			} while (newDescription.isEmpty() || !newDescription.matches("[a-zA-Z\\s'&]+"));
 			
 			double newPrice = 0;
 			do {
@@ -246,9 +246,9 @@ public class MenuController extends Controller {
 				description = sc.nextLine();
 				if (description.isEmpty())
 					getGui().displayStringsB("Please Enter Something.\n");
-				if (!description.matches("[a-zA-Z\\s'&]+^[|*+]"))
+				if (!description.matches("[a-zA-Z\\s'&]+"))
 					getGui().displayStringsB("SYSTEM MESSAGE: Your Input Is Invalid.\n");
-			} while (description.isEmpty() || !description.matches("[a-zA-Z\\s'&]+^[|*+]"));
+			} while (description.isEmpty() || !description.matches("[a-zA-Z\\s'&]+"));
 
 			double price = 0;
 			do {
@@ -291,9 +291,9 @@ public class MenuController extends Controller {
 				newDescription = sc.nextLine();
 				if (newDescription.isEmpty())
 					getGui().displayStringsB("Please Enter Something.\n");
-				if (!newDescription.matches("[a-zA-Z\\s'&]+^[|*+]"))
+				if (!newDescription.matches("[a-zA-Z\\s'&]+"))
 					getGui().displayStringsB("SYSTEM MESSAGE: Your Input Is Invalid.\n");
-			} while (newDescription.isEmpty() || !newDescription.matches("[a-zA-Z\\s'&]+^[|*+]"));
+			} while (newDescription.isEmpty() || !newDescription.matches("[a-zA-Z\\s'&]+"));
 			
 			double newPrice = 0;
 			do {
