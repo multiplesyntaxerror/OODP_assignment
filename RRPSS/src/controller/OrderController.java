@@ -179,37 +179,52 @@ public class OrderController extends Controller{
 	public void removeItemFromExistingOrder() {
 		Scanner sc = new Scanner(System.in);
 		getGui().displayTitle("Update Exisiting Orders");
-		getGui().displayStringsB("Enter Order ID to Update: ");
+		getGui().displayStrings("Enter Order ID to Update: ");
 		OrderItem order = getDb().getOrder().pickOrderItems("Exit");
 		
+				
 		if(order != null) {
-			if(order.getPrintedInvoice() == true) {
-				getGui().displayStringsB("Order is closed and cannot be editted! \n");
-				return;
-			}
-			else {
-				getGui().displayStringsB("Choose item to update ");
-				String[] orderlist = getDb().getOrder().getSpecificOrder(order.getOrderId());
-				int choice = getGui().detectChoice(orderlist);
-				getGui().displayStrings("Enter quantity to remove: ");
-				int qtyToRemove = sc.nextInt();
+			
+			if(order.getAlaCarte().size() + order.getPromoSet().size() == 1 ) {
 
-				if (choice <= getDb().getOrder().getAllOrders().get(order.getOrderId() - 1).getAlaCarte().size()) {
-					boolean removed = getDb().getOrder().removeMenuItemOrder(order.getOrderId(), choice, qtyToRemove);
-					if(removed == true) {
-						getGui().displayStringsB("Item Successfully Removed!");
-					}
-				} else {
-					choice = choice - getDb().getOrder().getAllOrders().get(order.getOrderId() - 1).getAlaCarte().size();
-					boolean removedP = getDb().getOrder().removePromoSetOrder(order.getOrderId(), choice, qtyToRemove);
-					if(removedP == true) {
-						getGui().displayStringsB("PromoSet Successfully Removed!");
+				if(order.getPrintedInvoice() == true) {
+					getGui().displayStringsB("Order is closed and cannot be editted! \n");
+					return;
+				}
+				else {
+					getGui().displayStringsB("Choose item to update ");
+					String[] orderlist = getDb().getOrder().getSpecificOrder(order.getOrderId());
+					int choice = getGui().detectChoice(orderlist);
+					getGui().displayStrings("Enter quantity to remove: ");
+					int qtyToRemove = sc.nextInt();
+
+					if (choice <= getDb().getOrder().getAllOrders().get(order.getOrderId() - 1).getAlaCarte().size()) {
+						int qty = order.getAlaCarte().size();
+						boolean removed = getDb().getOrder().removeMenuItemOrder(order.getOrderId(), choice, qtyToRemove);
+						if(removed == true) {
+							getGui().displayStringsB("Item Successfully Removed!");
+							if (qty == qtyToRemove) {
+								getDb().getRestaurant().getTableList().get(order.getTableId() - 1).setOccupied(false);
+								getDb().getRestaurant().updateRestaurantTables();
+							}
+						}
+					} 
+					else {
+						int qty = order.getPromoSet().size();
+						choice = choice - getDb().getOrder().getAllOrders().get(order.getOrderId() - 1).getAlaCarte().size();
+						boolean removedP = getDb().getOrder().removePromoSetOrder(order.getOrderId(), choice, qtyToRemove);
+						if(removedP == true) {
+							getGui().displayStringsB("PromoSet Successfully Removed!");
+							if (qty == qtyToRemove) {
+								getDb().getRestaurant().getTableList().get(order.getTableId() - 1).setOccupied(false);
+								getDb().getRestaurant().updateRestaurantTables();
+							}
+						}
 					}
 				}
+			
+			
 			}
-		}
-		else {
-			getGui().displayStringsB("There Are No Orders Yet.");
 		}
   }
 	
