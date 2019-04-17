@@ -378,8 +378,7 @@ public class Menu implements MenuInterface{
 		for (int i = 0; i < promoSetList.size(); i++) {
 			PromoSet set = (PromoSet) promoSetList.get(i);
 
-			Database.getGui().displayStringsB("Set " + set.getSetID() + " - $" + set.getSetPrice());
-			Database.getGui().displayStringsB("Description: " + set.getSetDescription());
+			Database.getGui().displayStringsB(set.getSetDescription() + " - $" + set.getSetPrice());
 			
 			ArrayList<MenuItem> itemList = (ArrayList<MenuItem>) set.getSetItems();
 			for (int j = 0; j < itemList.size(); j++) {
@@ -411,7 +410,7 @@ public class Menu implements MenuInterface{
 				itemString += "" + item.get(j).getName() + " (" + item.get(j).getType() + ")\n\t";
 			}
 			
-			listOfPromoItem[count] = "\tSet " + ps.getSetID() + " - $" + ps.getSetPrice() + "\n\tDescription: " + ps.getSetDescription() + "\n\tITEMS:\n\t" + itemString;
+			listOfPromoItem[count] = "\t" + ps.getSetDescription() + " - $" + ps.getSetPrice() + "\n\tITEMS:\n\t" + itemString;
 			count++;
 		}
 		

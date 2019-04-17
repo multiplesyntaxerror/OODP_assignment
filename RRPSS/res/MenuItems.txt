@@ -1,5 +1,6 @@
 Jack's Special Steak|The premium & most tender eye fillet topped with white asparagus & black mushroom sauce|1|29.9|0
 Bearnaise Steak|A classic way to enjoy tenderloin with a deliciously creamy Bearnaise sauce|1|29.5|0
+Carbonara Spaghetti|Creamy spaghetti with mushroom & turkey bacon|1|9.0|0
 Mini Tiramisu in a Cup|A personal portion of a Kahlua-infused Tiramisu|2|7.5|0
 Banana Fritters A La Mode|Banana fritters & mango cubes with a scoop of French Vanilla Bean Gelato|2|6.8|0
 Root Beer Float|Ice cream floating in root beer|3|4.2|0

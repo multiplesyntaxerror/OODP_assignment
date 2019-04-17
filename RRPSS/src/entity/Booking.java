@@ -138,6 +138,7 @@ public class Booking implements BookingInterface {
 		for (int i = 0; i < bookingList.size(); i++) {
 			Customer customer = (Customer) bookingList.get(i);
 			Database.getGui().displayStringsB("Name: " + customer.getName() + "\tPax: " + customer.getPax());
+			Database.getGui().displayStringsB("Table: " + customer.getTableid());
 			Database.getGui().displayStringsB("Contact: " + customer.getContact());
 			Database.getGui().displayStringsB("Date/Time: " + customer.getDate() + " " + customer.getArrivalTime());
 			Database.getGui().displayStringsB("");

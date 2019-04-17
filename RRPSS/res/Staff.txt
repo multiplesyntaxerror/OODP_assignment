@@ -1,5 +1,5 @@
 Benny|12345678|1|manager|4000.0
-Qin Kai|23456789|2|chef|2000.0
-Bryan|34567890|3|chef|2000.0
+Qin Kai|23456789|2|head server|2000.0
+Bryan|34567890|3|head server|2000.0
 Shi Zheng|45678901|4|server|1800.0
 Xieng Yiong|56789012|5|server|1800.0
