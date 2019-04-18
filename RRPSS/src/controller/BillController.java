@@ -127,7 +127,7 @@ public class BillController extends Controller {
 		if (choice == 1) {
 			getGui().displayStringsB("Enter Date In Format DD-MM-YYYY eg. 04-04-2019 For 4th Of April 2019");
 			tempinputdate = sc.nextLine().trim();
-			while (!tempinputdate.matches("(0[1-9]|1[0-9]|2[0-9]|3[0-1])-(0[1-9]|1[0-2])-(1[0-9][0-9][0-9]|2[0-9][0-9][0-9])")) {
+			while (!tempinputdate.matches("([1-9]|0[1-9]|1[0-9]|2[0-9]|3[0-1])-([1-9]|0[1-9]|1[0-2])-(1[0-9][0-9][0-9]|2[0-9][0-9][0-9])")) {
 				getGui().displayStringsB("SYSTEM MESSAGE: Your Input Is Invalid.\n");
 				getGui().displayStringsB("Enter Date In Format DD-MM-YYYY eg. 04-04-2019 For 4th Of April 2019");
 				tempinputdate = sc.nextLine().trim();
@@ -135,7 +135,7 @@ public class BillController extends Controller {
 		} else if (choice == 2) {
 			getGui().displayStringsB("Enter Date In Format MM-YYYY eg. 04-2019 The Month Of April 2019");
 			tempinputdate = sc.nextLine().trim();
-			while (!tempinputdate.matches("(0[1-9]|1[0-2])-(1[0-9][0-9][0-9]|2[0-9][0-9][0-9])")) {
+			while (!tempinputdate.matches("([1-9]|0[1-9]|1[0-2])-(1[0-9][0-9][0-9]|2[0-9][0-9][0-9])")) {
 				getGui().displayStringsB("SYSTEM MESSAGE: Your Input Is Invalid.\n");
 				getGui().displayStringsB("Enter Date In Format MM-YYYY eg. 04-2019 The Month Of April 2019");
 				tempinputdate = sc.nextLine().trim();

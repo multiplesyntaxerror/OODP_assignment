@@ -72,7 +72,7 @@ public class BookingController extends Controller {
 		}
 
 		//Remove comment for testing
-		nonBooking = false;
+//		nonBooking = false;
 		
 		if (!nonBooking) {
 			Scanner sc = new Scanner(System.in);
