@@ -42,7 +42,7 @@ orders and displaying of sale records. It will be solely used by the restaurant 
 	- There are no options to add/remove staff, however the database Staff.txt can be edited.
 	- date/time for booking and billing is to be entered in specific format.
 
-### Coding style
+## Coding style
 
 - Java is the language used to code this program.
 - OO programming style is used to design this program.
