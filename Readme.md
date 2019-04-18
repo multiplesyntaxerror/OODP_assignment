@@ -12,16 +12,18 @@ orders and displaying of sale records. It will be solely used by the restaurant 
 
 ## Running the tests
 
-1. Menu Options - able to display the lists of menu items and promotional sets in the system.
-				- allows staff to add/update/remove a menu item from restaurant inventory.
-				- allows staff to add/update/remove a promotional set from restaurant inventory.
-				- txt database for menu items and promotional set are MenuItems.txt and PromoSets.txt files respectively.
+1. Menu Options 
+	- able to display the lists of menu items and promotional sets in the system.
+	- allows staff to add/update/remove a menu item from restaurant inventory.
+	- allows staff to add/update/remove a promotional set from restaurant inventory.
+	- txt database for menu items and promotional set are MenuItems.txt and PromoSets.txt files respectively.
 
-2. Order Options - able to display the list of orders made by the staff.
-				 - allow staff to create order for a table.
-				 - allow staff to add/remove an item from an order.
-				 - order will be removed when all items are being removed.
-				 - txt database for order is in Order.txt file
+2. Order Options 
+	- able to display the list of orders made by the staff.
+	- allow staff to create order for a table.
+	- allow staff to add/remove an item from an order.
+	- order will be removed when all items are being removed.
+	- txt database for order is in Order.txt file
 
 3. Booking Options 
 	- able to display the list of reservations made by the staff.
@@ -29,14 +31,16 @@ orders and displaying of sale records. It will be solely used by the restaurant 
 	- allows staff to create/remove a reservation.
 	- txt database for booking is in Booking.txt file.
 
-4. Billing Options - able to print bills created when ordering and prints by table number.
-				   - able to print out restaurant revenue report by day/month/year.
+4. Billing Options 
+	- able to print bills created when ordering and prints by table number.
+	- able to print out restaurant revenue report by day/month/year.
 
-5. Additional Notes - Task timer is in RRPSS.java app foler to remove expired bookings.
-					- Creating Booking is only available at 11am-3pm & 6pm-10pm, if testing outside of the time you may remove comment at line 75 of BookingController.java and force nonBooking to be false.
-					- GST % is controlled in Bill.java.
-					- There are no options to add/remove staff, however the database Staff.txt can be edited.
-					- date/time for booking and billing is to be entered in specific format.
+5. Additional Notes 
+	- Task timer is in RRPSS.java app foler to remove expired bookings.
+	- Creating Booking is only available at 11am-3pm & 6pm-10pm, if testing outside of the time you may remove comment at line 75 of BookingController.java and force nonBooking to be false.
+	- GST % is controlled in Bill.java.
+	- There are no options to add/remove staff, however the database Staff.txt can be edited.
+	- date/time for booking and billing is to be entered in specific format.
 
 ### Coding style
 
@@ -45,10 +49,10 @@ orders and displaying of sale records. It will be solely used by the restaurant 
 
 ## Contributors
 
-Qin Kai
-Shi Zheng
-Bryan
-Xieng Yiong
+- Qin Kai
+- Shi Zheng
+- Bryan
+- Xieng Yiong
 
 ## Versioning
 
