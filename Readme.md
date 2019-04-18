@@ -23,10 +23,11 @@ orders and displaying of sale records. It will be solely used by the restaurant 
 				 - order will be removed when all items are being removed.
 				 - txt database for order is in Order.txt file
 
-3. Booking Options - able to display the list of reservations made by the staff.
-				   - able to display all the available tables that are open for creating order and reserving.
-				   - allows staff to create/remove a reservation.
-				   - txt database for booking is in Booking.txt file.
+3. Booking Options 
+	- able to display the list of reservations made by the staff.
+	- able to display all the available tables that are open for creating order and reserving.
+	- allows staff to create/remove a reservation.
+	- txt database for booking is in Booking.txt file.
 
 4. Billing Options - able to print bills created when ordering and prints by table number.
 				   - able to print out restaurant revenue report by day/month/year.
