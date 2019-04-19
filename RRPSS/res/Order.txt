@@ -1,1 +1,2 @@
-1|2|false|Xieng Yiong**16-04-2019 07:43 PM|2**50**625.00**1**2**69.80
+1|5|false|Qin Kai**19-04-2019 01:59 PM|Jack's Special Steak**2**59.80|1**2**69.80
+2|13|false|Bryan**19-04-2019 02:00 PM|Root Beer Float**2**8.40**Bearnaise Steak**1**29.50**Carbonara Spaghetti**1**9.00
