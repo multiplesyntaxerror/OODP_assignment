@@ -4,8 +4,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>702</x>
-      <y>45</y>
+      <x>729</x>
+      <y>63</y>
       <w>594</w>
       <h>522</h>
     </coordinates>
@@ -50,8 +50,8 @@ _-SETSFILENAME = "res/PromoSets.txt": String_
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>63</x>
-      <y>1125</y>
+      <x>90</x>
+      <y>1143</y>
       <w>1008</w>
       <h>432</h>
     </coordinates>
@@ -90,8 +90,8 @@ _-SETSFILENAME = "res/PromoSets.txt": String_
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1584</x>
-      <y>495</y>
+      <x>1611</x>
+      <y>513</y>
       <w>270</w>
       <h>405</h>
     </coordinates>
@@ -128,8 +128,8 @@ _+getGui(): GUI_
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1170</x>
-      <y>1233</y>
+      <x>1197</x>
+      <y>1251</y>
       <w>369</w>
       <h>324</h>
     </coordinates>
@@ -161,8 +161,8 @@ _-ITEMSFILENAME = "res/Order.txt": String_
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>63</x>
-      <y>486</y>
+      <x>90</x>
+      <y>504</y>
       <w>477</w>
       <h>315</h>
     </coordinates>
@@ -193,8 +193,8 @@ _-ITEMSFILENAME = "res/Order.txt": String_
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>756</x>
-      <y>675</y>
+      <x>783</x>
+      <y>693</y>
       <w>540</w>
       <h>315</h>
     </coordinates>
@@ -225,8 +225,8 @@ _-ITEMSFILENAME = "res/Order.txt": String_
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2106</x>
-      <y>1332</y>
+      <x>2133</x>
+      <y>1350</y>
       <w>225</w>
       <h>234</h>
     </coordinates>
@@ -252,8 +252,8 @@ _-ITEMSFILENAME = "res/Order.txt": String_
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1413</x>
-      <y>927</y>
+      <x>1440</x>
+      <y>945</y>
       <w>225</w>
       <h>171</h>
     </coordinates>
@@ -275,8 +275,8 @@ _-ITEMSFILENAME = "res/Order.txt": String_
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1341</x>
-      <y>45</y>
+      <x>1368</x>
+      <y>63</y>
       <w>216</w>
       <h>162</h>
     </coordinates>
@@ -297,8 +297,8 @@ _-ITEMSFILENAME = "res/Order.txt": String_
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>63</x>
-      <y>288</y>
+      <x>90</x>
+      <y>306</y>
       <w>162</w>
       <h>162</h>
     </coordinates>
@@ -319,8 +319,8 @@ _-ITEMSFILENAME = "res/Order.txt": String_
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>63</x>
-      <y>45</y>
+      <x>90</x>
+      <y>63</y>
       <w>594</w>
       <h>162</h>
     </coordinates>
@@ -341,8 +341,8 @@ service::MenuInterface
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2097</x>
-      <y>1053</y>
+      <x>2124</x>
+      <y>1071</y>
       <w>171</w>
       <h>153</h>
     </coordinates>
@@ -365,8 +365,8 @@ service::MenuInterface
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1566</x>
-      <y>1125</y>
+      <x>1593</x>
+      <y>1143</y>
       <w>423</w>
       <h>144</h>
     </coordinates>
@@ -386,8 +386,8 @@ service::MenuInterface
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2403</x>
-      <y>1116</y>
+      <x>2430</x>
+      <y>1134</y>
       <w>540</w>
       <h>144</h>
     </coordinates>
@@ -407,8 +407,8 @@ _-GST = 0.17: double_
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1602</x>
-      <y>1413</y>
+      <x>1629</x>
+      <y>1431</y>
       <w>369</w>
       <h>144</h>
     </coordinates>
@@ -428,8 +428,8 @@ service::OrderInterface
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2394</x>
-      <y>1458</y>
+      <x>2421</x>
+      <y>1476</y>
       <w>549</w>
       <h>108</h>
     </coordinates>
@@ -447,8 +447,8 @@ service::BillingInterface
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2736</x>
-      <y>1305</y>
+      <x>2763</x>
+      <y>1323</y>
       <w>207</w>
       <h>99</h>
     </coordinates>
@@ -465,8 +465,8 @@ service::BillingInterface
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1908</x>
-      <y>423</y>
+      <x>1935</x>
+      <y>441</y>
       <w>180</w>
       <h>99</h>
     </coordinates>
@@ -483,8 +483,8 @@ service::BillingInterface
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1602</x>
-      <y>333</y>
+      <x>1629</x>
+      <y>351</y>
       <w>234</w>
       <h>81</h>
     </coordinates>
@@ -500,8 +500,8 @@ service::BillingInterface
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1422</x>
-      <y>261</y>
+      <x>1449</x>
+      <y>279</y>
       <w>162</w>
       <h>63</h>
     </coordinates>
@@ -516,8 +516,8 @@ _+main(String args[]): void_
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>126</x>
-      <y>846</y>
+      <x>153</x>
+      <y>864</y>
       <w>468</w>
       <h>63</h>
     </coordinates>
@@ -532,8 +532,8 @@ _+main(String args[]): void_
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>207</x>
-      <y>927</y>
+      <x>234</x>
+      <y>945</y>
       <w>459</w>
       <h>63</h>
     </coordinates>
@@ -548,8 +548,8 @@ _+main(String args[]): void_
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>270</x>
-      <y>1017</y>
+      <x>297</x>
+      <y>1035</y>
       <w>486</w>
       <h>63</h>
     </coordinates>
@@ -564,8 +564,8 @@ _+main(String args[]): void_
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>477</x>
-      <y>792</y>
+      <x>504</x>
+      <y>810</y>
       <w>243</w>
       <h>243</h>
     </coordinates>
@@ -575,8 +575,8 @@ _+main(String args[]): void_
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1494</x>
-      <y>198</y>
+      <x>1521</x>
+      <y>216</y>
       <w>54</w>
       <h>81</h>
     </coordinates>
@@ -587,8 +587,8 @@ runs</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1476</x>
-      <y>315</y>
+      <x>1503</x>
+      <y>333</y>
       <w>126</w>
       <h>315</h>
     </coordinates>
@@ -600,8 +600,8 @@ initialize
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1476</x>
-      <y>720</y>
+      <x>1503</x>
+      <y>738</y>
       <w>126</w>
       <h>225</h>
     </coordinates>
@@ -614,8 +614,8 @@ m2=1
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>0</x>
-      <y>0</y>
+      <x>27</x>
+      <y>18</y>
       <w>1467</w>
       <h>351</h>
     </coordinates>
@@ -626,8 +626,8 @@ runs</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>351</x>
-      <y>387</y>
+      <x>378</x>
+      <y>405</y>
       <w>369</w>
       <h>117</h>
     </coordinates>
@@ -638,8 +638,8 @@ m2=3..*</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1017</x>
-      <y>558</y>
+      <x>1044</x>
+      <y>576</y>
       <w>45</w>
       <h>135</h>
     </coordinates>
@@ -650,8 +650,8 @@ m2=0..*</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>531</x>
-      <y>693</y>
+      <x>558</x>
+      <y>711</y>
       <w>243</w>
       <h>36</h>
     </coordinates>
@@ -663,8 +663,8 @@ m2=1..*</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>648</x>
-      <y>108</y>
+      <x>675</x>
+      <y>126</y>
       <w>72</w>
       <h>27</h>
     </coordinates>
@@ -674,8 +674,8 @@ m2=1..*</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1062</x>
-      <y>1476</y>
+      <x>1089</x>
+      <y>1494</y>
       <w>126</w>
       <h>36</h>
     </coordinates>
@@ -686,8 +686,8 @@ m2=0..*</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1530</x>
-      <y>1476</y>
+      <x>1557</x>
+      <y>1494</y>
       <w>90</w>
       <h>27</h>
     </coordinates>
@@ -697,8 +697,8 @@ m2=0..*</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>0</x>
-      <y>351</y>
+      <x>27</x>
+      <y>369</y>
       <w>2349</w>
       <h>1278</h>
     </coordinates>
@@ -708,8 +708,8 @@ m2=0..*</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2664</x>
-      <y>1341</y>
+      <x>2691</x>
+      <y>1359</y>
       <w>90</w>
       <h>135</h>
     </coordinates>
@@ -720,8 +720,8 @@ m2=0..*</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2322</x>
-      <y>1251</y>
+      <x>2349</x>
+      <y>1269</y>
       <w>216</w>
       <h>162</h>
     </coordinates>
@@ -732,8 +732,8 @@ m2=1..*</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1359</x>
-      <y>198</y>
+      <x>1386</x>
+      <y>216</y>
       <w>225</w>
       <h>990</h>
     </coordinates>
@@ -744,8 +744,8 @@ runs</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1548</x>
-      <y>99</y>
+      <x>1575</x>
+      <y>117</y>
       <w>378</w>
       <h>369</h>
     </coordinates>
@@ -756,8 +756,8 @@ runs</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1440</x>
-      <y>0</y>
+      <x>1467</x>
+      <y>18</y>
       <w>1593</w>
       <h>1359</h>
     </coordinates>
@@ -768,8 +768,8 @@ runs</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>216</x>
-      <y>198</y>
+      <x>243</x>
+      <y>216</y>
       <w>270</w>
       <h>144</h>
     </coordinates>
@@ -780,8 +780,8 @@ runs</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>477</x>
-      <y>792</y>
+      <x>504</x>
+      <y>810</y>
       <w>180</w>
       <h>153</h>
     </coordinates>
@@ -791,8 +791,8 @@ runs</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>477</x>
-      <y>792</y>
+      <x>504</x>
+      <y>810</y>
       <w>27</w>
       <h>72</h>
     </coordinates>
@@ -802,8 +802,8 @@ runs</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1800</x>
-      <y>1260</y>
+      <x>1827</x>
+      <y>1278</y>
       <w>63</w>
       <h>171</h>
     </coordinates>
@@ -814,8 +814,8 @@ runs</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2583</x>
-      <y>1251</y>
+      <x>2610</x>
+      <y>1269</y>
       <w>27</w>
       <h>225</h>
     </coordinates>
@@ -825,8 +825,8 @@ runs</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1719</x>
-      <y>891</y>
+      <x>1746</x>
+      <y>909</y>
       <w>477</w>
       <h>180</h>
     </coordinates>
@@ -838,8 +838,8 @@ has
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1701</x>
-      <y>405</y>
+      <x>1728</x>
+      <y>423</y>
       <w>36</w>
       <h>108</h>
     </coordinates>
@@ -851,8 +851,8 @@ m2=1
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2025</x>
-      <y>567</y>
+      <x>2052</x>
+      <y>585</y>
       <w>315</w>
       <h>360</h>
     </coordinates>
@@ -870,6 +870,7 @@ _-STAFF = 2: int_
 +updateRestaurantTables(): void
 +getTableIdByPax(int pax): int
 +showAvailableTable(): void
++countAvailableTable(): int
 -readTable(): void
 -writeTable(): void
 +getStaffList(): ArrayList&lt;Staff&gt;
@@ -886,8 +887,8 @@ _-STAFF = 2: int_
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1935</x>
-      <y>45</y>
+      <x>1962</x>
+      <y>63</y>
       <w>378</w>
       <h>297</h>
     </coordinates>
@@ -917,8 +918,8 @@ _-BOOKFILENAME = "res/Booking.txt": String_
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2394</x>
-      <y>45</y>
+      <x>2421</x>
+      <y>63</y>
       <w>549</w>
       <h>252</h>
     </coordinates>
@@ -945,8 +946,8 @@ _-BOOKFILENAME = "res/Booking.txt": String_
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2511</x>
-      <y>819</y>
+      <x>2538</x>
+      <y>837</y>
       <w>432</w>
       <h>252</h>
     </coordinates>
@@ -973,8 +974,8 @@ _-BOOKFILENAME = "res/Booking.txt": String_
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2448</x>
-      <y>567</y>
+      <x>2475</x>
+      <y>585</y>
       <w>495</w>
       <h>207</h>
     </coordinates>
@@ -998,8 +999,8 @@ _-BOOKFILENAME = "res/Booking.txt": String_
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2745</x>
-      <y>369</y>
+      <x>2772</x>
+      <y>387</y>
       <w>198</w>
       <h>144</h>
     </coordinates>
@@ -1019,8 +1020,8 @@ _-BOOKFILENAME = "res/Booking.txt": String_
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2259</x>
-      <y>423</y>
+      <x>2286</x>
+      <y>441</y>
       <w>279</w>
       <h>99</h>
     </coordinates>
@@ -1037,8 +1038,8 @@ service::BookingInterface
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2331</x>
-      <y>828</y>
+      <x>2358</x>
+      <y>846</y>
       <w>198</w>
       <h>36</h>
     </coordinates>
@@ -1049,8 +1050,8 @@ m2= 30</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2178</x>
-      <y>333</y>
+      <x>2205</x>
+      <y>351</y>
       <w>234</w>
       <h>108</h>
     </coordinates>
@@ -1060,8 +1061,8 @@ m2= 30</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2637</x>
-      <y>423</y>
+      <x>2664</x>
+      <y>441</y>
       <w>126</w>
       <h>162</h>
     </coordinates>
@@ -1072,8 +1073,8 @@ is a</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2637</x>
-      <y>288</y>
+      <x>2664</x>
+      <y>306</y>
       <w>126</w>
       <h>171</h>
     </coordinates>
@@ -1083,8 +1084,8 @@ is a</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2304</x>
-      <y>171</y>
+      <x>2331</x>
+      <y>189</y>
       <w>108</w>
       <h>36</h>
     </coordinates>
@@ -1096,8 +1097,8 @@ m2=1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1800</x>
-      <y>1080</y>
+      <x>1827</x>
+      <y>1098</y>
       <w>549</w>
       <h>189</h>
     </coordinates>
@@ -1107,8 +1108,8 @@ m2=1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2079</x>
-      <y>459</y>
+      <x>2106</x>
+      <y>477</y>
       <w>198</w>
       <h>36</h>
     </coordinates>
@@ -1119,8 +1120,8 @@ m2=1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2331</x>
-      <y>603</y>
+      <x>2358</x>
+      <y>621</y>
       <w>135</w>
       <h>36</h>
     </coordinates>
@@ -1131,8 +1132,8 @@ m2= 5..*</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1926</x>
-      <y>513</y>
+      <x>1953</x>
+      <y>531</y>
       <w>423</w>
       <h>594</h>
     </coordinates>
@@ -1142,8 +1143,8 @@ m2= 5..*</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2016</x>
-      <y>1080</y>
+      <x>2043</x>
+      <y>1098</y>
       <w>990</w>
       <h>549</h>
     </coordinates>
@@ -1153,8 +1154,8 @@ m2= 5..*</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1575</x>
-      <y>207</y>
+      <x>1602</x>
+      <y>225</y>
       <w>153</w>
       <h>108</h>
     </coordinates>
@@ -1164,8 +1165,8 @@ m2= 5..*</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>1611</x>
-      <y>171</y>
+      <x>1638</x>
+      <y>189</y>
       <w>216</w>
       <h>45</h>
     </coordinates>
@@ -1176,8 +1177,8 @@ The class that run the main program</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>882</x>
-      <y>981</y>
+      <x>909</x>
+      <y>999</y>
       <w>45</w>
       <h>162</h>
     </coordinates>
@@ -1189,8 +1190,8 @@ m2=0..*</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>81</x>
-      <y>792</y>
+      <x>108</x>
+      <y>810</y>
       <w>45</w>
       <h>351</h>
     </coordinates>
@@ -1202,8 +1203,8 @@ m2=0..*</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2259</x>
-      <y>1116</y>
+      <x>2286</x>
+      <y>1134</y>
       <w>90</w>
       <h>36</h>
     </coordinates>

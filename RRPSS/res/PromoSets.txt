@@ -1,2 +1,3 @@
 1|Special Steak Set|Jack's Special Steak+Banana Fritters A La Mode+Root Beer Float|34.9
 2|Dessert Set|Banana Fritters A La Mode+Mini Tiramisu in a Cup|12.5
+4|Extra value meal|Carbonara Spaghetti+Mini Tiramisu in a Cup+Tiger Beer|12.9

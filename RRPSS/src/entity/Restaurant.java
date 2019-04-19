@@ -76,6 +76,7 @@ public class Restaurant {
 	
 	/**
 	 * Shows the available table for booking.
+	 * 
 	 */
 	public void showAvailableTable() {
 		int previous = 0;
@@ -95,8 +96,9 @@ public class Restaurant {
 	} 
 	
 	/**
-	  *Check if there are available tables for booking
+	  *Count the number of available tables for booking
 	  *
+	  * @return the number of tables
 	  */
 	public int countAvailableTable() {
 		int availableTables = tableList.size();

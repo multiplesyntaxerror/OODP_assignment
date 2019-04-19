@@ -384,6 +384,30 @@ public class Order implements OrderInterface{
 				st.append(Database.getSeparator());
 				st.append(orderItem.getStaffName());
 				st.append(Database.getTXTSeparator());
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 				st.append(orderItem.getDate());
 				
 				if(hasMenuItem==true) {

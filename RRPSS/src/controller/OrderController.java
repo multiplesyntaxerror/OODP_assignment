@@ -73,7 +73,7 @@ public class OrderController extends Controller{
 		getGui().displayStrings("Served By: ");
 		Staff staff = getDb().getRestaurant().pickStaff("Exit");
 		if (staff == null) {
-			getGui().displayStringsB("Returning to System Menu.\n");
+			getGui().displayStringsB("SYSTEM MESSAGE: Returning to System Menu.\n");
 			return;
 		}
 		
@@ -85,12 +85,12 @@ public class OrderController extends Controller{
 				if (tableId <= 0 || tableId > 30) 
 					getGui().displayStringsB("Table Only Ranges From 1-30.\n");
 			} catch(InputMismatchException e) {
-				getGui().displayStringsB("ERROR: Your Input Is Invalid.\n");
+				getGui().displayStringsB("SYSTEM MESSAGE: Your Input Is Invalid.\n");
 				sc.nextLine();
 			}
 		} while (tableId <= 0 || tableId > 30);
 		if(getDb().getRestaurant().getTableList().get(tableId - 1).isOccupied() || getDb().getRestaurant().getTableList().get(tableId - 1).isReserved()) {
-			getGui().displayStringsB("Table Is Not Available.");
+			getGui().displayStringsB("SYSTEM MESSAGE: Table Is Not Available.");
 		}
 		else {
 		
@@ -154,15 +154,15 @@ public class OrderController extends Controller{
 					if (order.getAlaCarte().size() != 0 || order.getPromoSet().size() != 0) {
 						boolean created = getDb().getOrder().createOrder(order);
 						if (created == true) {
-							getGui().displayStringsB("Order Created!");
+							getGui().displayStringsB("SYSTEM MESSAGE: Order Successfully Created.");
 							getDb().getRestaurant().getTableList().get(tableId - 1).setOccupied(true);
 							getDb().getRestaurant().updateRestaurantTables();
 							
 						} else if (created != true) {
-							getGui().displayStringsB("Order not Created!");
+							getGui().displayStringsB("SYSTEM MESSAGE: Order not Created.");
 						}
 					} else {
-						getGui().displayStringsB("Order is empty, returning to system Menu!");
+						getGui().displayStringsB("SYSTEM MESSAGE: Order Is Empty, Returning To System Menu.");
 					}
 					break;
 				default:
@@ -184,46 +184,44 @@ public class OrderController extends Controller{
 		
 				
 		if(order != null) {
-			
+			boolean last = false;
 			if(order.getAlaCarte().size() + order.getPromoSet().size() == 1 ) {
+				last = true;
+			}
+			if(order.getPrintedInvoice() == true) {
+				getGui().displayStringsB("SYSTEM MESSAGE: Order Is Closed And Cannot Be Edditted.\n");
+				return;
+			}
+			else {
+				getGui().displayStringsB("Choose item to update ");
+				String[] orderlist = getDb().getOrder().getSpecificOrder(order.getOrderId());
+				int choice = getGui().detectChoice(orderlist);
+				getGui().displayStrings("Enter quantity to remove: ");
+				int qtyToRemove = sc.nextInt();
 
-				if(order.getPrintedInvoice() == true) {
-					getGui().displayStringsB("Order is closed and cannot be editted! \n");
-					return;
-				}
-				else {
-					getGui().displayStringsB("Choose item to update ");
-					String[] orderlist = getDb().getOrder().getSpecificOrder(order.getOrderId());
-					int choice = getGui().detectChoice(orderlist);
-					getGui().displayStrings("Enter quantity to remove: ");
-					int qtyToRemove = sc.nextInt();
-
-					if (choice <= getDb().getOrder().getAllOrders().get(order.getOrderId() - 1).getAlaCarte().size()) {
-						int qty = order.getAlaCarte().size();
-						boolean removed = getDb().getOrder().removeMenuItemOrder(order.getOrderId(), choice, qtyToRemove);
-						if(removed == true) {
-							getGui().displayStringsB("Item Successfully Removed!");
-							if (qty == qtyToRemove) {
-								getDb().getRestaurant().getTableList().get(order.getTableId() - 1).setOccupied(false);
-								getDb().getRestaurant().updateRestaurantTables();
-							}
+				if (choice <= getDb().getOrder().getAllOrders().get(order.getOrderId() - 1).getAlaCarte().size()) {
+					int qty = order.getAlaCarte().size();
+					boolean removed = getDb().getOrder().removeMenuItemOrder(order.getOrderId(), choice, qtyToRemove);
+					if(removed == true) {
+						getGui().displayStringsB("Item Successfully Removed.");
+						if (qty == qtyToRemove && last) {
+							getDb().getRestaurant().getTableList().get(order.getTableId() - 1).setOccupied(false);
+							getDb().getRestaurant().updateRestaurantTables();
 						}
-					} 
-					else {
-						int qty = order.getPromoSet().size();
-						choice = choice - getDb().getOrder().getAllOrders().get(order.getOrderId() - 1).getAlaCarte().size();
-						boolean removedP = getDb().getOrder().removePromoSetOrder(order.getOrderId(), choice, qtyToRemove);
-						if(removedP == true) {
-							getGui().displayStringsB("PromoSet Successfully Removed!");
-							if (qty == qtyToRemove) {
-								getDb().getRestaurant().getTableList().get(order.getTableId() - 1).setOccupied(false);
-								getDb().getRestaurant().updateRestaurantTables();
-							}
+					}
+				} 
+				else {
+					int qty = order.getPromoSet().size();
+					choice = choice - getDb().getOrder().getAllOrders().get(order.getOrderId() - 1).getAlaCarte().size();
+					boolean removedP = getDb().getOrder().removePromoSetOrder(order.getOrderId(), choice, qtyToRemove);
+					if(removedP == true) {
+						getGui().displayStringsB("PromoSet Successfully Removed.");
+						if (qty == qtyToRemove && last) {
+							getDb().getRestaurant().getTableList().get(order.getTableId() - 1).setOccupied(false);
+							getDb().getRestaurant().updateRestaurantTables();
 						}
 					}
 				}
-			
-			
 			}
 		}
   }
@@ -242,7 +240,7 @@ public class OrderController extends Controller{
 		if(order != null) {
 
 			if(order.getPrintedInvoice() == true) {
-				getGui().displayStringsB("Order is closed and cannot be editted! \n");
+				getGui().displayStringsB("Order Is Closed And Cannot Be Edditted.\n");
 				return;
 			}
 			
@@ -289,10 +287,10 @@ public class OrderController extends Controller{
 							set.setOrderedQuantity(qty);
 							boolean updated = getDb().getOrder().updatePromoSetOrder(set, order.getOrderId());
 							if(updated == true) {
-								getGui().displayStringsB("Order Updated!");
+								getGui().displayStringsB("Order Updated.");
 							}
 							else {
-								getGui().displayStringsB("Order Not Updated!");
+								getGui().displayStringsB("Order Not Updated.");
 							}
 						} 
 					} while (set != null);

@@ -1,1 +1,2 @@
-1|1|true|Shi Zheng**16-04-2019 02:01 PM|Jack's Special Steak**2**59.80**Tiger Beer**1**8.90|1**1**34.90**2**1**12.50
+1|5|false|Qin Kai**19-04-2019 01:59 PM|Jack's Special Steak**2**59.80|1**2**69.80
+2|13|false|Bryan**19-04-2019 02:00 PM|Root Beer Float**2**8.40**Bearnaise Steak**1**29.50**Carbonara Spaghetti**1**9.00
